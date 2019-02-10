@@ -1,0 +1,33 @@
+{
+  "name": "tern-def-tbext",
+  "description": "tern definition file for Thunderbird Extension.",
+  "version": "0.1.0",
+  "author": "PrsPrsBK",
+  "devDependencies": {
+    "eslint": "^5.0.1",
+    "strip-json-comments": "^2.0.1"
+  },
+  "files": [
+    "README.md",
+    "images/2018-04-12_readme-img_01.jpg",
+    "defs/tbext-nightly.json",
+    "defs/which_is_used.txt",
+    "LICENSE/"
+  ],
+  "keywords": [
+    "Thunderbird",
+    "tern"
+  ],
+  "license": "MPL-2.0",
+  "main": "index.js",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PrsPrsBK/tern-def-tbext"
+  },
+  "scripts": {
+    "build": "node build.js",
+    "eslint": "eslint --color --cache --ext=.js ",
+    "prepublishOnly": "pwsh ./regist-pub-status.ps1"
+  }
+}
