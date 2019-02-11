@@ -1,5 +1,5 @@
 # tern-def-tbext
-![Screenshot](images/2018-04-12_readme-img_01.jpg)
+![Screenshot](images/2019-02-11_readme-img_01.jpg)
 
  * WebExtensions definition files for [tern](http://ternjs.net/).
    * for completion
@@ -7,18 +7,20 @@
  * not open online doc (MDN does not support Thunderbird extension.
    [comment](https://github.com/mdn/browser-compat-data/pull/2333#issuecomment-435333658))
  * [npm package](https://www.npmjs.com/package/tern-def-tbext) includes only definition-files.
-   * data are made of comm-central repository.
+   * files are distilled from comm-central and mozilla-central repositories.
 
 
 ## how to use with tern
 I confirmed only with vim. install [tern-for-vim](https://github.com/ternjs/tern_for_vim) 
 and add to project's `.tern-project` file.
+This package includes two definition-files.
 
 ```.tern-project
 {
   "libs": [
     "browser",
-    "path/to/tbext-nightly.json"
+    "node_modules/tern-def-tbext/defs/tbext-nightly",
+    "node_modules/tern-def-tbext/defs/webextensions-desktop-nightly"
   ]
 }
 ```
@@ -27,7 +29,10 @@ and add to project's `.tern-project` file.
 
 `npm run build -- --repository /path/to/local/repository`
 
-This create 1 definition-file.
+This create tbext-nightly definition-file.
+
+As for webextensions-desktop-nightly.json, author utilize 
+[tern-def-webextensions](https://www.npmjs.com/package/tern-def-webextensions).
 
 ### use not nightly
 
