@@ -47,13 +47,7 @@ Process {
 
   Start-Job -ArgumentList $comm_repo, $cset_today -ScriptBlock {
     Param($repo, $log)
-    hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/*.json") -X (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/manifest.json") --removed --template status > $log
-  } | Wait-Job | Receive-Job | Remove-Job
-
-  Start-Job -ArgumentList $comm_repo, $cset_today -ScriptBlock {
-    Param($repo, $log)
-    # append !!!!!!!!!
-    hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/browser/components/extensions/schemas/*.json") --removed --template status >> $log
+    hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/mail/components/extensions/schemas/*.json") --removed --template status > $log
   } | Wait-Job | Receive-Job | Remove-Job
 
   if(Test-Path -Path $cset_pubed) {
