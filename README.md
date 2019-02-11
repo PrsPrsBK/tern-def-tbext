@@ -1,12 +1,13 @@
 # tern-def-tbext
 ![Screenshot](images/2019-02-11_readme-img_01.jpg)
 
- * WebExtensions definition files for [tern](http://ternjs.net/).
+ * Thunderbird extension definition files for [tern](http://ternjs.net/).
    * for completion
  * all things are rough.
- * not open online doc (MDN does not support Thunderbird extension.
+ * this does not include any URL of online doc for Thunderbird extension (MDN does not support.
    [comment](https://github.com/mdn/browser-compat-data/pull/2333#issuecomment-435333658))
- * [npm package](https://www.npmjs.com/package/tern-def-tbext) includes only definition-files.
+  * URLs for Firefox extension are included.
+ * [npm package](https://www.npmjs.com/package/tern-def-tbext) provides definition-files.
    * files are distilled from comm-central and mozilla-central repositories.
 
 
@@ -27,11 +28,11 @@ This package includes two definition-files.
 
 ## make definition files
 
-`npm run build -- --repository /path/to/local/repository`
+`npm run build -- --repository /path/to/local/comm/repository`
 
-This create tbext-nightly definition-file.
+This create only `tbext-nightly.json` definition-file.
 
-As for webextensions-desktop-nightly.json, author utilize 
+As for `webextensions-desktop-nightly.json`, author utilize 
 [tern-def-webextensions](https://www.npmjs.com/package/tern-def-webextensions).
 
 ### use not nightly
