@@ -3,6 +3,7 @@
 node_modules/
 defs/*.json
 .eslintcache
+playground.js
 package-lock.json
 yarn.lock
 
