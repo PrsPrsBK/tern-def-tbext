@@ -29,6 +29,6 @@
   "scripts": {
     "build": "node build.js",
     "eslint": "eslint --color --cache --ext=.js ",
-    "prepublishOnly": "pwsh ./regist-pub-status.ps1"
+    "prepublishOnly": "pwsh ./update-pub-status.ps1"
   }
 }

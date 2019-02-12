@@ -6,14 +6,22 @@
 #>
 
 Param(
-  [Parameter(Position = 0, Mandatory = $true)]
+  [Parameter(Mandatory = $true)]
   [ValidateScript({
-    if((Resolve-Path $_).Provider.Name -ne "FileSystem") {
-      throw "Please specify comm repository path : '$_'"
+    if(-Not (Test-Path $_) -Or (Resolve-Path $_).Provider.Name -ne "FileSystem") {
+      throw "Please specify valid mozilla-xxx repository path : '$_'"
     }
     return $true
   })]
-  [string]$comm_repo
+  [string]$MozillaRepo,
+  [Parameter(Mandatory = $true)]
+  [ValidateScript({
+    if((Resolve-Path $_).Provider.Name -ne "FileSystem") {
+      throw "Please specify valid comm repository path : '$_'"
+    }
+    return $true
+  })]
+  [string]$CommRepo
 )
 
 Begin {
@@ -29,9 +37,17 @@ Process {
   $cset_today =  (Join-Path -Path $script_path -ChildPath "cset.log")
   $which_is_used =  (Join-Path -Path $script_path -ChildPath "defs/which_is_used.txt")
 
-  Start-Job -ArgumentList $comm_repo, $which_is_used -ScriptBlock {
+  New-Item $which_is_used -ItemType File -Force | Out-Null
+  Start-Job -ArgumentList $MozillaRepo, $which_is_used -ScriptBlock {
     Param($repo, $log)
-    hg log -l 1 -R $repo --template "comm-central changeset: {rev}:{node}" > $log
+    hg log -l 1 -R $repo --template "mozilla-central changeset: {rev}:{node}" `
+    | Add-Content $log
+  } | Wait-Job | Receive-Job | Remove-Job
+
+  Start-Job -ArgumentList $CommRepo, $which_is_used -ScriptBlock {
+    Param($repo, $log)
+    hg log -l 1 -R $repo --template "comm-central changeset: {rev}:{node}" `
+    | Add-Content $log
   } | Wait-Job | Receive-Job | Remove-Job
 
   Start-Job -ArgumentList $cset_pubed -ScriptBlock {
