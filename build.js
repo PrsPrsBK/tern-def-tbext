@@ -7,79 +7,130 @@ const fs = require('fs');
 const path = require('path');
 const stripJsonComments = require('strip-json-comments');
 
-let repositoryDir = '';
+let mozillaRepo = '';
+let commRepo = '';
 let releaseChannel = 'nightly';
-let isPublish = false;
-const getOutputFileName = () => {
-  return `tbext-${releaseChannel}.json`;
+let goShrink = false;
+const getOutputFileName = (prefix) => {
+  return `${prefix}-${releaseChannel}.json`;
 };
-const apiGroups = [
+const mozillaApiGroups = [
   {
-    outputName: `tbext-general-${releaseChannel}.json`,
+    prefix: 'webextensions-desktop',
     schemaDir: 'mail/components/extensions/schemas/',
     apiListFile: 'mail/components/extensions/ext-mail.json',
+    resultBase: {
+      '!name': 'tbext',
+      '!define': {},
+    },
+    schemaList: [],
+  },
+];
+const commApiGroups = [
+  {
+    prefix: 'tbext',
+    schemaDir: 'mail/components/extensions/schemas/',
+    apiListFile: 'mail/components/extensions/ext-mail.json',
+    resultBase: {
+      '!name': 'tbext',
+      '!define': {},
+    },
     schemaList: [],
   },
 ];
 
-const processArgs = () => {
-  process.argv.forEach((arg, idx, a) => {
+/**
+ * distill from argments.
+ * @returns {Object} report
+ */
+const numerateArgs = () => {
+  const report = {
+    isValid: true,
+    message: [],
+  };
+  process.argv.forEach((arg, idx) => {
     if(arg === '--repository') {
-      repositoryDir = process.argv[idx + 1];
+      if(idx + 1 < process.argv.length) {
+        mozillaRepo = process.argv[idx + 1];
+      }
+      else {
+        report.isValid = false;
+        report.message.push(`please specify as --${arg} value`);
+      }
+    }
+    else if(arg === '--comm-repo') {
+      if(idx + 1 < process.argv.length) {
+        commRepo = process.argv[idx + 1];
+      }
+      else {
+        report.isValid = false;
+        report.message.push(`please specify as --${arg} value`);
+      }
     }
     else if(arg === '--channel') {
-      releaseChannel = process.argv[idx + 1];
+      if(idx + 1 < process.argv.length) {
+        releaseChannel = process.argv[idx + 1];
+      }
+      else {
+        report.isValid = false;
+        report.message.push(`please specify as --${arg} value`);
+      }
     }
-    else if(arg === '--publish') {
-      isPublish = true;
+    else if(arg === '--shrink') {
+      goShrink = true;
     }
   });
-  if(repositoryDir === '') {
-    console.log('please specify: npm run build -- --repo /path/to/foo-repository-path');
-    return false;
-  }
-  else {
-    return true;
-  }
 };
 
-const hasDirs = () => {
-  let notError = true;
-  if(fs.existsSync(repositoryDir) === false) {
-    console.log(`repository ${repositoryDir} does not exists.`);
-    notError = false;
+/**
+ * Check the structure of repository.
+ * @param {string} rootDir root directory of repository
+ * @returns {{isValid: boolean, message: string}} the repository has assumed dirs or not
+ */
+const checkRepositoryDirs = (rootDir, apiGroups) => {
+  const report = {
+    isValid: true,
+    message: [],
+  };
+  if(rootDir === '') {
+    report.isValid = false;
+    report.message.push('Lack of arg: --mozilla-repo foo --comm-repo bar');
+  }
+  else if(fs.existsSync(rootDir) === false) {
+    report.isValid = false;
+    report.message.push(`root dir does not exist: ${rootDir}`);
   }
   else {
     apiGroups.forEach((aGroup) => {
-      const schemaDirFull = path.join(repositoryDir, aGroup.schemaDir);
+      const schemaDirFull = path.join(rootDir, aGroup.schemaDir);
       if(fs.existsSync(schemaDirFull) === false) {
-        console.log(`repository does not have ${aGroup.schemaDir} directory.`);
-        notError = false;
+        report.isValid = false;
+        report.message.push(`schema dir does not exist: ${aGroup.schemaDir}`);
       }
     });
   }
-  return notError;
+  return report;
 };
 
-const chromeUri2Path = (chromeUri) => {
+const chromeUri2Path = (schemaDir, chromeUri) => {
   const regexSchemaPath = /.+\/([^/]+json)$/;
   //identity is in browser-ui api, and its schema is in toolkit dir. only-one case.
   if(chromeUri.startsWith('chrome://messenger/content/schemas/')) {
-    return `mail/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
+    return `${schemaDir}${regexSchemaPath.exec(chromeUri)[1]}`;
   }
   else {
     return '';
   }
 };
 
-const makeSchemaList = () => {
+const makeSchemaList = (rootDir, apiGroups) => {
   apiGroups.forEach((aGroup) => {
     if(aGroup.apiListFile !== undefined) {
-      const apiListFileFull = path.join(repositoryDir, aGroup.apiListFile);
+      const apiListFileFull = path.join(rootDir, aGroup.apiListFile);
       const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(apiListFileFull, 'utf8')));
       for(const apiName in apiItemList) {
         if(apiItemList[apiName].schema !== undefined) { //only background page?
-          const schema = chromeUri2Path(apiItemList[apiName].schema);
+          const schema = chromeUri2Path(apiGroups.schemaDir, apiItemList[apiName].schema);
           if(schema !== '') {
             const apiItem = {
               name: apiName,
@@ -206,19 +257,16 @@ const makeTernNonDefZone = (declaredAt, nameTree, curItem) => {
   return makeTernDefTree(declaredAt, nameTree, curItem, { isDefZone: false });
 };
 
-const build = () => {
-  makeSchemaList();
-  const result = {
-    '!name': 'tbext',
-    '!define': {},
-  };
+const build = (rootDir, apiGroups) => {
+  makeSchemaList(rootDir, apiGroups);
+  const result = apiGroups.resultBase;
   const browserObj = {};
   const ternDefineObj = {};
   //console.log('# used files at first published');
   apiGroups.forEach((aGroup) => {
     for(const schemaItem of aGroup.schemaList) {
       //console.log(` * ${schemaItem.schema}`);
-      const schemaFileFull = path.join(repositoryDir, schemaItem.schema);
+      const schemaFileFull = path.join(rootDir, schemaItem.schema);
       try {
         const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
         apiSpecList.forEach((apiSpec) => {
@@ -277,19 +325,40 @@ const build = () => {
   if(fs.existsSync('defs') === false) {
     fs.mkdir('defs');
   }
-  if(isPublish) {
-    fs.writeFileSync(`defs/${getOutputFileName()}`, JSON.stringify(result));
+  if(goShrink) {
+    fs.writeFileSync(`defs/${getOutputFileName(apiGroups.prefix)}`, JSON.stringify(result));
   }
   else {
-    fs.writeFileSync(`defs/${getOutputFileName()}`, JSON.stringify(result, null, 2));
+    fs.writeFileSync(`defs/${getOutputFileName(apiGroups.prefix)}`, JSON.stringify(result, null, 2));
   }
 };
 
-if(processArgs() === false) {
-  return;
-}
-if(hasDirs()) {
-  build();
-}
+const isInvalidEnv = (report) => {
+  if(report.isValid) {
+    return false;
+  }
+  else {
+    report.message.forEach(m => {
+      console.log(m);
+    });
+    return true;
+  }
+};
+
+const program = () => {
+  if(isInvalidEnv(numerateArgs())) {
+    return;
+  }
+  else if(isInvalidEnv(checkRepositoryDirs(mozillaRepo, mozillaApiGroups))) {
+    return;
+  }
+  else if(isInvalidEnv(checkRepositoryDirs(commRepo, commApiGroups))) {
+    return;
+  }
+  build(mozillaRepo, mozillaApiGroups);
+  build(commRepo, commApiGroups);
+};
+
+program();
 
 // vim:expandtab ff=unix fenc=utf-8 sw=2
