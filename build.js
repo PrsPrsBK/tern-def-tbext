@@ -24,6 +24,7 @@ const mozillaApi = {
       '!type': '+browser',
     },
   },
+  useMdn: true,
   groupList: [
     {
       schemaDir: 'toolkit/components/extensions/schemas/',
@@ -74,6 +75,7 @@ const commApi = {
     '!name': 'tbext',
     '!define': {},
   },
+  useMdn: false,
   groupList: [
     {
       schemaDir: 'mail/components/extensions/schemas/',
@@ -203,7 +205,7 @@ const makeSchemaList = (rootDir, apiGroups) => {
   });
 };
 
-const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
+const makeTernDefTree = (declaredAt, nameTree, curItem, useMdn, options = {}) => {
   const isDefZone = ('isDefZone' in options) ? options.isDefZone : false;
   const defZoneStep = ('defZoneStep' in options) ? options.defZoneStep : 0;
 
@@ -292,43 +294,46 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     }
   }
 
-  let bcdTree = bcd;
-  for(const nd of nameTree) {
-    if(bcdTree === undefined) {
-      break;
+  if(useMdn) {
+    let bcdTree = bcd;
+    for(const nd of nameTree) {
+      if(bcdTree === undefined) {
+        break;
+      }
+      bcdTree = bcdTree[nd];
     }
-    bcdTree = bcdTree[nd];
-  }
-  if(bcdTree !== undefined) {
-    if(bcdTree.__compat !== undefined) {
-      result['!url'] = bcdTree.__compat.mdn_url;
+    if(bcdTree !== undefined) {
+      if(bcdTree.__compat !== undefined) {
+        result['!url'] = bcdTree.__compat.mdn_url;
+      }
     }
   }
 
   if(curItem.functions !== undefined) {
     for(const fun of curItem.functions) {
-      result[fun.name] = makeTernDefTree(declaredAt, nameTree.concat(fun.name), fun, { isDefZone, defZoneStep: (defZoneStep + 1) });
+      result[fun.name] = makeTernDefTree(declaredAt, nameTree.concat(fun.name), fun, useMdn, { isDefZone, defZoneStep: (defZoneStep + 1) });
     }
   }
   if(curItem.properties !== undefined) {
     for(const prop in curItem.properties) {
-      result[prop] = makeTernDefTree(declaredAt, nameTree.concat(prop), curItem.properties[prop], { isDefZone, defZoneStep: (defZoneStep + 1) });
+      result[prop] = makeTernDefTree(declaredAt, nameTree.concat(prop), curItem.properties[prop], useMdn, { isDefZone, defZoneStep: (defZoneStep + 1) });
     }
   }
   return result;
 };
 
-const makeTernDefineZone = (declaredAt, nameTree, curItem) => {
-  return makeTernDefTree(declaredAt, nameTree, curItem, { isDefZone: true, defZoneStep: 0});
+const makeTernDefineZone = (declaredAt, nameTree, curItem, useMdn) => {
+  return makeTernDefTree(declaredAt, nameTree, curItem, useMdn, { isDefZone: true, defZoneStep: 0});
 };
 
-const makeTernNonDefZone = (declaredAt, nameTree, curItem) => {
-  return makeTernDefTree(declaredAt, nameTree, curItem, { isDefZone: false });
+const makeTernNonDefZone = (declaredAt, nameTree, curItem, useMdn) => {
+  return makeTernDefTree(declaredAt, nameTree, curItem, useMdn, { isDefZone: false });
 };
 
 const build = (rootDir, apiBody) => {
   const result = apiBody.resultBase;
   const apiGroups = apiBody.groupList;
+  const useMdn = apiBody.useMdn;
   makeSchemaList(rootDir, apiGroups);
   const browserObj = {};
   const ternDefineObj = {};
@@ -353,7 +358,7 @@ const build = (rootDir, apiBody) => {
 
             if(apiSpec.types !== undefined) { // !define is common in specific apiGroup
               for(const typ of apiSpec.types) {
-                const curDefObj = makeTernDefineZone(apiSpec.namespace, nameTreeTop.concat(typ.id), typ);
+                const curDefObj = makeTernDefineZone(apiSpec.namespace, nameTreeTop.concat(typ.id), typ, useMdn);
                 if(Object.keys(curDefObj).length !== 0) {
                   ternDefineObj[`${apiSpec.namespace}.${typ.id}`] = curDefObj;
                 }
@@ -362,17 +367,17 @@ const build = (rootDir, apiBody) => {
 
             if(apiSpec.functions !== undefined) {
               for(const fun of apiSpec.functions) {
-                ternApiObj[fun.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(fun.name), fun);
+                ternApiObj[fun.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(fun.name), fun, useMdn);
               }
             }
             if(apiSpec.events !== undefined) {
               for(const evt of apiSpec.events) {
-                ternApiObj[evt.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(evt.name), evt);
+                ternApiObj[evt.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(evt.name), evt, useMdn);
               }
             }
             if(apiSpec.properties !== undefined) {
               for(const prop in apiSpec.properties) {
-                ternApiObj[prop] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(prop), apiSpec.properties[prop]);
+                ternApiObj[prop] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(prop), apiSpec.properties[prop], useMdn);
               }
             }
 
