@@ -99,7 +99,7 @@ const numerateArgs = () => {
       }
       else {
         report.isValid = false;
-        report.message.push(`please specify as --${arg} value`);
+        report.message.push(`please specify as ${arg} somevalue`);
       }
     }
     else if(arg === '--comm-repo') {
@@ -108,7 +108,7 @@ const numerateArgs = () => {
       }
       else {
         report.isValid = false;
-        report.message.push(`please specify as --${arg} value`);
+        report.message.push(`please specify as ${arg} somevalue`);
       }
     }
     else if(arg === '--channel') {
@@ -117,7 +117,7 @@ const numerateArgs = () => {
       }
       else {
         report.isValid = false;
-        report.message.push(`please specify as --${arg} value`);
+        report.message.push(`please specify as ${arg} somevalue`);
       }
     }
     else if(arg === '--shrink') {
@@ -404,30 +404,23 @@ const build = (rootDir, apiBody) => {
   }
 };
 
-const isInvalidEnv = (report) => {
-  if(report.isValid) {
-    return false;
-  }
-  else {
-    report.message.forEach(m => {
-      console.log(m);
-    });
-    return true;
-  }
+const isValidEnv = (report) => {
+  report.message.forEach(m => {
+    console.log(m);
+  });
+  return report.isValid;
 };
 
 const program = () => {
-  if(isInvalidEnv(numerateArgs())) {
+  if(isValidEnv(numerateArgs()) === false) {
     return;
   }
-  else if(isInvalidEnv(checkRepositoryDirs(mozillaRepo, mozillaApi))) {
-    return;
+  if(mozillaRepo !== '' && isValidEnv(checkRepositoryDirs(mozillaRepo, mozillaApi))){
+    build(mozillaRepo, mozillaApi);
   }
-  else if(isInvalidEnv(checkRepositoryDirs(commRepo, commApi))) {
-    return;
+  if(commRepo !== '' && isValidEnv(checkRepositoryDirs(commRepo, commApi))) {
+    build(commRepo, commApi);
   }
-  build(mozillaRepo, mozillaApi);
-  build(commRepo, commApi);
 };
 
 program();
