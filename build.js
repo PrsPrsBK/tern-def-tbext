@@ -6,6 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const stripJsonComments = require('strip-json-comments');
+const bcd = require('mdn-browser-compat-data').webextensions.api;
 
 let mozillaRepo = '';
 let commRepo = '';
@@ -17,14 +18,61 @@ const getOutputFileName = (prefix) => {
 const mozillaApiGroups = [
   {
     prefix: 'webextensions-desktop',
-    schemaDir: 'mail/components/extensions/schemas/',
-    apiListFile: 'mail/components/extensions/ext-mail.json',
+    schemaDir: 'toolkit/components/extensions/schemas/',
+    apiListFile: 'toolkit/components/extensions/ext-toolkit.json',
     resultBase: {
       '!name': 'tbext',
       '!define': {},
+      'chrome': {
+        '!type': '+browser',
+      },
+    },
+    schemaList: [
+      {
+        name: 'events',
+        schema: 'toolkit/components/extensions/schemas/events.json',
+      },
+      {
+        name: 'types',
+        schema: 'toolkit/components/extensions/schemas/types.json',
+      },
+    ],
+  },
+  {
+    prefix: 'webextensions-desktop',
+    schemaDir: 'browser/components/extensions/schemas/',
+    apiListFile: 'browser/components/extensions/ext-browser.json',
+    resultBase: {
+      '!name': 'tbext',
+      '!define': {},
+      'chrome': {
+        '!type': '+browser',
+      },
     },
     schemaList: [],
   },
+  //{
+  //  prefix: 'webextensions-desktop',
+  //  schemaDir: 'mobile/android/components/extensions/schemas/',
+  //  schemaList: [
+  //    {
+  //      name: 'browserAction',
+  //      schema: 'browser/components/extensions/schemas/browser_action.json',
+  //    },
+  //    {
+  //      name: 'browsingData',
+  //      schema: 'browser/components/extensions/schemas/browsing_data.json',
+  //    },
+  //    {
+  //      name: 'pageAction',
+  //      schema: 'browser/components/extensions/schemas/page_action.json',
+  //    },
+  //    {
+  //      name: 'tabs',
+  //      schema: 'browser/components/extensions/schemas/tabs.json',
+  //    },
+  //  ],
+  //},
 ];
 const commApiGroups = [
   {
@@ -115,6 +163,12 @@ const checkRepositoryDirs = (rootDir, apiGroups) => {
 const chromeUri2Path = (schemaDir, chromeUri) => {
   const regexSchemaPath = /.+\/([^/]+json)$/;
   //identity is in browser-ui api, and its schema is in toolkit dir. only-one case.
+  if(chromeUri.startsWith('chrome://extensions/content/schemas/')) {
+    return `toolkit/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
+  }
+  else if(chromeUri.startsWith('chrome://browser/content/schemas/')) {
+    return `browser/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
+  }
   if(chromeUri.startsWith('chrome://messenger/content/schemas/')) {
     return `${schemaDir}${regexSchemaPath.exec(chromeUri)[1]}`;
   }
@@ -236,6 +290,19 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, options = {}) => {
     }
   }
 
+  let bcdTree = bcd;
+  for(const nd of nameTree) {
+    if(bcdTree === undefined) {
+      break;
+    }
+    bcdTree = bcdTree[nd];
+  }
+  if(bcdTree !== undefined) {
+    if(bcdTree.__compat !== undefined) {
+      result['!url'] = bcdTree.__compat.mdn_url;
+    }
+  }
+
   if(curItem.functions !== undefined) {
     for(const fun of curItem.functions) {
       result[fun.name] = makeTernDefTree(declaredAt, nameTree.concat(fun.name), fun, { isDefZone, defZoneStep: (defZoneStep + 1) });
@@ -316,6 +383,7 @@ const build = (rootDir, apiGroups) => {
           }
         });
       } catch(err) {
+        // e.g. comm-central does not have a file for pkcs11, so fs.readFileSync() fails.
         console.log(`Schema Name: ${schemaItem.name}: ${err}`);
       }
     }
