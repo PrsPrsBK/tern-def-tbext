@@ -15,77 +15,73 @@ let goShrink = false;
 const getOutputFileName = (prefix) => {
   return `${prefix}-${releaseChannel}.json`;
 };
-const mozillaApiGroups = [
-  {
-    prefix: 'webextensions-desktop',
-    schemaDir: 'toolkit/components/extensions/schemas/',
-    apiListFile: 'toolkit/components/extensions/ext-toolkit.json',
-    resultBase: {
-      '!name': 'tbext',
-      '!define': {},
-      'chrome': {
-        '!type': '+browser',
-      },
+const mozillaApi = {
+  prefix: 'webextensions-desktop',
+  resultBase: {
+    '!name': 'webextensions',
+    '!define': {},
+    'chrome': {
+      '!type': '+browser',
     },
-    schemaList: [
-      {
-        name: 'events',
-        schema: 'toolkit/components/extensions/schemas/events.json',
-      },
-      {
-        name: 'types',
-        schema: 'toolkit/components/extensions/schemas/types.json',
-      },
-    ],
   },
-  {
-    prefix: 'webextensions-desktop',
-    schemaDir: 'browser/components/extensions/schemas/',
-    apiListFile: 'browser/components/extensions/ext-browser.json',
-    resultBase: {
-      '!name': 'tbext',
-      '!define': {},
-      'chrome': {
-        '!type': '+browser',
-      },
+  groupList: [
+    {
+      schemaDir: 'toolkit/components/extensions/schemas/',
+      apiListFile: 'toolkit/components/extensions/ext-toolkit.json',
+      schemaList: [
+        {
+          name: 'events',
+          schema: 'toolkit/components/extensions/schemas/events.json',
+        },
+        {
+          name: 'types',
+          schema: 'toolkit/components/extensions/schemas/types.json',
+        },
+      ],
     },
-    schemaList: [],
-  },
-  //{
-  //  prefix: 'webextensions-desktop',
-  //  schemaDir: 'mobile/android/components/extensions/schemas/',
-  //  schemaList: [
-  //    {
-  //      name: 'browserAction',
-  //      schema: 'browser/components/extensions/schemas/browser_action.json',
-  //    },
-  //    {
-  //      name: 'browsingData',
-  //      schema: 'browser/components/extensions/schemas/browsing_data.json',
-  //    },
-  //    {
-  //      name: 'pageAction',
-  //      schema: 'browser/components/extensions/schemas/page_action.json',
-  //    },
-  //    {
-  //      name: 'tabs',
-  //      schema: 'browser/components/extensions/schemas/tabs.json',
-  //    },
-  //  ],
-  //},
-];
-const commApiGroups = [
-  {
-    prefix: 'tbext',
-    schemaDir: 'mail/components/extensions/schemas/',
-    apiListFile: 'mail/components/extensions/ext-mail.json',
-    resultBase: {
-      '!name': 'tbext',
-      '!define': {},
+    {
+      schemaDir: 'browser/components/extensions/schemas/',
+      apiListFile: 'browser/components/extensions/ext-browser.json',
+      schemaList: [],
     },
-    schemaList: [],
+    // {
+    //   prefix: 'webextensions-desktop',
+    //   schemaDir: 'mobile/android/components/extensions/schemas/',
+    //   schemaList: [
+    //     {
+    //       name: 'browserAction',
+    //       schema: 'browser/components/extensions/schemas/browser_action.json',
+    //     },
+    //     {
+    //       name: 'browsingData',
+    //       schema: 'browser/components/extensions/schemas/browsing_data.json',
+    //     },
+    //     {
+    //       name: 'pageAction',
+    //       schema: 'browser/components/extensions/schemas/page_action.json',
+    //     },
+    //     {
+    //       name: 'tabs',
+    //       schema: 'browser/components/extensions/schemas/tabs.json',
+    //     },
+    //   ],
+    // },
+  ]
+};
+const commApi = {
+  prefix: 'tbext',
+  resultBase: {
+    '!name': 'tbext',
+    '!define': {},
   },
-];
+  groupList: [
+    {
+      schemaDir: 'mail/components/extensions/schemas/',
+      apiListFile: 'mail/components/extensions/ext-mail.json',
+      schemaList: [],
+    },
+  ],
+};
 
 /**
  * distill from argments.
@@ -97,7 +93,7 @@ const numerateArgs = () => {
     message: [],
   };
   process.argv.forEach((arg, idx) => {
-    if(arg === '--repository') {
+    if(arg === '--mozilla-repo') {
       if(idx + 1 < process.argv.length) {
         mozillaRepo = process.argv[idx + 1];
       }
@@ -128,6 +124,7 @@ const numerateArgs = () => {
       goShrink = true;
     }
   });
+  return report;
 };
 
 /**
@@ -135,7 +132,7 @@ const numerateArgs = () => {
  * @param {string} rootDir root directory of repository
  * @returns {{isValid: boolean, message: string}} the repository has assumed dirs or not
  */
-const checkRepositoryDirs = (rootDir, apiGroups) => {
+const checkRepositoryDirs = (rootDir, apiBody) => {
   const report = {
     isValid: true,
     message: [],
@@ -149,7 +146,7 @@ const checkRepositoryDirs = (rootDir, apiGroups) => {
     report.message.push(`root dir does not exist: ${rootDir}`);
   }
   else {
-    apiGroups.forEach((aGroup) => {
+    apiBody.groupList.forEach((aGroup) => {
       const schemaDirFull = path.join(rootDir, aGroup.schemaDir);
       if(fs.existsSync(schemaDirFull) === false) {
         report.isValid = false;
@@ -160,23 +157,28 @@ const checkRepositoryDirs = (rootDir, apiGroups) => {
   return report;
 };
 
-const chromeUri2Path = (schemaDir, chromeUri) => {
+const chromeUri2Path = (chromeUri) => {
   const regexSchemaPath = /.+\/([^/]+json)$/;
-  //identity is in browser-ui api, and its schema is in toolkit dir. only-one case.
+  //identity is in browser-ui api, but its schema is in toolkit dir. only-one case.
   if(chromeUri.startsWith('chrome://extensions/content/schemas/')) {
     return `toolkit/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
   }
   else if(chromeUri.startsWith('chrome://browser/content/schemas/')) {
     return `browser/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
   }
-  if(chromeUri.startsWith('chrome://messenger/content/schemas/')) {
-    return `${schemaDir}${regexSchemaPath.exec(chromeUri)[1]}`;
+  else if(chromeUri.startsWith('chrome://messenger/content/schemas/')) {
+    return `mail/components/extensions/schemas/${regexSchemaPath.exec(chromeUri)[1]}`;
   }
   else {
     return '';
   }
 };
 
+/**
+ * Distill JSON file names from API schema file's content.
+ * @param {string} rootDir 
+ * @param {Object[]} apiGroups 
+ */
 const makeSchemaList = (rootDir, apiGroups) => {
   apiGroups.forEach((aGroup) => {
     if(aGroup.apiListFile !== undefined) {
@@ -184,7 +186,7 @@ const makeSchemaList = (rootDir, apiGroups) => {
       const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(apiListFileFull, 'utf8')));
       for(const apiName in apiItemList) {
         if(apiItemList[apiName].schema !== undefined) { //only background page?
-          const schema = chromeUri2Path(apiGroups.schemaDir, apiItemList[apiName].schema);
+          const schema = chromeUri2Path(apiItemList[apiName].schema);
           if(schema !== '') {
             const apiItem = {
               name: apiName,
@@ -324,9 +326,10 @@ const makeTernNonDefZone = (declaredAt, nameTree, curItem) => {
   return makeTernDefTree(declaredAt, nameTree, curItem, { isDefZone: false });
 };
 
-const build = (rootDir, apiGroups) => {
+const build = (rootDir, apiBody) => {
+  const result = apiBody.resultBase;
+  const apiGroups = apiBody.groupList;
   makeSchemaList(rootDir, apiGroups);
-  const result = apiGroups.resultBase;
   const browserObj = {};
   const ternDefineObj = {};
   //console.log('# used files at first published');
@@ -394,10 +397,10 @@ const build = (rootDir, apiGroups) => {
     fs.mkdir('defs');
   }
   if(goShrink) {
-    fs.writeFileSync(`defs/${getOutputFileName(apiGroups.prefix)}`, JSON.stringify(result));
+    fs.writeFileSync(`defs/${getOutputFileName(apiBody.prefix)}`, JSON.stringify(result));
   }
   else {
-    fs.writeFileSync(`defs/${getOutputFileName(apiGroups.prefix)}`, JSON.stringify(result, null, 2));
+    fs.writeFileSync(`defs/${getOutputFileName(apiBody.prefix)}`, JSON.stringify(result, null, 2));
   }
 };
 
@@ -417,14 +420,14 @@ const program = () => {
   if(isInvalidEnv(numerateArgs())) {
     return;
   }
-  else if(isInvalidEnv(checkRepositoryDirs(mozillaRepo, mozillaApiGroups))) {
+  else if(isInvalidEnv(checkRepositoryDirs(mozillaRepo, mozillaApi))) {
     return;
   }
-  else if(isInvalidEnv(checkRepositoryDirs(commRepo, commApiGroups))) {
+  else if(isInvalidEnv(checkRepositoryDirs(commRepo, commApi))) {
     return;
   }
-  build(mozillaRepo, mozillaApiGroups);
-  build(commRepo, commApiGroups);
+  build(mozillaRepo, mozillaApi);
+  build(commRepo, commApi);
 };
 
 program();
