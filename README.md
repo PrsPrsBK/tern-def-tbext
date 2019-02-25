@@ -31,7 +31,9 @@ This package includes two definition-files.
 
 ## make definition files
 
-`npm run build -- --comm-repo /path/to/local/comm/repository`
+```console
+$ npm run build -- --comm-repo /path/to/local/comm/repository
+```
 
 This create only `tbext-nightly.json` definition-file.
 
@@ -39,7 +41,9 @@ This create only `tbext-nightly.json` definition-file.
 
 In case of that you would like to use nightly.
 
-`npm run build -- --comm-repo /path/to/local/beta/repository --channel beta`
+```console
+$ npm run build -- --comm-repo /path/to/local/beta/repository --channel beta
+```
 
 This create `tbext-beta.json`. 
 `--channel` option only effects to filename. 
