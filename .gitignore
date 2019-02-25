@@ -1,6 +1,7 @@
 *.log
 *.tgz
 node_modules/
+notes/
 defs/*.json
 .eslintcache
 playground.js
