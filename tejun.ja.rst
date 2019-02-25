@@ -33,8 +33,8 @@ tern定義ファイルの内容は、 ``comm-central`` リポジトリから生�
 .. code-block:: console
 
   # スクリプト実行例
-  # ver. 0.1.0まではmozilla-centralが調査対象に含まれていたためオプションで指定されています。
-  pwsh:$ D:\path\to\tern-def-tbext\daily-check.ps1 -MozillaRepo x:/repository/mozilla-central -CommRepo x:/repository/mozilla-central/comm
+  # ver. 0.1.0まではmozilla-centralが調査対象に含まれていたためオプションで指定されています。後で直します。
+  pwsh:$ D:\path\to\tern-def-tbext\daily-check.ps1 -MozillaRepo x:/path/to/mozilla-central -CommRepo x:/path/to/mozilla-central/comm
   25795:13f5e1afe5a3
   25796:f6c2b6ce1fd4
   ...
@@ -64,7 +64,7 @@ tern定義ファイルの内容は、 ``comm-central`` リポジトリから生�
 
 .. code-block:: console
 
-  npm run build -- --mozilla-repo x:/repository/mozilla-central --comm-repo x:/repository/mozilla-central/comm
+  npm run build -- --mozilla-repo x:/path/to/mozilla-central --comm-repo x:/path/to/mozilla-central/comm
 
 最後に ``npm publish`` した時点のものと ``diff`` を取って調べます。
 違いがあればパッケージを作り直してアップロードします(次節参照)。
@@ -88,7 +88,7 @@ tern定義ファイル生成
 
 .. code-block:: console
 
-  npm run build -- --comm-repo x:/repository/mozilla-central/comm --shrink
+  npm run build -- --comm-repo x:/path/to/mozilla-central/comm --shrink
 
 
 
@@ -128,7 +128,7 @@ tern定義ファイル生成
 あとtwitterでツイートしています。
 ツイート以外の通知はしていません。
 
-`2019-02-25 22:19 PrsPrsBK <https://twitter.com/PrsPrsBK/status/1100022544852119552>`__
+* `2019-02-25 22:19 PrsPrsBK <https://twitter.com/PrsPrsBK/status/1100022544852119552>`__
   : I published tern-definition file ver. 1.1.0 for Thunderbird Extension. Added - browser[.]compose `URL <https://www.npmjs.com/package/tern-def-tbext>`__
 
 .. vim:expandtab ff=dos fenc=utf-8 sw=2
