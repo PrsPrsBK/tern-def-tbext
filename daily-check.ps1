@@ -16,27 +16,36 @@ Param(
     return $true
   })]
   [string]$CommRepo,
-  [switch]$SkipUpdate
+  [switch]$SkipUpdate,
+  [switch]$ShowIncoming
 )
 
 Begin {
   Function Update-Repository($repo_path) {
-    $hg_proc = (Start-Process -FilePath "hg" -ArgumentList "incoming -R $repo_path --quiet" -NoNewWindow -Wait -PassThru)
-    Wait-Process -Id $hg_proc.id
-    # System.Diagnostics.Process.ExitCode with -Wait is necessary. $LASTEXITCODE does not work.
-    if($hg_proc.ExitCode -eq 0) {
-      [ValidateSet("y","n")]$yn = Read-Host "incomings may exist. hg pull -u? [y/n]"
-      if($yn -eq "y") {
-        Start-Process -FilePath "hg" -ArgumentList "pull -u -R $repo_path" -NoNewWindow -PassThru | Wait-Process
+    $goPull = $true
+    if($ShowIncoming) {
+      $hg_proc = (Start-Process -FilePath "hg" -ArgumentList "incoming -R $repo_path --quiet" -NoNewWindow -Wait -PassThru)
+      Wait-Process -Id $hg_proc.id
+      # System.Diagnostics.Process.ExitCode with -Wait is necessary. $LASTEXITCODE does not work.
+      if($hg_proc.ExitCode -eq 0) {
+        [ValidateSet("y","n")]$yn = Read-Host "incomings may exist. hg pull -u? [y/n]"
+        if($yn -eq "y") {
+          $goPull = $true
+        }
+        else {
+          $goPull = $false
+          Write-Host "not 'yes', so nothing pulled. "
+        }
       }
       else {
-        Write-Host "not 'yes', so nothing pulled. "
+        $goPull = $false
+        Write-Host "nothing to pull. hg ExitCode: $($hg_proc.ExitCode)"
       }
+      $hg_proc = $null
     }
-    else {
-      Write-Host "nothing to pull. hg ExitCode: $($hg_proc.ExitCode)"
+    if($goPull) {
+      Start-Process -FilePath "hg" -ArgumentList "pull -u -R $repo_path" -NoNewWindow -PassThru | Wait-Process
     }
-    $hg_proc = $null
   }
 
   Get-Command hg -ErrorAction:Ignore | Out-Null
