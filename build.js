@@ -80,7 +80,12 @@ const commApi = {
     {
       schemaDir: 'mail/components/extensions/schemas/',
       apiListFile: 'mail/components/extensions/ext-mail.json',
-      schemaList: [],
+      schemaList: [
+        {
+          name: 'pkcs11',
+          schema: '../browser/components/extensions/schemas/pkcs11.json',
+        },
+      ],
     },
   ],
 };
