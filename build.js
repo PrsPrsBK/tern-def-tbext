@@ -129,6 +129,10 @@ const commApi = {
           name: 'runtime',
           schema: '../toolkit/components/extensions/schemas/runtime.json',
         },
+        {
+          name: 'theme',
+          schema: '../toolkit/components/extensions/schemas/theme.json',
+        },
       ],
     },
   ],
