@@ -15,6 +15,7 @@ let goShrink = false;
 const getOutputFileName = (prefix) => {
   return `${prefix}-${channel}.json`;
 };
+const summary = [];
 
 /**
  * This script writes only one file, and utilizes two repositories.
@@ -339,13 +340,18 @@ const makeTernNonDefZone = (declaredAt, nameTree, curItem, useMdn) => {
 };
 
 const build = (rootDir, apiGroup, result) => {
+  const subSummary = {
+    name: apiGroup.name,
+    schemaList: [],
+  };
   makeSchemaList(rootDir, apiGroup);
   const ternDefineObj = result['!define'];
   const browserObj = result.browser;
-  //console.log('# used files at first published');
   const useMdn = apiGroup.useMdn;
   for(const schemaItem of apiGroup.schemaList) {
-    //console.log(` * ${schemaItem.schema}`);
+    subSummary.schemaList.push({
+      file: schemaItem.schema,
+    });
     const schemaFileFull = path.join(rootDir, schemaItem.schema);
     try {
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
@@ -400,6 +406,7 @@ const build = (rootDir, apiGroup, result) => {
       console.log(`(API: ${apiGroup.name}, Schema Name: ${schemaItem.name}): ${err}`);
     }
   }
+  summary.push(subSummary);
 };
 
 const isValidEnv = (report) => {
@@ -429,6 +436,10 @@ const program = () => {
   else {
     fs.writeFileSync(`defs/${getOutputFileName(outputSpec.prefix)}`, JSON.stringify(result, null, 2));
   }
+  if(fs.existsSync('docs') === false) {
+    fs.mkdir('docs');
+  }
+  fs.writeFileSync('docs/summary.json', JSON.stringify(summary, null, 2));
 };
 
 program();
