@@ -349,13 +349,14 @@ const build = (rootDir, apiGroup, result) => {
   const browserObj = result.browser;
   const useMdn = apiGroup.useMdn;
   for(const schemaItem of apiGroup.schemaList) {
-    subSummary.schemaList.push({
+    const apiSummary = {
       file: schemaItem.schema,
-    });
+    };
     const schemaFileFull = path.join(rootDir, schemaItem.schema);
     try {
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
       apiSpecList.forEach(apiSpec => {
+        apiSummary.namespace = apiSpec.namespace;
         // if namespace is 'manifest', Object.keys => ["namespace", "types"]
         // namespace is not common between files. except 'manifest'
         if(apiSpec.namespace !== 'manifest') {
@@ -404,7 +405,9 @@ const build = (rootDir, apiGroup, result) => {
     } catch(err) {
       // e.g. comm-central does not have a file for pkcs11, so fs.readFileSync() fails.
       console.log(`(API: ${apiGroup.name}, Schema Name: ${schemaItem.name}): ${err}`);
+      apiSummary.error = err;
     }
+    subSummary.schemaList.push(apiSummary);
   }
   summary.push(subSummary);
 };
