@@ -90,6 +90,10 @@ const commApi = {
       useMdn: true,
       schemaList: [
         {
+          name: 'contentScripts',
+          schema: '../toolkit/components/extensions/schemas/content_scripts.json',
+        },
+        {
           name: 'pkcs11',
           schema: '../browser/components/extensions/schemas/pkcs11.json',
         },
