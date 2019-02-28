@@ -118,6 +118,10 @@ const commApi = {
           schema: '../toolkit/components/extensions/schemas/management.json',
         },
         {
+          name: 'permissions',
+          schema: '../toolkit/components/extensions/schemas/permissions.json',
+        },
+        {
           name: 'pkcs11',
           schema: '../browser/components/extensions/schemas/pkcs11.json',
         },
