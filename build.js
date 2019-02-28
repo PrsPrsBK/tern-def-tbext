@@ -98,6 +98,18 @@ const commApi = {
           schema: '../toolkit/components/extensions/schemas/experiments.json',
         },
         {
+          name: 'extension',
+          schema: '../toolkit/components/extensions/schemas/extension.json',
+        },
+        {
+          name: 'extension_protocol_handlers',
+          schema: '../toolkit/components/extensions/schemas/extension_protocol_handlers.json',
+        },
+        {
+          name: 'extension_types',
+          schema: '../toolkit/components/extensions/schemas/extension_types.json',
+        },
+        {
           name: 'pkcs11',
           schema: '../browser/components/extensions/schemas/pkcs11.json',
         },
