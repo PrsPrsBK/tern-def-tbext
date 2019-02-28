@@ -11,7 +11,7 @@ since ver **1.0.0**,  that file is droped, because it is irrelevant.
  * this does not include any URL of online doc for Thunderbird extension (MDN does not support.
    [comment](https://github.com/mdn/browser-compat-data/pull/2333#issuecomment-435333658))
  * [npm package](https://www.npmjs.com/package/tern-def-tbext) provides definition-file.
-   * distilled from comm-central repositories.
+   * distilled from comm-central and mozilla-central repositories.
 
 
 ## how to use with tern
@@ -32,23 +32,21 @@ This package includes two definition-files.
 ## make definition files
 
 ```console
-$ npm run build -- --comm-repo /path/to/local/comm/repository
+$ npm run build -- --mozilla-repo /path/to/mozilla --comm-repo /path/to/comm
 ```
 
 This create only `tbext-nightly.json` definition-file.
 
 *Notice*
-At ver. 1.1.1 publish time, Firefox APIs will not be included 
-and error messages will be shown, 
-unless mozilla repository has comm repository as a child.
+Since ver. 1.1.1, ``--mozilla-repo`` is necessary to include Firefox APIs.
 
 
 ### use not nightly
 
-In case of that you would like to use nightly.
+In case of that you would like to use **beta**.
 
 ```console
-$ npm run build -- --comm-repo /path/to/local/beta/repository --channel beta
+$ npm run build -- --mozilla-repo /path/to/mozilla-beta --comm-repo /path/to/comm-beta --channel beta
 ```
 
 This create `tbext-beta.json`. 
