@@ -24,11 +24,11 @@ const mozillaApi = {
       '!type': '+browser',
     },
   },
-  useMdn: true,
   groupList: [
     {
       schemaDir: 'toolkit/components/extensions/schemas/',
       apiListFile: 'toolkit/components/extensions/ext-toolkit.json',
+      useMdn: true,
       schemaList: [
         {
           name: 'events',
@@ -43,6 +43,7 @@ const mozillaApi = {
     {
       schemaDir: 'browser/components/extensions/schemas/',
       apiListFile: 'browser/components/extensions/ext-browser.json',
+      useMdn: true,
       schemaList: [],
     },
     // {
@@ -75,11 +76,18 @@ const commApi = {
     '!name': 'tbext',
     '!define': {},
   },
-  useMdn: false,
   groupList: [
     {
       schemaDir: 'mail/components/extensions/schemas/',
       apiListFile: 'mail/components/extensions/ext-mail.json',
+      useMdn: false,
+      schemaList: [],
+    },
+    {
+      //dummy
+      schemaDir: 'mail/',
+      // apiListFile: '',
+      useMdn: true,
       schemaList: [
         {
           name: 'pkcs11',
@@ -338,12 +346,12 @@ const makeTernNonDefZone = (declaredAt, nameTree, curItem, useMdn) => {
 const build = (rootDir, apiBody) => {
   const result = apiBody.resultBase;
   const apiGroups = apiBody.groupList;
-  const useMdn = apiBody.useMdn;
   makeSchemaList(rootDir, apiGroups);
   const browserObj = {};
   const ternDefineObj = {};
   //console.log('# used files at first published');
   apiGroups.forEach((aGroup) => {
+    const useMdn = aGroup.useMdn;
     for(const schemaItem of aGroup.schemaList) {
       //console.log(` * ${schemaItem.schema}`);
       const schemaFileFull = path.join(rootDir, schemaItem.schema);
