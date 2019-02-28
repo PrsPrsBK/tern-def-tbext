@@ -37,6 +37,12 @@ $ npm run build -- --comm-repo /path/to/local/comm/repository
 
 This create only `tbext-nightly.json` definition-file.
 
+*Notice*
+At ver. 1.1.1 publish time, Firefox APIs will not be included 
+and error messages will be shown, 
+unless mozilla repository has comm repository as a child.
+
+
 ### use not nightly
 
 In case of that you would like to use nightly.
