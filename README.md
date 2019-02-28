@@ -59,4 +59,22 @@ json schema files of comm-central repository.
 Some ones are under 3-Clause BSD License, others are under MPL-2.0 License. 
 Both are in `License` directory.
 
+# Release Notes
+
+* 0.1.0 initial release.
+* 1.0.0 `webextensions-desktop-nightly.json` is droped.
+* 1.1.0 Source Update. browser.compose
+* 1.1.1 fix: add Firefox APIs.
+
+  * contentScripts
+  * experiments
+  * extension
+  * i18n
+  * management
+  * permissions
+  * pkcs11
+  * runtime
+  * theme
+
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
