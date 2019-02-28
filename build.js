@@ -110,6 +110,10 @@ const commApi = {
           schema: '../toolkit/components/extensions/schemas/extension_types.json',
         },
         {
+          name: 'i18n',
+          schema: '../toolkit/components/extensions/schemas/i18n.json',
+        },
+        {
           name: 'pkcs11',
           schema: '../browser/components/extensions/schemas/pkcs11.json',
         },
