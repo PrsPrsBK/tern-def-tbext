@@ -94,6 +94,10 @@ const commApi = {
           schema: '../toolkit/components/extensions/schemas/content_scripts.json',
         },
         {
+          name: 'experiments',
+          schema: '../toolkit/components/extensions/schemas/experiments.json',
+        },
+        {
           name: 'pkcs11',
           schema: '../browser/components/extensions/schemas/pkcs11.json',
         },
