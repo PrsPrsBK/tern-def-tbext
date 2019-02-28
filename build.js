@@ -339,7 +339,7 @@ const makeTernNonDefZone = (declaredAt, nameTree, curItem, useMdn) => {
   return makeTernDefTree(declaredAt, nameTree, curItem, useMdn, { isDefZone: false });
 };
 
-const build = (rootDir, apiGroup, result) => {
+const build = (rootDir, apiGroup, result, summary) => {
   const subSummary = {
     name: apiGroup.name,
     schemaList: [],
@@ -427,7 +427,7 @@ const program = () => {
   outputSpec.groupList.forEach(apiGroup => {
     const tgtRepo = apiGroup.getRepository();
     if(tgtRepo !== '' && isValidEnv(checkRepositoryDirs(tgtRepo, apiGroup))) {
-      build(tgtRepo, apiGroup, result);
+      build(tgtRepo, apiGroup, result, summary);
     }
   });
   if(fs.existsSync('defs') === false) {
