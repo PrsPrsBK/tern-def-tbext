@@ -6,7 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const stripJsonComments = require('strip-json-comments');
-const bcd = require('mdn-browser-compat-data').webextensions.api;
+const mdnData = require('mdn-browser-compat-data').webextensions.api;
 
 let mozillaRepo = '';
 let commRepo = '';
@@ -146,7 +146,7 @@ const numerateArgs = () => {
  * @param {string} rootDir root directory of repository
  * @returns {{isValid: boolean, message: string}} the repository has assumed dirs or not
  */
-const checkRepositoryDirs = (rootDir, apiSpec) => {
+const checkRepositoryDirs = (rootDir, apiGroup) => {
   const report = {
     isValid: true,
     message: [],
@@ -160,10 +160,10 @@ const checkRepositoryDirs = (rootDir, apiSpec) => {
     report.message.push(`root dir does not exist: ${rootDir}`);
   }
   else {
-    const schemaDirFull = path.join(rootDir, apiSpec.schemaDir);
+    const schemaDirFull = path.join(rootDir, apiGroup.schemaDir);
     if(fs.existsSync(schemaDirFull) === false) {
       report.isValid = false;
-      report.message.push(`schema dir does not exist: ${apiSpec.schemaDir}`);
+      report.message.push(`schema dir does not exist: ${apiGroup.schemaDir}`);
     }
   }
   return report;
@@ -189,11 +189,11 @@ const chromeUri2Path = (chromeUri) => {
 /**
  * Distill JSON file names from API schema file's content.
  * @param {string} rootDir 
- * @param {Object[]} aGroup
+ * @param {Object[]} apiGroup
  */
-const makeSchemaList = (rootDir, aGroup) => {
-  if(aGroup.apiListFile !== undefined) {
-    const apiListFileFull = path.join(rootDir, aGroup.apiListFile);
+const makeSchemaList = (rootDir, apiGroup) => {
+  if(apiGroup.apiListFile !== undefined) {
+    const apiListFileFull = path.join(rootDir, apiGroup.apiListFile);
     const apiItemList = JSON.parse(stripJsonComments(fs.readFileSync(apiListFileFull, 'utf8')));
     for(const apiName in apiItemList) {
       if(apiItemList[apiName].schema !== undefined) { //only background page of mozilla?
@@ -203,7 +203,7 @@ const makeSchemaList = (rootDir, aGroup) => {
             name: apiName,
             schema,
           };
-          aGroup.schemaList.push(apiItem);
+          apiGroup.schemaList.push(apiItem);
         }
         else {
           console.log(`skiped: irregular path for ${apiName}. ${apiItemList[apiName].schema}`);
@@ -303,7 +303,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, useMdn, options = {}) =>
   }
 
   if(useMdn) {
-    let bcdTree = bcd;
+    let bcdTree = mdnData;
     for(const nd of nameTree) {
       if(bcdTree === undefined) {
         break;
@@ -349,7 +349,7 @@ const build = (rootDir, apiGroup, result) => {
     const schemaFileFull = path.join(rootDir, schemaItem.schema);
     try {
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
-      apiSpecList.forEach((apiSpec) => {
+      apiSpecList.forEach(apiSpec => {
         // if namespace is 'manifest', Object.keys => ["namespace", "types"]
         // namespace is not common between files. except 'manifest'
         if(apiSpec.namespace !== 'manifest') {
@@ -397,7 +397,7 @@ const build = (rootDir, apiGroup, result) => {
       });
     } catch(err) {
       // e.g. comm-central does not have a file for pkcs11, so fs.readFileSync() fails.
-      console.log(`Schema Name: ${schemaItem.name}: ${err}`);
+      console.log(`(API: ${apiGroup.name}, Schema Name: ${schemaItem.name}): ${err}`);
     }
   }
 };
