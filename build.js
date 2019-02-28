@@ -125,6 +125,10 @@ const commApi = {
           name: 'pkcs11',
           schema: '../browser/components/extensions/schemas/pkcs11.json',
         },
+        {
+          name: 'runtime',
+          schema: '../toolkit/components/extensions/schemas/runtime.json',
+        },
       ],
     },
   ],
