@@ -402,6 +402,16 @@ const build = (rootDir, apiGroup, result, summary) => {
           }
         }
       });
+      const origContents = fs.readFileSync(schemaFileFull, 'utf8');
+      if(origContents.includes('BSD-style')) {
+        apiSummary.license = 'BSD';
+      }
+      else if(origContents.includes('MPL')) {
+        apiSummary.license = 'MPL';
+      }
+      else {
+        apiSummary.license = 'None';
+      }
     } catch(err) {
       // e.g. comm-central does not have a file for pkcs11, so fs.readFileSync() fails.
       console.log(`(API: ${apiGroup.name}, Schema Name: ${schemaItem.name}): ${err}`);
