@@ -405,7 +405,7 @@ const build = (rootDir, apiGroup, result, summary) => {
     } catch(err) {
       // e.g. comm-central does not have a file for pkcs11, so fs.readFileSync() fails.
       console.log(`(API: ${apiGroup.name}, Schema Name: ${schemaItem.name}): ${err}`);
-      apiSummary.error = err;
+      apiSummary.error = `${err.code}: ${err.syscall}`;
     }
     subSummary.schemaList.push(apiSummary);
   }
