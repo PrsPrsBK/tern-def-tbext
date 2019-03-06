@@ -409,6 +409,11 @@ const build = (rootDir, apiGroup, result, summary) => {
             browserObj[nameTreeTop[0]][nameTreeTop[1]] = ternApiObj; // length 2 is maybe enough
           }
         }
+        else {
+          if(apiSpec.types !== undefined) {
+            nsSummary.types = apiSpec.types.length;
+          }
+        }
         apiSummary.namespaceList.push(nsSummary);
       });
       const origContents = fs.readFileSync(schemaFileFull, 'utf8');
