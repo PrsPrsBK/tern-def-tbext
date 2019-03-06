@@ -1,0 +1,411 @@
+[
+  {
+    "name": "commAPI",
+    "schemaList": [
+      {
+        "file": "mail/components/extensions/schemas/accounts.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "accounts",
+            "permissions": [
+              "accountsRead"
+            ],
+            "types": 1,
+            "functions": 2
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/addressBook.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "addressBooks",
+            "permissions": [
+              "addressBooks"
+            ],
+            "types": 2,
+            "functions": 7,
+            "events": 3
+          },
+          {
+            "name": "contacts",
+            "permissions": [
+              "addressBooks"
+            ],
+            "types": 2,
+            "functions": 5,
+            "events": 3
+          },
+          {
+            "name": "mailingLists",
+            "permissions": [
+              "addressBooks"
+            ],
+            "types": 1,
+            "functions": 8,
+            "events": 5
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/browserAction.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "browserAction",
+            "permissions": [
+              "manifest:browser_action"
+            ],
+            "types": 3,
+            "functions": 13,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/cloudFile.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "cloudFile",
+            "permissions": [
+              "manifest:cloud_file"
+            ],
+            "types": 2,
+            "functions": 3,
+            "events": 5
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/commands.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 2
+          },
+          {
+            "name": "commands",
+            "permissions": [
+              "manifest:commands"
+            ],
+            "types": 1,
+            "functions": 3,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "mail/components/extensions/schemas/compose.json",
+        "namespaceList": [
+          {
+            "name": "compose",
+            "types": 2,
+            "functions": 3
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/composeAction.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "composeAction",
+            "permissions": [
+              "manifest:compose_action"
+            ],
+            "types": 3,
+            "functions": 13,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/legacy.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/mailTabs.json",
+        "namespaceList": [
+          {
+            "name": "mailTabs",
+            "types": 2,
+            "functions": 4,
+            "events": 2
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/menus_child.json",
+        "namespaceList": [
+          {
+            "name": "menus",
+            "permissions": [
+              "menus"
+            ],
+            "functions": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/menus.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 2
+          },
+          {
+            "name": "menus",
+            "permissions": [
+              "menus"
+            ],
+            "types": 3,
+            "functions": 6,
+            "events": 3
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "mail/components/extensions/schemas/messages.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "messages",
+            "permissions": [
+              "messagesRead"
+            ],
+            "functions": 9
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/pkcs11.json",
+        "namespaceList": [],
+        "error": "ENOENT: open"
+      },
+      {
+        "file": "mail/components/extensions/schemas/tabs.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "tabs",
+            "types": 5,
+            "functions": 12,
+            "events": 7
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "mail/components/extensions/schemas/windows.json",
+        "namespaceList": [
+          {
+            "name": "windows",
+            "types": 4,
+            "functions": 7,
+            "events": 3
+          }
+        ],
+        "license": "BSD"
+      }
+    ]
+  },
+  {
+    "name": "mozillaAPI",
+    "schemaList": [
+      {
+        "file": "toolkit/components/extensions/schemas/content_scripts.json",
+        "namespaceList": [
+          {
+            "name": "contentScripts",
+            "types": 2,
+            "functions": 1
+          }
+        ],
+        "license": "MPL"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/experiments.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 2
+          },
+          {
+            "name": "experiments",
+            "types": 8
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/extension.json",
+        "namespaceList": [
+          {
+            "name": "extension",
+            "types": 1,
+            "functions": 6,
+            "events": 2
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/extension_protocol_handlers.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 2
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/extension_types.json",
+        "namespaceList": [
+          {
+            "name": "extensionTypes",
+            "types": 8
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/i18n.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "i18n",
+            "types": 1,
+            "functions": 4,
+            "events": 0
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/management.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "management",
+            "types": 5,
+            "functions": 6,
+            "events": 4
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/permissions.json",
+        "namespaceList": [
+          {
+            "name": "permissions",
+            "permissions": [
+              "manifest:optional_permissions"
+            ],
+            "types": 2,
+            "functions": 4,
+            "events": 2
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "browser/components/extensions/schemas/pkcs11.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "pkcs11",
+            "permissions": [
+              "pkcs11"
+            ],
+            "functions": 4
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/runtime.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "runtime",
+            "types": 9,
+            "functions": 15,
+            "events": 11
+          }
+        ],
+        "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/theme.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 6
+          },
+          {
+            "name": "theme",
+            "types": 1,
+            "functions": 3,
+            "events": 1
+          }
+        ],
+        "license": "MPL"
+      }
+    ]
+  }
+]
