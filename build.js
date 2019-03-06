@@ -357,7 +357,10 @@ const build = (rootDir, apiGroup, result, summary) => {
     try {
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
       apiSpecList.forEach(apiSpec => {
-        apiSummary.namespaceList.push(apiSpec.namespace);
+        const nsSummary = {
+          name: apiSpec.namespace,
+          permissions: apiSpec.permissions,
+        };
         // if namespace is 'manifest', Object.keys => ["namespace", "types"]
         // namespace is not common between files. except 'manifest'
         if(apiSpec.namespace !== 'manifest') {
@@ -402,6 +405,7 @@ const build = (rootDir, apiGroup, result, summary) => {
             browserObj[nameTreeTop[0]][nameTreeTop[1]] = ternApiObj; // length 2 is maybe enough
           }
         }
+        apiSummary.namespaceList.push(nsSummary);
       });
       const origContents = fs.readFileSync(schemaFileFull, 'utf8');
       if(origContents.includes('BSD-style')) {
