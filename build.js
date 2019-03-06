@@ -373,6 +373,7 @@ const build = (rootDir, apiGroup, result, summary) => {
           const nameTreeTop = apiSpec.namespace.split('.');
 
           if(apiSpec.types !== undefined) { // !define is common in specific apiGroup
+            nsSummary.types = apiSpec.types.length;
             for(const typ of apiSpec.types) {
               const curDefObj = makeTernDefineZone(apiSpec.namespace, nameTreeTop.concat(typ.id), typ, useMdn);
               if(Object.keys(curDefObj).length !== 0) {
@@ -382,16 +383,19 @@ const build = (rootDir, apiGroup, result, summary) => {
           }
 
           if(apiSpec.functions !== undefined) {
+            nsSummary.functions = apiSpec.functions.length;
             for(const fun of apiSpec.functions) {
               ternApiObj[fun.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(fun.name), fun, useMdn);
             }
           }
           if(apiSpec.events !== undefined) {
+            nsSummary.events = apiSpec.events.length;
             for(const evt of apiSpec.events) {
               ternApiObj[evt.name] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(evt.name), evt, useMdn);
             }
           }
           if(apiSpec.properties !== undefined) {
+            nsSummary.properties = apiSpec.properties.length;
             for(const prop in apiSpec.properties) {
               ternApiObj[prop] = makeTernNonDefZone(apiSpec.namespace, nameTreeTop.concat(prop), apiSpec.properties[prop], useMdn);
             }
