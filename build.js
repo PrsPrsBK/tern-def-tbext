@@ -351,12 +351,13 @@ const build = (rootDir, apiGroup, result, summary) => {
   for(const schemaItem of apiGroup.schemaList) {
     const apiSummary = {
       file: schemaItem.schema,
+      namespaceList: [],
     };
     const schemaFileFull = path.join(rootDir, schemaItem.schema);
     try {
       const apiSpecList = JSON.parse(stripJsonComments(fs.readFileSync(schemaFileFull, 'utf8')));
       apiSpecList.forEach(apiSpec => {
-        apiSummary.namespace = apiSpec.namespace;
+        apiSummary.namespaceList.push(apiSpec.namespace);
         // if namespace is 'manifest', Object.keys => ["namespace", "types"]
         // namespace is not common between files. except 'manifest'
         if(apiSpec.namespace !== 'manifest') {
