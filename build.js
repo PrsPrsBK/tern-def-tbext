@@ -214,6 +214,13 @@ const makeSchemaList = (rootDir, apiGroup) => {
   }
 };
 
+const escapeTag = docText => {
+  // return docText
+  //   .replace(/<\/?(?:code|var)>/g, '`')
+  //   .replace(/<\/?em>/g, '*');
+  return docText;
+};
+
 const makeTernDefTree = (declaredAt, nameTree, curItem, useMdn, options = {}) => {
   const isDefZone = ('isDefZone' in options) ? options.isDefZone : false;
   const defZoneStep = ('defZoneStep' in options) ? options.defZoneStep : 0;
@@ -292,7 +299,7 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, useMdn, options = {}) =>
 
   const result = {};
   if(curItem.description !== undefined) {
-    result['!doc'] = curItem.description;
+    result['!doc'] = escapeTag(curItem.description);
   }
   // top level can not have tern !type. knowing need for long hours.
   if(isDefZone === false || (isDefZone && defZoneStep > 0)) {
@@ -366,7 +373,7 @@ const build = (rootDir, apiGroup, result, summary) => {
         if(apiSpec.namespace !== 'manifest') {
           const ternApiObj = {};
           if(apiSpec.description !== undefined) {
-            ternApiObj['!doc'] = apiSpec.description;
+            ternApiObj['!doc'] = escapeTag(apiSpec.description);
           }
 
           //privacy.xxx, devtools.xxx.... not match tern and not go straight with compat-table
