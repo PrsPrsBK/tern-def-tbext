@@ -33,16 +33,15 @@ tern定義ファイルの内容は、 ``comm-central`` リポジトリから生�
 .. code-block:: console
 
   # スクリプト実行例
-  # ver. 0.1.0まではmozilla-centralが調査対象に含まれていたためオプションで指定されています。後で直します。
   pwsh:$ D:\path\to\tern-def-tbext\daily-check.ps1 -MozillaRepo x:/path/to/mozilla-central -CommRepo x:/path/to/mozilla-central/comm
-  25795:13f5e1afe5a3
-  25796:f6c2b6ce1fd4
-  ...
 
+  # -ShowIncoming オプションを指定すると、変更一覧を確認した後で変更を取得します。
+  # 25795:13f5e1afe5a3
+  # 25796:f6c2b6ce1fd4
+  # ...
   # 更新が多い場合は次を表示する指示を入力させる状態になります。
   # S1000 とすれば1000行スキップできます。
-
-  incomings may exist. hg pull -u? [y/n]: y
+  # incomings may exist. hg pull -u? [y/n]: y
   https://hg.mozilla.org/comm-central/ から取り込み中
   変更点を探索中
   リビジョンを追加中
@@ -97,6 +96,14 @@ tern定義ファイル生成
 
 まず ``package.json`` 記載のバージョンを更新します。
 
+.. code-block:: javascript
+
+  {
+    "name": "tern-def-tbext",
+    "description": "tern definition file for Thunderbird Extension.",
+    "version": "1.1.1", // Update
+  }
+
 .. code-block:: console
 
   # publish の前にtgzを作って中身をチェックしています。
@@ -104,15 +111,14 @@ tern定義ファイル生成
   pwsh:$ npm pack
 
   # これを実行したのちユーザ入力待ちになります。
-  # d:/path/to/repository のように入力します。
-  # mozilla-centralも調べる仕様になっていますが、後で直します。
+  # リポジトリ2つについて d:/path/to/repository のように入力します。
   pwsh:$ npm publish
 
   cmdlet update-pub-status.ps1 at command pipeline position 1
   Supply values for the following parameters:
   MozillaRepo: x:/path/to/mozilla-central
   CommRepo: x:/path/to/mozilla-central/comm
-  + tern-def-tbext@x.y.0
+  + tern-def-tbext@x.y.z
 
 
 更新チェックスクリプトで違いがなかった場合は
@@ -124,7 +130,7 @@ tern定義ファイル生成
 パッケージを作った後
 ======================
 
-一応githubにpushしています。tern定義ファイルはないですが。
+一応githubにpushしています。tern定義ファイルはないです。
 あとtwitterでツイートしています。
 ツイート以外の通知はしていません。
 
