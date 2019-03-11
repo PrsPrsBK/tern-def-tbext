@@ -1,8 +1,7 @@
 {
   "libs": [
     "node",
-    "defs/tbext-nightly",
-    "defs/webextensions-desktop-nightly"
+    "defs/tbext-nightly"
   ]
 }
 
