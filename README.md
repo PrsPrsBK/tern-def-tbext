@@ -67,7 +67,7 @@ Both are in `License` directory.
 
 * 0.1.0 initial release.
 * 1.0.0 `webextensions-desktop-nightly.json` is droped.
-* 1.1.0 Source Update. browser.compose
+* 1.1.0 browser.compose
 * 1.1.1 fix: add Firefox APIs.
 
   * contentScripts
@@ -80,5 +80,6 @@ Both are in `License` directory.
   * runtime
   * theme
 
+* 1.2.0 geckoProfiler
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
