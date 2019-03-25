@@ -145,6 +145,11 @@
         "license": "None"
       },
       {
+        "file": "toolkit/components/extensions/schemas/geckoProfiler.json",
+        "namespaceList": [],
+        "error": "ENOENT: open"
+      },
+      {
         "file": "mail/components/extensions/schemas/legacy.json",
         "namespaceList": [
           {
@@ -309,6 +314,25 @@
           }
         ],
         "license": "BSD"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/geckoProfiler.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "geckoProfiler",
+            "permissions": [
+              "geckoProfiler"
+            ],
+            "types": 2,
+            "functions": 7,
+            "events": 1
+          }
+        ],
+        "license": "None"
       },
       {
         "file": "toolkit/components/extensions/schemas/i18n.json",
