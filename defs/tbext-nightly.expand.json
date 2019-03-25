@@ -1,0 +1,1809 @@
+{
+  "!name": "tbext",
+  "!define": {
+    "accounts.MailFolder": {
+      "!doc": "A folder object, as returned by the <var>list</var> and <var>get</var> methods. Use the accountId and path properties to refer to a folder.",
+      "accountId": {
+        "!doc": "The account this folder belongs to.",
+        "!type": "string"
+      },
+      "name": {
+        "!doc": "The human-friendly name of this folder.",
+        "!type": "string"
+      },
+      "path": {
+        "!doc": "Path to this folder in the account. Although paths look predictable, never guess a folder's path, as there are a number of reasons why it may not be what you think it is.",
+        "!type": "string"
+      },
+      "type": {
+        "!doc": "The type of folder, for several common types.",
+        "!type": "string"
+      }
+    },
+    "addressBooks.NodeType": {
+      "!doc": "Indicates the type of a Node, which can be one of <code>addressBook</code>, <code>contact</code>, or <code>mailingList</code>."
+    },
+    "addressBooks.AddressBookNode": {
+      "!doc": "A node representing an address book.",
+      "id": {
+        "!doc": "The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the program is restarted.",
+        "!type": "string"
+      },
+      "parentId": {
+        "!doc": "The <code>id</code> of the parent object.",
+        "!type": "string"
+      },
+      "type": {
+        "!doc": "Always set to <code>addressBook</code>.",
+        "!type": "+addressBooks.NodeType"
+      },
+      "readOnly": {
+        "!doc": "Indicates if the object is read-only. Currently this returns false in all cases, as read-only address books are ignored by the API.",
+        "!type": "bool"
+      },
+      "name": {
+        "!type": "string"
+      },
+      "contacts": {
+        "!doc": "A list of contacts held by this node's address book or mailing list.",
+        "!type": "[+contacts.ContactNode]"
+      },
+      "mailingLists": {
+        "!doc": "A list of mailingLists in this node's address book.",
+        "!type": "[+mailingLists.MailingListNode]"
+      }
+    },
+    "contacts.ContactNode": {
+      "!doc": "A node representing a contact in an address book.",
+      "id": {
+        "!doc": "The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the program is restarted.",
+        "!type": "string"
+      },
+      "parentId": {
+        "!doc": "The <code>id</code> of the parent object.",
+        "!type": "string"
+      },
+      "type": {
+        "!doc": "Always set to <code>contact</code>.",
+        "!type": "+addressBooks.NodeType"
+      },
+      "readOnly": {
+        "!doc": "Indicates if the object is read-only. Currently this returns false in all cases, as read-only address books are ignored by the API.",
+        "!type": "bool"
+      },
+      "properties": {
+        "!type": "+contacts.ContactProperties"
+      }
+    },
+    "contacts.ContactProperties": {
+      "!doc": "A set of properties for a particular contact. For a complete list of properties that Thunderbird uses, see https://hg.mozilla.org/comm-central/file/tip/mailnews/addrbook/public/nsIAbCard.idl\nIt is also possible to store custom properties. The custom property name however may only use a to z, A to Z, 1 to 9 and underscores."
+    },
+    "mailingLists.MailingListNode": {
+      "!doc": "A node representing a mailing list.",
+      "id": {
+        "!doc": "The unique identifier for the node. IDs are unique within the current profile, and they remain valid even after the program is restarted.",
+        "!type": "string"
+      },
+      "parentId": {
+        "!doc": "The <code>id</code> of the parent object.",
+        "!type": "string"
+      },
+      "type": {
+        "!doc": "Always set to <code>mailingList</code>.",
+        "!type": "+addressBooks.NodeType"
+      },
+      "readOnly": {
+        "!doc": "Indicates if the object is read-only. Currently this returns false in all cases, as read-only address books are ignored by the API.",
+        "!type": "bool"
+      },
+      "name": {
+        "!type": "string"
+      },
+      "nickName": {
+        "!type": "string"
+      },
+      "description": {
+        "!type": "string"
+      },
+      "contacts": {
+        "!doc": "A list of contacts held by this node's address book or mailing list.",
+        "!type": "[+contacts.ContactNode]"
+      }
+    },
+    "browserAction.Details": {
+      "!doc": "Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.",
+      "tabId": {
+        "!doc": "When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.",
+        "!type": "number"
+      },
+      "windowId": {
+        "!doc": "When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.",
+        "!type": "number"
+      }
+    },
+    "browserAction.ImageDataType": {
+      "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
+    },
+    "cloudFile.CloudFileAccount": {
+      "!doc": "Information about a cloud file account",
+      "id": {
+        "!doc": "Unique identifier of the account",
+        "!type": "string"
+      },
+      "configured": {
+        "!doc": "If true, the account is configured and ready to use. This property is currently ignored and all accounts are assumed to be configured.",
+        "!type": "bool"
+      },
+      "name": {
+        "!doc": "A user-friendly name for this account.",
+        "!type": "string"
+      },
+      "uploadSizeLimit": {
+        "!doc": "The maximum size in bytes for a single file to upload. Set to -1 if unlimited.",
+        "!type": "number"
+      },
+      "spaceRemaining": {
+        "!doc": "The amount of remaining space on the cloud provider, in bytes. Set to -1 if unsupported.",
+        "!type": "number"
+      },
+      "spaceUsed": {
+        "!doc": "The amount of space already used on the cloud provider, in bytes. Set to -1 if unsupported.",
+        "!type": "number"
+      },
+      "managementUrl": {
+        "!doc": "A page for configuring accounts, to be displayed in the preferences UI.",
+        "!type": "string"
+      },
+      "settingsUrl": {
+        "!doc": "A page for configuring accounts, this is obsolete after Thunderbird 60.",
+        "!type": "string"
+      }
+    },
+    "cloudFile.CloudFile": {
+      "!doc": "Information about a cloud file",
+      "id": {
+        "!doc": "An identifier for this file",
+        "!type": "number"
+      },
+      "name": {
+        "!doc": "Filename of the file to be transferred",
+        "!type": "string"
+      },
+      "data": {
+        "!doc": "Contents of the file to be transferred"
+      }
+    },
+    "commands.Command": {
+      "name": {
+        "!doc": "The name of the Extension Command",
+        "!type": "string"
+      },
+      "description": {
+        "!doc": "The Extension Command description",
+        "!type": "string"
+      },
+      "shortcut": {
+        "!doc": "The shortcut active for this command, or blank if not active.",
+        "!type": "string"
+      }
+    },
+    "compose.ComposeParams": {
+      "to": {
+        "!type": "[+compose.ComposeRecipient]"
+      },
+      "cc": {
+        "!type": "[+compose.ComposeRecipient]"
+      },
+      "bcc": {
+        "!type": "[+compose.ComposeRecipient]"
+      },
+      "replyTo": {
+        "!type": "string"
+      },
+      "subject": {
+        "!type": "string"
+      },
+      "body": {
+        "!type": "string"
+      }
+    },
+    "composeAction.Details": {
+      "!doc": "Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.",
+      "tabId": {
+        "!doc": "When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.",
+        "!type": "number"
+      },
+      "windowId": {
+        "!doc": "When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.",
+        "!type": "number"
+      }
+    },
+    "composeAction.ImageDataType": {
+      "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
+    },
+    "mailTabs.QuickFilterTagsDetail": {
+      "tags": {
+        "!doc": "Object keys are tags to filter on, values are <code>true</code> if the message must have the tag, or <code>false</code> if it must not have the tag. For a list of available tags, call the :ref:`messages.listTags` method."
+      },
+      "mode": {
+        "!doc": "Whether all of the tag filters must apply, or any of them.",
+        "!type": "string"
+      }
+    },
+    "mailTabs.QuickFilterTextDetail": {
+      "text": {
+        "!doc": "String to match against the <var>recipients</var>, <var>sender</var>, <var>subject</var>, or <var>body</var>.",
+        "!type": "string"
+      },
+      "recipients": {
+        "!doc": "Shows messages where <var>text</var> matches the recipients.",
+        "!type": "bool"
+      },
+      "sender": {
+        "!doc": "Shows messages where <var>text</var> matches the sender.",
+        "!type": "bool"
+      },
+      "subject": {
+        "!doc": "Shows messages where <var>text</var> matches the subject.",
+        "!type": "bool"
+      },
+      "body": {
+        "!doc": "Shows messages where <var>text</var> matches the message body.",
+        "!type": "bool"
+      }
+    },
+    "menus.ContextType": {
+      "!doc": "The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'tab'."
+    },
+    "menus.ItemType": {
+      "!doc": "The type of menu item."
+    },
+    "menus.OnClickData": {
+      "!doc": "Information sent when a context menu item is clicked.",
+      "menuItemId": {
+        "!doc": "The ID of the menu item that was clicked.",
+        "!type": "[number]?, [string]?"
+      },
+      "parentMenuItemId": {
+        "!doc": "The parent ID, if any, for the item clicked.",
+        "!type": "[number]?, [string]?"
+      },
+      "viewType": {
+        "!doc": "The type of view where the menu is clicked. May be unset if the menu is not associated with a view.",
+        "!type": "+extension.ViewType"
+      },
+      "mediaType": {
+        "!doc": "One of 'image', 'video', or 'audio' if the context menu was activated on one of these types of elements.",
+        "!type": "string"
+      },
+      "linkText": {
+        "!doc": "If the element is a link, the text of that link.",
+        "!type": "string"
+      },
+      "linkUrl": {
+        "!doc": "If the element is a link, the URL it points to.",
+        "!type": "string"
+      },
+      "srcUrl": {
+        "!doc": "Will be present for elements with a 'src' URL.",
+        "!type": "string"
+      },
+      "pageUrl": {
+        "!doc": "The URL of the page where the menu item was clicked. This property is not set if the click occured in a context where there is no current page, such as in a launcher context menu.",
+        "!type": "string"
+      },
+      "frameId": {
+        "!doc": "The id of the frame of the element where the context menu was clicked.",
+        "!type": "number"
+      },
+      "frameUrl": {
+        "!doc": " The URL of the frame of the element where the context menu was clicked, if it was in a frame.",
+        "!type": "string"
+      },
+      "selectionText": {
+        "!doc": "The text for the context selection, if any.",
+        "!type": "string"
+      },
+      "editable": {
+        "!doc": "A flag indicating whether the element is editable (text input, textarea, etc.).",
+        "!type": "bool"
+      },
+      "wasChecked": {
+        "!doc": "A flag indicating the state of a checkbox or radio item before it was clicked.",
+        "!type": "bool"
+      },
+      "checked": {
+        "!doc": "A flag indicating the state of a checkbox or radio item after it is clicked.",
+        "!type": "bool"
+      },
+      "modifiers": {
+        "!doc": "An array of keyboard modifiers that were held while the menu item was clicked.",
+        "!type": "[string]"
+      },
+      "button": {
+        "!doc": "An integer value of button by which menu item was clicked.",
+        "!type": "number"
+      },
+      "targetElementId": {
+        "!doc": "An identifier of the clicked element, if any. Use menus.getTargetElement in the page to find the corresponding element.",
+        "!type": "number"
+      },
+      "selectedMessages": {
+        "!doc": "The selected messages, if the context menu was opened in the message list.",
+        "!type": "+messages.MessageList"
+      },
+      "displayedFolder": {
+        "!doc": "The displayed folder, if the context menu was opened in the message list.",
+        "!type": "+accounts.MailFolder"
+      },
+      "selectedFolder": {
+        "!doc": "The selected folder, if the context menu was opened in the folder pane.",
+        "!type": "+accounts.MailFolder"
+      }
+    },
+    "tabs.Tab": {
+      "id": {
+        "!doc": "The ID of the tab. Tab IDs are unique within a browser session. Under some circumstances a Tab may not be assigned an ID. Tab ID can also be set to :ref:`tabs.TAB_ID_NONE` for apps and devtools windows.",
+        "!type": "number"
+      },
+      "index": {
+        "!doc": "The zero-based index of the tab within its window.",
+        "!type": "number"
+      },
+      "windowId": {
+        "!doc": "The ID of the window the tab is contained within.",
+        "!type": "number"
+      },
+      "selected": {
+        "!doc": "Whether the tab is selected.",
+        "!type": "bool"
+      },
+      "highlighted": {
+        "!doc": "Whether the tab is highlighted. Works as an alias of active",
+        "!type": "bool"
+      },
+      "active": {
+        "!doc": "Whether the tab is active in its window. (Does not necessarily mean the window is focused.)",
+        "!type": "bool"
+      },
+      "url": {
+        "!doc": "The URL the tab is displaying. This property is only present if the extension's manifest includes the <code>\"tabs\"</code> permission.",
+        "!type": "string"
+      },
+      "title": {
+        "!doc": "The title of the tab. This property is only present if the extension's manifest includes the <code>\"tabs\"</code> permission.",
+        "!type": "string"
+      },
+      "favIconUrl": {
+        "!doc": "The URL of the tab's favicon. This property is only present if the extension's manifest includes the <code>\"tabs\"</code> permission. It may also be an empty string if the tab is loading.",
+        "!type": "string"
+      },
+      "status": {
+        "!doc": "Either <em>loading</em> or <em>complete</em>.",
+        "!type": "string"
+      },
+      "width": {
+        "!doc": "The width of the tab in pixels.",
+        "!type": "number"
+      },
+      "height": {
+        "!doc": "The height of the tab in pixels.",
+        "!type": "number"
+      },
+      "mailTab": {
+        "!doc": "Whether the tab is a 3-pane tab.",
+        "!type": "bool"
+      }
+    },
+    "tabs.TabStatus": {
+      "!doc": "Whether the tabs have completed loading."
+    },
+    "tabs.WindowType": {
+      "!doc": "The type of window."
+    },
+    "tabs.UpdatePropertyName": {
+      "!doc": "Event names supported in onUpdated."
+    },
+    "tabs.UpdateFilter": {
+      "!doc": "An object describing filters to apply to tabs.onUpdated events.",
+      "urls": {
+        "!doc": "A list of URLs or URL patterns. Events that cannot match any of the URLs will be filtered out.  Filtering with urls requires the <code>\"tabs\"</code> or  <code>\"activeTab\"</code> permission.",
+        "!type": "[string]"
+      },
+      "properties": {
+        "!doc": "A list of property names. Events that do not match any of the names will be filtered out.",
+        "!type": "[+tabs.UpdatePropertyName]"
+      },
+      "tabId": {
+        "!type": "number"
+      },
+      "windowId": {
+        "!type": "number"
+      }
+    },
+    "windows.WindowType": {
+      "!doc": "The type of window this is. Under some circumstances a Window may not be assigned type property."
+    },
+    "windows.WindowState": {
+      "!doc": "The state of this window."
+    },
+    "windows.Window": {
+      "id": {
+        "!doc": "The ID of the window. Window IDs are unique within a session.",
+        "!type": "number"
+      },
+      "focused": {
+        "!doc": "Whether the window is currently the focused window.",
+        "!type": "bool"
+      },
+      "top": {
+        "!doc": "The offset of the window from the top edge of the screen in pixels.",
+        "!type": "number"
+      },
+      "left": {
+        "!doc": "The offset of the window from the left edge of the screen in pixels.",
+        "!type": "number"
+      },
+      "width": {
+        "!doc": "The width of the window, including the frame, in pixels.",
+        "!type": "number"
+      },
+      "height": {
+        "!doc": "The height of the window, including the frame, in pixels.",
+        "!type": "number"
+      },
+      "tabs": {
+        "!doc": "Array of :ref:`tabs.Tab` objects representing the current tabs in the window.",
+        "!type": "[+tabs.Tab]"
+      },
+      "incognito": {
+        "!doc": "Whether the window is incognito.",
+        "!type": "bool"
+      },
+      "type": {
+        "!doc": "The type of browser window this is.",
+        "!type": "+windows.WindowType"
+      },
+      "state": {
+        "!doc": "The state of this browser window.",
+        "!type": "+windows.WindowState"
+      },
+      "alwaysOnTop": {
+        "!doc": "Whether the window is set to be always on top.",
+        "!type": "bool"
+      },
+      "title": {
+        "!doc": "The title of the window. Read-only.",
+        "!type": "string"
+      }
+    },
+    "windows.CreateType": {
+      "!doc": "Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set."
+    },
+    "contentScripts.RegisteredContentScriptOptions": {
+      "!doc": "Details of a content script registered programmatically",
+      "matches": {
+        "!type": "[+manifest.MatchPattern]"
+      },
+      "excludeMatches": {
+        "!type": "[+manifest.MatchPattern]"
+      },
+      "includeGlobs": {
+        "!type": "[string]"
+      },
+      "excludeGlobs": {
+        "!type": "[string]"
+      },
+      "css": {
+        "!doc": "The list of CSS files to inject",
+        "!type": "[+extensionTypes.ExtensionFileOrCode]"
+      },
+      "js": {
+        "!doc": "The list of JS files to inject",
+        "!type": "[+extensionTypes.ExtensionFileOrCode]"
+      },
+      "allFrames": {
+        "!doc": "If allFrames is <code>true</code>, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's <code>false</code> and is only injected into the top frame.",
+        "!type": "bool"
+      },
+      "matchAboutBlank": {
+        "!doc": "If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is <code>false</code>.",
+        "!type": "bool"
+      },
+      "runAt": {
+        "!doc": "The soonest that the JavaScript or CSS will be injected into the tab. Defaults to \"document_idle\".",
+        "!type": "+extensionTypes.RunAt"
+      }
+    },
+    "contentScripts.RegisteredContentScript": {
+      "!doc": "An object that represents a content script registered programmatically",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/contentScripts/RegisteredContentScript",
+      "unregister": {
+        "!doc": "Unregister a content script registered programmatically",
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/contentScripts/RegisteredContentScript/unregister"
+      }
+    },
+    "experiments.ExperimentAPI": {
+      "schema": {
+        "!type": "+experiments.ExperimentURL"
+      },
+      "parent": {
+        "events": {
+          "!type": "+experiments.APIEvents"
+        },
+        "paths": {
+          "!type": "+experiments.APIPaths"
+        },
+        "script": {
+          "!type": "+experiments.ExperimentURL"
+        },
+        "scopes": {
+          "!type": "[+experiments.APIParentScope]"
+        }
+      },
+      "child": {
+        "paths": {
+          "!type": "+experiments.APIPaths"
+        },
+        "script": {
+          "!type": "+experiments.ExperimentURL"
+        },
+        "scopes": {
+          "!type": "[+experiments.APIChildScope]"
+        }
+      }
+    },
+    "extension.ViewType": {
+      "!doc": "The type of extension view.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/ViewType"
+    },
+    "extensionTypes.ImageFormat": {
+      "!doc": "The format of an image.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageFormat"
+    },
+    "extensionTypes.ImageDetails": {
+      "!doc": "Details about the format and quality of an image.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageDetails",
+      "format": {
+        "!doc": "The format of the resulting image.  Default is <code>\"jpeg\"</code>.",
+        "!type": "+extensionTypes.ImageFormat"
+      },
+      "quality": {
+        "!doc": "When format is <code>\"jpeg\"</code>, controls the quality of the resulting image.  This value is ignored for PNG images.  As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.",
+        "!type": "number"
+      }
+    },
+    "extensionTypes.RunAt": {
+      "!doc": "The soonest that the JavaScript or CSS will be injected into the tab.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/RunAt"
+    },
+    "extensionTypes.CSSOrigin": {
+      "!doc": "The origin of the CSS to inject, this affects the cascading order (priority) of the stylesheet."
+    },
+    "extensionTypes.InjectDetails": {
+      "!doc": "Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.",
+      "code": {
+        "!doc": "JavaScript or CSS code to inject.<br><br><b>Warning:</b><br>Be careful using the <code>code</code> parameter. Incorrect use of it may open your extension to <a href=\"https://en.wikipedia.org/wiki/Cross-site_scripting\">cross site scripting</a> attacks.",
+        "!type": "string"
+      },
+      "file": {
+        "!doc": "JavaScript or CSS file to inject.",
+        "!type": "string"
+      },
+      "allFrames": {
+        "!doc": "If allFrames is <code>true</code>, implies that the JavaScript or CSS should be injected into all frames of current page. By default, it's <code>false</code> and is only injected into the top frame.",
+        "!type": "bool"
+      },
+      "matchAboutBlank": {
+        "!doc": "If matchAboutBlank is true, then the code is also injected in about:blank and about:srcdoc frames if your extension has access to its parent document. Code cannot be inserted in top-level about:-frames. By default it is <code>false</code>.",
+        "!type": "bool"
+      },
+      "frameId": {
+        "!doc": "The ID of the frame to inject the script into. This may not be used in combination with <code>allFrames</code>.",
+        "!type": "number"
+      },
+      "runAt": {
+        "!doc": "The soonest that the JavaScript or CSS will be injected into the tab. Defaults to \"document_idle\".",
+        "!type": "+extensionTypes.RunAt"
+      },
+      "cssOrigin": {
+        "!doc": "The css origin of the stylesheet to inject. Defaults to \"author\".",
+        "!type": "+extensionTypes.CSSOrigin"
+      }
+    },
+    "extensionTypes.PlainJSONValue": {
+      "!doc": "A plain JSON value"
+    },
+    "i18n.LanguageCode": {
+      "!doc": "An ISO language code such as <code>en</code> or <code>fr</code>. For a complete list of languages supported by this method, see <a href='http://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc'>kLanguageInfoTable</a>. For an unknown language, <code>und</code> will be returned, which means that [percentage] of the text is unknown to CLD",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/i18n/LanguageCode"
+    },
+    "management.IconInfo": {
+      "!doc": "Information about an icon belonging to an extension.",
+      "size": {
+        "!doc": "A number representing the width and height of the icon. Likely values include (but are not limited to) 128, 48, 24, and 16.",
+        "!type": "number"
+      },
+      "url": {
+        "!doc": "The URL for this icon image. To display a grayscale version of the icon (to indicate that an extension is disabled, for example), append <code>?grayscale=true</code> to the URL.",
+        "!type": "string"
+      }
+    },
+    "management.ExtensionDisabledReason": {
+      "!doc": "A reason the item is disabled."
+    },
+    "management.ExtensionType": {
+      "!doc": "The type of this extension, 'extension' or 'theme'."
+    },
+    "management.ExtensionInstallType": {
+      "!doc": "How the extension was installed. One of<br><var>development</var>: The extension was loaded unpacked in developer mode,<br><var>normal</var>: The extension was installed normally via an .xpi file,<br><var>sideload</var>: The extension was installed by other software on the machine,<br><var>other</var>: The extension was installed by other means."
+    },
+    "management.ExtensionInfo": {
+      "!doc": "Information about an installed extension.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/ExtensionInfo",
+      "id": {
+        "!doc": "The extension's unique identifier.",
+        "!type": "string"
+      },
+      "name": {
+        "!doc": "The name of this extension.",
+        "!type": "string"
+      },
+      "shortName": {
+        "!doc": "A short version of the name of this extension.",
+        "!type": "string"
+      },
+      "description": {
+        "!doc": "The description of this extension.",
+        "!type": "string"
+      },
+      "version": {
+        "!doc": "The <a href='manifest/version'>version</a> of this extension.",
+        "!type": "string"
+      },
+      "versionName": {
+        "!doc": "The <a href='manifest/version#version_name'>version name</a> of this extension if the manifest specified one.",
+        "!type": "string"
+      },
+      "mayDisable": {
+        "!doc": "Whether this extension can be disabled or uninstalled by the user.",
+        "!type": "bool"
+      },
+      "enabled": {
+        "!doc": "Whether it is currently enabled or disabled.",
+        "!type": "bool"
+      },
+      "disabledReason": {
+        "!doc": "A reason the item is disabled.",
+        "!type": "+management.ExtensionDisabledReason"
+      },
+      "type": {
+        "!doc": "The type of this extension, 'extension' or 'theme'.",
+        "!type": "+management.ExtensionType"
+      },
+      "homepageUrl": {
+        "!doc": "The URL of the homepage of this extension.",
+        "!type": "string"
+      },
+      "updateUrl": {
+        "!doc": "The update URL of this extension.",
+        "!type": "string"
+      },
+      "optionsUrl": {
+        "!doc": "The url for the item's options page, if it has one.",
+        "!type": "string"
+      },
+      "icons": {
+        "!doc": "A list of icon information. Note that this just reflects what was declared in the manifest, and the actual image at that url may be larger or smaller than what was declared, so you might consider using explicit width and height attributes on img tags referencing these images. See the <a href='manifest/icons'>manifest documentation on icons</a> for more details.",
+        "!type": "[+management.IconInfo]"
+      },
+      "permissions": {
+        "!doc": "Returns a list of API based permissions.",
+        "!type": "[string]"
+      },
+      "hostPermissions": {
+        "!doc": "Returns a list of host based permissions.",
+        "!type": "[string]"
+      },
+      "installType": {
+        "!doc": "How the extension was installed.",
+        "!type": "+management.ExtensionInstallType"
+      }
+    },
+    "permissions.Permissions": {
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/permissions/Permissions",
+      "permissions": {
+        "!type": "[+manifest.OptionalPermission]"
+      },
+      "origins": {
+        "!type": "[+manifest.MatchPattern]"
+      }
+    },
+    "permissions.AnyPermissions": {
+      "permissions": {
+        "!type": "[+manifest.Permission]"
+      },
+      "origins": {
+        "!type": "[+manifest.MatchPattern]"
+      }
+    },
+    "runtime.Port": {
+      "!doc": "An object which allows two way communication with other pages.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/Port",
+      "name": {
+        "!type": "string"
+      },
+      "disconnect": {
+        "!type": "fn()"
+      },
+      "onDisconnect": {
+        "!type": "+events.Event"
+      },
+      "onMessage": {
+        "!type": "+events.Event"
+      },
+      "postMessage": {
+        "!type": "fn()"
+      },
+      "sender": {
+        "!doc": "This property will <b>only</b> be present on ports passed to onConnect/onConnectExternal listeners.",
+        "!type": "+runtime.MessageSender"
+      }
+    },
+    "runtime.MessageSender": {
+      "!doc": "An object containing information about the script context that sent a message or request.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/MessageSender",
+      "tab": {
+        "!doc": "The $(ref:tabs.Tab) which opened the connection, if any. This property will <strong>only</strong> be present when the connection was opened from a tab (including content scripts), and <strong>only</strong> if the receiver is an extension, not an app.",
+        "!type": "+tabs.Tab"
+      },
+      "frameId": {
+        "!doc": "The $(topic:frame_ids)[frame] that opened the connection. 0 for top-level frames, positive for child frames. This will only be set when <code>tab</code> is set.",
+        "!type": "number"
+      },
+      "id": {
+        "!doc": "The ID of the extension or app that opened the connection, if any.",
+        "!type": "string"
+      },
+      "url": {
+        "!doc": "The URL of the page or frame that opened the connection. If the sender is in an iframe, it will be iframe's URL not the URL of the page which hosts it.",
+        "!type": "string"
+      },
+      "tlsChannelId": {
+        "!doc": "The TLS channel ID of the page or frame that opened the connection, if requested by the extension or app, and if available.",
+        "!type": "string"
+      }
+    },
+    "runtime.PlatformOs": {
+      "!doc": "The operating system the browser is running on.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/PlatformOs"
+    },
+    "runtime.PlatformArch": {
+      "!doc": "The machine's processor architecture.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/PlatformArch"
+    },
+    "runtime.PlatformInfo": {
+      "!doc": "An object containing information about the current platform.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/PlatformInfo",
+      "os": {
+        "!doc": "The operating system the browser is running on.",
+        "!type": "+runtime.PlatformOs"
+      },
+      "arch": {
+        "!doc": "The machine's processor architecture.",
+        "!type": "+runtime.PlatformArch"
+      },
+      "nacl_arch": {
+        "!doc": "The native client architecture. This may be different from arch on some platforms.",
+        "!type": "+runtime.PlatformNaclArch"
+      }
+    },
+    "runtime.BrowserInfo": {
+      "!doc": "An object containing information about the current browser.",
+      "name": {
+        "!doc": "The name of the browser, for example 'Firefox'.",
+        "!type": "string"
+      },
+      "vendor": {
+        "!doc": "The name of the browser vendor, for example 'Mozilla'.",
+        "!type": "string"
+      },
+      "version": {
+        "!doc": "The browser's version, for example '42.0.0' or '0.8.1pre'.",
+        "!type": "string"
+      },
+      "buildID": {
+        "!doc": "The browser's build ID/date, for example '20160101'.",
+        "!type": "string"
+      }
+    },
+    "runtime.RequestUpdateCheckStatus": {
+      "!doc": "Result of the update check.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/RequestUpdateCheckStatus"
+    },
+    "runtime.OnInstalledReason": {
+      "!doc": "The reason that this event is being dispatched.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/OnInstalledReason"
+    },
+    "runtime.OnRestartRequiredReason": {
+      "!doc": "The reason that the event is being dispatched. 'app_update' is used when the restart is needed because the application is updated to a newer version. 'os_update' is used when the restart is needed because the browser/OS is updated to a newer version. 'periodic' is used when the system runs for more than the permitted uptime set in the enterprise policy.",
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/OnRestartRequiredReason"
+    },
+    "theme.ThemeUpdateInfo": {
+      "!doc": "Info provided in the onUpdated listener.",
+      "theme": {
+        "!doc": "The new theme after update"
+      },
+      "windowId": {
+        "!doc": "The id of the window the theme has been applied to",
+        "!type": "number"
+      }
+    }
+  },
+  "browser": {
+    "accounts": {
+      "list": {
+        "!doc": "Returns all mail accounts.",
+        "!type": "fn()"
+      },
+      "get": {
+        "!doc": "Returns details of the requested account, or null if it doesn't exist.",
+        "!type": "fn(accountId: string)"
+      }
+    },
+    "addressBooks": {
+      "openUI": {
+        "!doc": "Opens the address book user interface.",
+        "!type": "fn()"
+      },
+      "closeUI": {
+        "!doc": "Closes the address book user interface.",
+        "!type": "fn()"
+      },
+      "list": {
+        "!doc": "Gets a list of the user's address books, optionally including all contacts and mailing lists.",
+        "!type": "fn(complete: bool)"
+      },
+      "get": {
+        "!doc": "Gets a single address book, optionally including all contacts and mailing lists.",
+        "!type": "fn(id: string, complete: bool)"
+      },
+      "create": {
+        "!doc": "Creates a new, empty address book.",
+        "!type": "fn(properties: object)"
+      },
+      "update": {
+        "!doc": "Renames an address book.",
+        "!type": "fn(id: string, properties: object)"
+      },
+      "delete": {
+        "!doc": "Removes an address book, and all associated contacts and mailing lists.",
+        "!type": "fn(id: string)"
+      },
+      "onCreated": {
+        "!doc": "Fired when an address book is created.",
+        "!type": "fn(node: +addressBooks.AddressBookNode)"
+      },
+      "onUpdated": {
+        "!doc": "Fired when an address book is renamed.",
+        "!type": "fn(node: +addressBooks.AddressBookNode)"
+      },
+      "onDeleted": {
+        "!doc": "Fired when an addressBook is deleted.",
+        "!type": "fn(id: string)"
+      }
+    },
+    "contacts": {
+      "list": {
+        "!doc": "Gets all the contacts in the address book with the id <code>parentId</code>.",
+        "!type": "fn(parentId: string)"
+      },
+      "get": {
+        "!doc": "Gets a single contact.",
+        "!type": "fn(id: string)"
+      },
+      "create": {
+        "!doc": "Adds a new contact to the address book with the id <code>parentId</code>.",
+        "!type": "fn(parentId: string, properties: +contacts.ContactProperties)"
+      },
+      "update": {
+        "!doc": "Edits the properties of a contact. To remove a property, specify it as <code>null</code>.",
+        "!type": "fn(id: string, properties: +contacts.ContactProperties)"
+      },
+      "delete": {
+        "!doc": "Removes a contact from the address book. The contact is also removed from any mailing lists it is a member of.",
+        "!type": "fn(id: string)"
+      },
+      "onCreated": {
+        "!doc": "Fired when a contact is created.",
+        "!type": "fn(node: +contacts.ContactNode, id: string)"
+      },
+      "onUpdated": {
+        "!doc": "Fired when a contact is changed.",
+        "!type": "fn(node: +contacts.ContactNode)"
+      },
+      "onDeleted": {
+        "!doc": "Fired when a contact is removed from an address book.",
+        "!type": "fn(parentId: string, id: string)"
+      }
+    },
+    "mailingLists": {
+      "list": {
+        "!doc": "Gets all the mailing lists in the address book with id <code>parentId</code>.",
+        "!type": "fn(parentId: string)"
+      },
+      "get": {
+        "!doc": "Gets a single mailing list.",
+        "!type": "fn(id: string)"
+      },
+      "create": {
+        "!doc": "Creates a new mailing list in the address book with id <code>parentId</code>.",
+        "!type": "fn(parentId: string, properties: object)"
+      },
+      "update": {
+        "!doc": "Edits the properties of a mailing list.",
+        "!type": "fn(id: string, properties: object)"
+      },
+      "delete": {
+        "!doc": "Removes the mailing list.",
+        "!type": "fn(id: string)"
+      },
+      "addMember": {
+        "!doc": "Adds a contact to the mailing list with id <code>id</code>. If the contact and mailing list are in different address books, the contact will also be copied to the list's address book.",
+        "!type": "fn(id: string, contactId: string)"
+      },
+      "listMembers": {
+        "!doc": "Gets all contacts that are members of the mailing list with id <code>id</code>.",
+        "!type": "fn(id: string)"
+      },
+      "removeMember": {
+        "!doc": "Removes a contact from the mailing list with id <code>id</code>. This does not delete the contact from the address book.",
+        "!type": "fn(id: string, contactId: string)"
+      },
+      "onCreated": {
+        "!doc": "Fired when a mailing list is created.",
+        "!type": "fn(node: +mailingLists.MailingListNode)"
+      },
+      "onUpdated": {
+        "!doc": "Fired when a mailing list is changed.",
+        "!type": "fn(node: +mailingLists.MailingListNode)"
+      },
+      "onDeleted": {
+        "!doc": "Fired when a mailing list is deleted.",
+        "!type": "fn(parentId: string, id: string)"
+      },
+      "onMemberAdded": {
+        "!doc": "Fired when a contact is added to the mailing list.",
+        "!type": "fn(node: +contacts.ContactNode)"
+      },
+      "onMemberRemoved": {
+        "!doc": "Fired when a contact is removed from the mailing list.",
+        "!type": "fn(parentId: string, id: string)"
+      }
+    },
+    "browserAction": {
+      "!doc": "Use toolbar actions to put icons in the mail window toolbar. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup. This namespace is called browserAction for compatibility with browser WebExtensions.",
+      "setTitle": {
+        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getTitle": {
+        "!doc": "Gets the title of the toolbar action.",
+        "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
+      },
+      "setIcon": {
+        "!doc": "Sets the icon for the toolbar action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "setPopup": {
+        "!doc": "Sets the html document to be opened as a popup when the user clicks on the toolbar action's icon.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getPopup": {
+        "!doc": "Gets the html document set as the popup for this toolbar action.",
+        "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
+      },
+      "setBadgeText": {
+        "!doc": "Sets the badge text for the toolbar action. The badge is displayed on top of the icon.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getBadgeText": {
+        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified is specified, the global badge text is returned.",
+        "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
+      },
+      "setBadgeBackgroundColor": {
+        "!doc": "Sets the background color for the badge.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getBadgeBackgroundColor": {
+        "!doc": "Gets the background color of the toolbar action.",
+        "!type": "fn(details: +browserAction.Details, callback: fn(result: +browserAction.ColorArray))"
+      },
+      "enable": {
+        "!doc": "Enables the toolbar action for a tab. By default, toolbar actions are enabled.",
+        "!type": "fn(tabId: number, callback: fn())"
+      },
+      "disable": {
+        "!doc": "Disables the toolbar action for a tab.",
+        "!type": "fn(tabId: number, callback: fn())"
+      },
+      "isEnabled": {
+        "!doc": "Checks whether the toolbar action is enabled.",
+        "!type": "fn(details: +browserAction.Details)"
+      },
+      "openPopup": {
+        "!doc": "Opens the extension popup window in the active window.",
+        "!type": "fn()"
+      },
+      "onClicked": {
+        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
+        "!type": "fn()"
+      }
+    },
+    "cloudFile": {
+      "getAccount": {
+        "!doc": "Retrieve information about a single cloud file account",
+        "!type": "fn(accountId: string)"
+      },
+      "getAllAccounts": {
+        "!doc": "Retrieve all cloud file accounts for the current add-on",
+        "!type": "fn()"
+      },
+      "updateAccount": {
+        "!doc": "Update a cloud file account",
+        "!type": "fn(accountId: string, updateProperties: object)"
+      },
+      "onFileUpload": {
+        "!doc": "Fired when a file should be uploaded to the cloud file provider",
+        "!type": "fn(account: +cloudFile.CloudFileAccount, fileInfo: +cloudFile.CloudFile)"
+      },
+      "onFileUploadAbort": {
+        "!type": "fn(account: +cloudFile.CloudFileAccount, fileId: number)"
+      },
+      "onFileDeleted": {
+        "!doc": "Fired when a file previously uploaded should be deleted",
+        "!type": "fn(account: +cloudFile.CloudFileAccount, fileId: number)"
+      },
+      "onAccountAdded": {
+        "!doc": "Fired when a cloud file account of this add-on was created",
+        "!type": "fn(account: +cloudFile.CloudFileAccount)"
+      },
+      "onAccountDeleted": {
+        "!doc": "Fired when a cloud file account of this add-on was deleted",
+        "!type": "fn(accountId: string)"
+      }
+    },
+    "commands": {
+      "!doc": "Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the xtension.",
+      "update": {
+        "!doc": "Update the details of an already defined command.",
+        "!type": "fn(detail: object)"
+      },
+      "reset": {
+        "!doc": "Reset a command's details to what is specified in the manifest.",
+        "!type": "fn(name: string)"
+      },
+      "getAll": {
+        "!doc": "Returns all the registered extension commands for this extension and their shortcut (if active).",
+        "!type": "fn(callback: fn(commands: [+commands.Command]))"
+      },
+      "onCommand": {
+        "!doc": "Fired when a registered command is activated using a keyboard shortcut.",
+        "!type": "fn(command: string)"
+      }
+    },
+    "compose": {
+      "beginNew": {
+        "!type": "fn(details: +compose.ComposeParams)"
+      },
+      "beginReply": {
+        "!type": "fn(messageId: number, replyType: string)"
+      },
+      "beginForward": {
+        "!type": "fn(messageId: number, forwardType: string, details: +compose.ComposeParams)"
+      }
+    },
+    "composeAction": {
+      "!doc": "Use toolbar actions to put icons in the message composition toolbars. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup.",
+      "setTitle": {
+        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getTitle": {
+        "!doc": "Gets the title of the toolbar action.",
+        "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
+      },
+      "setIcon": {
+        "!doc": "Sets the icon for the toolbar action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "setPopup": {
+        "!doc": "Sets the html document to be opened as a popup when the user clicks on the toolbar action's icon.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getPopup": {
+        "!doc": "Gets the html document set as the popup for this toolbar action.",
+        "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
+      },
+      "setBadgeText": {
+        "!doc": "Sets the badge text for the toolbar action. The badge is displayed on top of the icon.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getBadgeText": {
+        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified is specified, the global badge text is returned.",
+        "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
+      },
+      "setBadgeBackgroundColor": {
+        "!doc": "Sets the background color for the badge.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getBadgeBackgroundColor": {
+        "!doc": "Gets the background color of the toolbar action.",
+        "!type": "fn(details: +composeAction.Details, callback: fn(result: +composeAction.ColorArray))"
+      },
+      "enable": {
+        "!doc": "Enables the toolbar action for a tab. By default, toolbar actions are enabled.",
+        "!type": "fn(tabId: number, callback: fn())"
+      },
+      "disable": {
+        "!doc": "Disables the toolbar action for a tab.",
+        "!type": "fn(tabId: number, callback: fn())"
+      },
+      "isEnabled": {
+        "!doc": "Checks whether the toolbar action is enabled.",
+        "!type": "fn(details: +composeAction.Details)"
+      },
+      "openPopup": {
+        "!doc": "Opens the extension popup window in the active window.",
+        "!type": "fn()"
+      },
+      "onClicked": {
+        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
+        "!type": "fn()"
+      }
+    },
+    "mailTabs": {
+      "query": {
+        "!doc": "Gets all mail tabs that have the specified properties, or all mail tabs if no properties are specified.",
+        "!type": "fn(queryInfo: object)"
+      },
+      "update": {
+        "!doc": "Modifies the properties of a mail tab. Properties that are not specified in <var>updateProperties</var> are not modified.",
+        "!type": "fn(tabId: number, updateProperties: object)"
+      },
+      "getSelectedMessages": {
+        "!doc": "Lists the selected messages in the current folder. A messages permission is required to do this.",
+        "!type": "fn(tabId: number)"
+      },
+      "setQuickFilter": {
+        "!doc": "Sets the Quick Filter user interface based on the options specified.",
+        "!type": "fn(tabId: number, properties: object)"
+      },
+      "onDisplayedFolderChanged": {
+        "!doc": "Fired when the displayed folder changes in any mail tab.",
+        "!type": "fn()"
+      },
+      "onSelectedMessagesChanged": {
+        "!doc": "Fired when the selected messages change in any mail tab.",
+        "!type": "fn()"
+      }
+    },
+    "menus": {
+      "!doc": "Use the browser.menus API to add items to the browser's menus. You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages.",
+      "create": {
+        "!doc": "Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in `runtime.lastError <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/lastError>`_).",
+        "!type": "fn(createProperties: object, callback: fn())"
+      },
+      "update": {
+        "!doc": "Updates a previously created context menu item.",
+        "!type": "fn(id?: number, id?: string, updateProperties: object, callback: fn())"
+      },
+      "remove": {
+        "!doc": "Removes a context menu item.",
+        "!type": "fn(menuItemId?: number, menuItemId?: string, callback: fn())"
+      },
+      "removeAll": {
+        "!doc": "Removes all context menu items added by this extension.",
+        "!type": "fn(callback: fn())"
+      },
+      "overrideContext": {
+        "!doc": "Show the matching menu items from this extension instead of the default menu. This should be called during a 'contextmenu' DOM event handler, and only applies to the menu that opens after this event.",
+        "!type": "fn(contextOptions: object)"
+      },
+      "refresh": {
+        "!doc": "Updates the extension items in the shown menu, including changes that have been made since the menu was shown. Has no effect if the menu is hidden. Rebuilding a shown menu is an expensive operation, only invoke this method when necessary.",
+        "!type": "fn()"
+      },
+      "onClicked": {
+        "!doc": "Fired when a context menu item is clicked.",
+        "!type": "fn(info: +menus.OnClickData, tab: +tabs.Tab)"
+      },
+      "onShown": {
+        "!doc": "Fired when a menu is shown. The extension can add, modify or remove menu items and call menus.refresh() to update the menu.",
+        "!type": "fn(info: object, tab: +tabs.Tab)"
+      },
+      "onHidden": {
+        "!doc": "Fired when a menu is hidden. This event is only fired if onShown has fired before.",
+        "!type": "fn()"
+      },
+      "ACTION_MENU_TOP_LEVEL_LIMIT": {
+        "!doc": "The maximum number of top level extension items that can be added to an extension action context menu. Any items beyond this limit will be ignored.",
+        "!type": "number"
+      }
+    },
+    "messages": {
+      "list": {
+        "!doc": "Gets all messages in a folder.",
+        "!type": "fn(folder: +accounts.MailFolder)"
+      },
+      "continueList": {
+        "!doc": "Returns the next chunk of messages in a list. See :doc:`how-to/messageLists` for more information.",
+        "!type": "fn(messageListId: string)"
+      },
+      "get": {
+        "!doc": "Returns a specified message.",
+        "!type": "fn(messageId: number)"
+      },
+      "getFull": {
+        "!doc": "Returns a specified message, including all headers and MIME parts.",
+        "!type": "fn(messageId: number)"
+      },
+      "update": {
+        "!doc": "Marks or unmarks a message as read, starred, or tagged.",
+        "!type": "fn(messageId: number, newProperties: object)"
+      },
+      "move": {
+        "!doc": "Moves messages to a specified folder.",
+        "!type": "fn(messageIds: [number], destination: +accounts.MailFolder)"
+      },
+      "copy": {
+        "!doc": "Copies messages to a specified folder.",
+        "!type": "fn(messageIds: [number], destination: +accounts.MailFolder)"
+      },
+      "delete": {
+        "!doc": "Deletes messages, or moves them to the trash folder.",
+        "!type": "fn(messageIds: [number], skipTrash: bool)"
+      },
+      "listTags": {
+        "!doc": "Returns a list of tags that can be set on messages, and their human-friendly name, colour, and sort order.",
+        "!type": "fn()"
+      }
+    },
+    "tabs": {
+      "!doc": "Use the <code>browser.tabs</code> API to interact with the browser's tab system. You can use this API to create, modify, and rearrange tabs in the browser.",
+      "get": {
+        "!doc": "Retrieves details about the specified tab.",
+        "!type": "fn(tabId: number, callback: fn(tab: +tabs.Tab))"
+      },
+      "getCurrent": {
+        "!doc": "Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view).",
+        "!type": "fn(callback: fn(tab: +tabs.Tab))"
+      },
+      "create": {
+        "!doc": "Creates a new tab.",
+        "!type": "fn(createProperties: object, callback: fn(tab: +tabs.Tab))"
+      },
+      "duplicate": {
+        "!doc": "Duplicates a tab.",
+        "!type": "fn(tabId: number, callback: fn(tab: +tabs.Tab))"
+      },
+      "query": {
+        "!doc": "Gets all tabs that have the specified properties, or all tabs if no properties are specified.",
+        "!type": "fn(queryInfo: object, callback: fn(result: [+tabs.Tab]))"
+      },
+      "update": {
+        "!doc": "Modifies the properties of a tab. Properties that are not specified in <var>updateProperties</var> are not modified.",
+        "!type": "fn(tabId: number, updateProperties: object, callback: fn(tab: +tabs.Tab))"
+      },
+      "move": {
+        "!doc": "Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === \"normal\") windows.",
+        "!type": "fn(tabIds?: number, tabIds?: [number], moveProperties: object, callback: fn(tabs?: +tabs.Tab, tabs?: [+tabs.Tab]))"
+      },
+      "reload": {
+        "!doc": "Reload a tab.",
+        "!type": "fn(tabId: number, reloadProperties: object, callback: fn())"
+      },
+      "remove": {
+        "!doc": "Closes one or more tabs.",
+        "!type": "fn(tabIds?: number, tabIds?: [number], callback: fn())"
+      },
+      "executeScript": {
+        "!doc": "Injects JavaScript code into a page. For details, see the `programmatic injection <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts>`_ section of the content scripts doc.",
+        "!type": "fn(tabId: number, details: +extensionTypes.InjectDetails, callback: fn(result: [?]))"
+      },
+      "insertCSS": {
+        "!doc": "Injects CSS into a page. For details, see the `programmatic injection <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts>`_ section of the content scripts doc.",
+        "!type": "fn(tabId: number, details: +extensionTypes.InjectDetails, callback: fn())"
+      },
+      "removeCSS": {
+        "!doc": "Removes injected CSS from a page. For details, see the `programmatic injection <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts>`_ section of the content scripts doc.",
+        "!type": "fn(tabId: number, details: +extensionTypes.InjectDetails, callback: fn())"
+      },
+      "onCreated": {
+        "!doc": "Fired when a tab is created. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events to be notified when a URL is set.",
+        "!type": "fn(tab: +tabs.Tab)"
+      },
+      "onUpdated": {
+        "!doc": "Fired when a tab is updated.",
+        "!type": "fn(tabId: number, changeInfo: object, tab: +tabs.Tab)"
+      },
+      "onMoved": {
+        "!doc": "Fired when a tab is moved within a window. Only one move event is fired, representing the tab the user directly moved. Move events are not fired for the other tabs that must move in response. This event is not fired when a tab is moved between windows. For that, see :ref:`tabs.onDetached`.",
+        "!type": "fn(tabId: number, moveInfo: object)"
+      },
+      "onActivated": {
+        "!doc": "Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events to be notified when a URL is set.",
+        "!type": "fn(activeInfo: object)"
+      },
+      "onDetached": {
+        "!doc": "Fired when a tab is detached from a window, for example because it is being moved between windows.",
+        "!type": "fn(tabId: number, detachInfo: object)"
+      },
+      "onAttached": {
+        "!doc": "Fired when a tab is attached to a window, for example because it was moved between windows.",
+        "!type": "fn(tabId: number, attachInfo: object)"
+      },
+      "onRemoved": {
+        "!doc": "Fired when a tab is closed.",
+        "!type": "fn(tabId: number, removeInfo: object)"
+      },
+      "TAB_ID_NONE": {
+        "!doc": "An ID which represents the absence of a browser tab.",
+        "!type": "number"
+      }
+    },
+    "windows": {
+      "!doc": "Use the <code>browser.windows</code> API to interact with Thunderbird. You can use this API to create, modify, and rearrange windows.",
+      "get": {
+        "!doc": "Gets details about a window.",
+        "!type": "fn(windowId: number, getInfo: object, callback: fn(window: +windows.Window))"
+      },
+      "getCurrent": {
+        "!doc": "Gets the current window.",
+        "!type": "fn(getInfo: object, callback: fn(window: +windows.Window))"
+      },
+      "getLastFocused": {
+        "!doc": "Gets the window that was most recently focused &mdash; typically the window 'on top'.",
+        "!type": "fn(getInfo: object, callback: fn(window: +windows.Window))"
+      },
+      "getAll": {
+        "!doc": "Gets all windows.",
+        "!type": "fn(getInfo: object, callback: fn(windows: [+windows.Window]))"
+      },
+      "create": {
+        "!doc": "Creates (opens) a new browser with any optional sizing, position or default URL provided.",
+        "!type": "fn(createData: object, callback: fn(window: +windows.Window))"
+      },
+      "update": {
+        "!doc": "Updates the properties of a window. Specify only the properties that you want to change; unspecified properties will be left unchanged.",
+        "!type": "fn(windowId: number, updateInfo: object, callback: fn(window: +windows.Window))"
+      },
+      "remove": {
+        "!doc": "Removes (closes) a window, and all the tabs inside it.",
+        "!type": "fn(windowId: number, callback: fn())"
+      },
+      "onCreated": {
+        "!doc": "Fired when a window is created.",
+        "!type": "fn(window: +windows.Window)"
+      },
+      "onRemoved": {
+        "!doc": "Fired when a window is removed (closed).",
+        "!type": "fn(windowId: number)"
+      },
+      "onFocusChanged": {
+        "!doc": "Fired when the currently focused window changes. Will be :ref:`windows.WINDOW_ID_NONE`) if all browser windows have lost focus. Note: On some Linux window managers, WINDOW_ID_NONE will always be sent immediately preceding a switch from one browser window to another.",
+        "!type": "fn(windowId: number)"
+      },
+      "WINDOW_ID_NONE": {
+        "!doc": "The windowId value that represents the absence of a window.",
+        "!type": "number"
+      },
+      "WINDOW_ID_CURRENT": {
+        "!doc": "The windowId value that represents the current window.",
+        "!type": "number"
+      }
+    },
+    "contentScripts": {
+      "register": {
+        "!doc": "Register a content script programmatically",
+        "!type": "fn(contentScriptOptions: +contentScripts.RegisteredContentScriptOptions)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/contentScripts/register"
+      }
+    },
+    "experiments": {},
+    "extension": {
+      "!doc": "The <code>browser.extension</code> API has utilities that can be used by any extension page. It includes support for exchanging messages between an extension and its content scripts or between extensions, as described in detail in $(topic:messaging)[Message Passing].",
+      "getURL": {
+        "!doc": "Converts a relative path within an extension install directory to a fully-qualified URL.",
+        "!type": "fn(path: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/getURL"
+      },
+      "getViews": {
+        "!doc": "Returns an array of the JavaScript 'window' objects for each of the pages running inside the current extension.",
+        "!type": "fn(fetchProperties: object)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/getViews"
+      },
+      "getBackgroundPage": {
+        "!doc": "Returns the JavaScript 'window' object for the background page running inside the current extension. Returns null if the extension has no background page.",
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/getBackgroundPage"
+      },
+      "isAllowedIncognitoAccess": {
+        "!doc": "Retrieves the state of the extension's access to Incognito-mode (as determined by the user-controlled 'Allowed in Incognito' checkbox.",
+        "!type": "fn(callback: fn(isAllowedAccess: bool))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/isAllowedIncognitoAccess"
+      },
+      "isAllowedFileSchemeAccess": {
+        "!doc": "Retrieves the state of the extension's access to the 'file://' scheme (as determined by the user-controlled 'Allow access to File URLs' checkbox.",
+        "!type": "fn(callback: fn(isAllowedAccess: bool))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/isAllowedFileSchemeAccess"
+      },
+      "setUpdateUrlData": {
+        "!doc": "Sets the value of the ap CGI parameter used in the extension's update URL.  This value is ignored for extensions that are hosted in the browser vendor's store.",
+        "!type": "fn(data: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/setUpdateUrlData"
+      },
+      "onRequest": {
+        "!doc": "Fired when a request is sent from either an extension process or a content script.",
+        "!type": "fn(request: ?, sender: +runtime.MessageSender, sendResponse: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/onRequest"
+      },
+      "onRequestExternal": {
+        "!doc": "Fired when a request is sent from another extension.",
+        "!type": "fn(request: ?, sender: +runtime.MessageSender, sendResponse: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/onRequestExternal"
+      },
+      "lastError": {
+        "!doc": "Set for the lifetime of a callback if an ansychronous extension api has resulted in an error. If no error has occured lastError will be <var>undefined</var>.",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/lastError",
+        "message": {
+          "!doc": "Description of the error that has taken place.",
+          "!type": "string"
+        }
+      },
+      "inIncognitoContext": {
+        "!doc": "True for content scripts running inside incognito tabs, and for extension pages running inside an incognito process. The latter only applies to extensions with 'split' incognito_behavior.",
+        "!type": "bool",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/inIncognitoContext"
+      }
+    },
+    "extensionTypes": {
+      "!doc": "The <code>browser.extensionTypes</code> API contains type declarations for WebExtensions."
+    },
+    "geckoProfiler": {
+      "!doc": "Exposes the browser's profiler.",
+      "start": {
+        "!doc": "Starts the profiler with the specified settings.",
+        "!type": "fn(settings: object)"
+      },
+      "stop": {
+        "!doc": "Stops the profiler and discards any captured profile data.",
+        "!type": "fn()"
+      },
+      "pause": {
+        "!doc": "Pauses the profiler, keeping any profile data that is already written.",
+        "!type": "fn()"
+      },
+      "resume": {
+        "!doc": "Resumes the profiler with the settings that were initially used to start it.",
+        "!type": "fn()"
+      },
+      "getProfile": {
+        "!doc": "Gathers the profile data from the current profiling session.",
+        "!type": "fn()"
+      },
+      "getProfileAsArrayBuffer": {
+        "!doc": "Gathers the profile data from the current profiling session. The returned promise resolves to an array buffer that contains a JSON string.",
+        "!type": "fn()"
+      },
+      "getSymbols": {
+        "!doc": "Gets the debug symbols for a particular library.",
+        "!type": "fn(debugName: string, breakpadId: string)"
+      },
+      "onRunning": {
+        "!doc": "Fires when the profiler starts/stops running.",
+        "!type": "fn(isRunning: bool)"
+      }
+    },
+    "i18n": {
+      "!doc": "Use the <code>browser.i18n</code> infrastructure to implement internationalization across your whole app or extension.",
+      "getAcceptLanguages": {
+        "!doc": "Gets the accept-languages of the browser. This is different from the locale used by the browser; to get the locale, use $(ref:i18n.getUILanguage).",
+        "!type": "fn(callback: fn(languages: [+i18n.LanguageCode]))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/i18n/getAcceptLanguages"
+      },
+      "getMessage": {
+        "!doc": "Gets the localized string for the specified message. If the message is missing, this method returns an empty string (''). If the format of the <code>getMessage()</code> call is wrong &mdash; for example, <em>messageName</em> is not a string or the <em>substitutions</em> array has more than 9 elements &mdash; this method returns <code>undefined</code>.",
+        "!type": "fn(messageName: string, substitutions: ?)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/i18n/getMessage"
+      },
+      "getUILanguage": {
+        "!doc": "Gets the browser UI language of the browser. This is different from $(ref:i18n.getAcceptLanguages) which returns the preferred user languages.",
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/i18n/getUILanguage"
+      },
+      "detectLanguage": {
+        "!doc": "Detects the language of the provided text using CLD.",
+        "!type": "fn(text: string, callback: fn(result: object))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/i18n/detectLanguage"
+      }
+    },
+    "management": {
+      "!doc": "The <code>browser.management</code> API provides ways to manage the list of extensions that are installed and running.",
+      "getAll": {
+        "!doc": "Returns a list of information about installed extensions.",
+        "!type": "fn(callback: fn(result: [+management.ExtensionInfo]))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/getAll"
+      },
+      "get": {
+        "!doc": "Returns information about the installed extension that has the given ID.",
+        "!type": "fn(id: +manifest.ExtensionID, callback: fn(result: +management.ExtensionInfo))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/get"
+      },
+      "install": {
+        "!doc": "Installs and enables a theme extension from the given url.",
+        "!type": "fn(options: object, callback: fn(result: object))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/install"
+      },
+      "getSelf": {
+        "!doc": "Returns information about the calling extension. Note: This function can be used without requesting the 'management' permission in the manifest.",
+        "!type": "fn(callback: fn(result: +management.ExtensionInfo))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/getSelf"
+      },
+      "uninstallSelf": {
+        "!doc": "Uninstalls the calling extension. Note: This function can be used without requesting the 'management' permission in the manifest.",
+        "!type": "fn(options: object, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/uninstallSelf"
+      },
+      "setEnabled": {
+        "!doc": "Enables or disables the given add-on.",
+        "!type": "fn(id: string, enabled: bool, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/setEnabled"
+      },
+      "onDisabled": {
+        "!doc": "Fired when an addon has been disabled.",
+        "!type": "fn(info: +management.ExtensionInfo)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/onDisabled"
+      },
+      "onEnabled": {
+        "!doc": "Fired when an addon has been enabled.",
+        "!type": "fn(info: +management.ExtensionInfo)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/onEnabled"
+      },
+      "onInstalled": {
+        "!doc": "Fired when an addon has been installed.",
+        "!type": "fn(info: +management.ExtensionInfo)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/onInstalled"
+      },
+      "onUninstalled": {
+        "!doc": "Fired when an addon has been uninstalled.",
+        "!type": "fn(info: +management.ExtensionInfo)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/management/onUninstalled"
+      }
+    },
+    "permissions": {
+      "getAll": {
+        "!doc": "Get a list of all the extension's permissions.",
+        "!type": "fn(callback: fn(permissions: +permissions.AnyPermissions))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/permissions/getAll"
+      },
+      "contains": {
+        "!doc": "Check if the extension has the given permissions.",
+        "!type": "fn(permissions: +permissions.AnyPermissions, callback: fn(result: bool))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/permissions/contains"
+      },
+      "request": {
+        "!doc": "Request the given permissions.",
+        "!type": "fn(permissions: +permissions.Permissions, callback: fn(granted: bool))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/permissions/request"
+      },
+      "remove": {
+        "!doc": "Relinquish the given permissions.",
+        "!type": "fn(permissions: +permissions.Permissions, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/permissions/remove"
+      },
+      "onAdded": {
+        "!doc": "Fired when the extension acquires new permissions.",
+        "!type": "fn(permissions: +permissions.Permissions)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/permissions/onAdded"
+      },
+      "onRemoved": {
+        "!doc": "Fired when permissions are removed from the extension.",
+        "!type": "fn(permissions: +permissions.Permissions)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/permissions/onRemoved"
+      }
+    },
+    "pkcs11": {
+      "!doc": "PKCS#11 module management API",
+      "isModuleInstalled": {
+        "!doc": "checks whether a PKCS#11 module, given by name, is installed",
+        "!type": "fn(name: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pkcs11/isModuleInstalled"
+      },
+      "installModule": {
+        "!doc": "Install a PKCS#11 module with a given name",
+        "!type": "fn(name: string, flags: number)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pkcs11/installModule"
+      },
+      "uninstallModule": {
+        "!doc": "Remove an installed PKCS#11 module from firefox",
+        "!type": "fn(name: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pkcs11/uninstallModule"
+      },
+      "getModuleSlots": {
+        "!doc": "Enumerate a module's slots, each with their name and whether a token is present",
+        "!type": "fn(name: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/pkcs11/getModuleSlots"
+      }
+    },
+    "runtime": {
+      "!doc": "Use the <code>browser.runtime</code> API to retrieve the background page, return details about the manifest, and listen for and respond to events in the app or extension lifecycle. You can also use this API to convert the relative path of URLs to fully-qualified URLs.",
+      "getBackgroundPage": {
+        "!doc": "Retrieves the JavaScript 'window' object for the background page running inside the current extension/app. If the background page is an event page, the system will ensure it is loaded before calling the callback. If there is no background page, an error is set.",
+        "!type": "fn(callback: fn(backgroundPage: object))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getBackgroundPage"
+      },
+      "openOptionsPage": {
+        "!doc": "<p>Open your Extension's options page, if possible.</p><p>The precise behavior may depend on your manifest's <code>$(topic:optionsV2)[options_ui]</code> or <code>$(topic:options)[options_page]</code> key, or what the browser happens to support at the time.</p><p>If your Extension does not declare an options page, or the browser failed to create one for some other reason, the callback will set $(ref:lastError).</p>",
+        "!type": "fn(callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/openOptionsPage"
+      },
+      "getManifest": {
+        "!doc": "Returns details about the app or extension from the manifest. The object returned is a serialization of the full $(topic:manifest)[manifest file].",
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getManifest"
+      },
+      "getURL": {
+        "!doc": "Converts a relative path within an app/extension install directory to a fully-qualified URL.",
+        "!type": "fn(path: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getURL"
+      },
+      "setUninstallURL": {
+        "!doc": "Sets the URL to be visited upon uninstallation. This may be used to clean up server-side data, do analytics, and implement surveys. Maximum 255 characters.",
+        "!type": "fn(url: string, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/setUninstallURL"
+      },
+      "reload": {
+        "!doc": "Reloads the app or extension.",
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/reload"
+      },
+      "requestUpdateCheck": {
+        "!doc": "Requests an update check for this app/extension.",
+        "!type": "fn(callback: fn(status: +runtime.RequestUpdateCheckStatus, details: object))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/requestUpdateCheck"
+      },
+      "restart": {
+        "!doc": "Restart the device when the app runs in kiosk mode. Otherwise, it's no-op.",
+        "!type": "fn()"
+      },
+      "connect": {
+        "!doc": "Attempts to connect to connect listeners within an extension/app (such as the background page), or other extensions/apps. This is useful for content scripts connecting to their extension processes, inter-app/extension communication, and $(topic:manifest/externally_connectable)[web messaging]. Note that this does not connect to any listeners in a content script. Extensions may connect to content scripts embedded in tabs via $(ref:tabs.connect).",
+        "!type": "fn(extensionId: string, connectInfo: object)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/connect"
+      },
+      "connectNative": {
+        "!doc": "Connects to a native application in the host machine.",
+        "!type": "fn(application: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/connectNative"
+      },
+      "sendMessage": {
+        "!doc": "Sends a single message to event listeners within your extension/app or a different extension/app. Similar to $(ref:runtime.connect) but only sends a single message, with an optional response. If sending to your extension, the $(ref:runtime.onMessage) event will be fired in each page, or $(ref:runtime.onMessageExternal), if a different extension. Note that extensions cannot send messages to content scripts using this method. To send messages to content scripts, use $(ref:tabs.sendMessage).",
+        "!type": "fn(extensionId: string, message: ?, options: object, responseCallback: fn(response: ?))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/sendMessage"
+      },
+      "sendNativeMessage": {
+        "!doc": "Send a single message to a native application.",
+        "!type": "fn(application: string, message: ?, responseCallback: fn(response: ?))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/sendNativeMessage"
+      },
+      "getBrowserInfo": {
+        "!doc": "Returns information about the current browser.",
+        "!type": "fn(callback: fn(browserInfo: +runtime.BrowserInfo))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getBrowserInfo"
+      },
+      "getPlatformInfo": {
+        "!doc": "Returns information about the current platform.",
+        "!type": "fn(callback: fn(platformInfo: +runtime.PlatformInfo))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getPlatformInfo"
+      },
+      "getPackageDirectoryEntry": {
+        "!doc": "Returns a DirectoryEntry for the package directory.",
+        "!type": "fn(callback: fn(directoryEntry: object))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/getPackageDirectoryEntry"
+      },
+      "onStartup": {
+        "!doc": "Fired when a profile that has this extension installed first starts up. This event is not fired for incognito profiles.",
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onStartup"
+      },
+      "onInstalled": {
+        "!doc": "Fired when the extension is first installed, when the extension is updated to a new version, and when the browser is updated to a new version.",
+        "!type": "fn(details: object)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onInstalled"
+      },
+      "onSuspend": {
+        "!doc": "Sent to the event page just before it is unloaded. This gives the extension opportunity to do some clean up. Note that since the page is unloading, any asynchronous operations started while handling this event are not guaranteed to complete. If more activity for the event page occurs before it gets unloaded the onSuspendCanceled event will be sent and the page won't be unloaded. ",
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onSuspend"
+      },
+      "onSuspendCanceled": {
+        "!doc": "Sent after onSuspend to indicate that the app won't be unloaded after all.",
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onSuspendCanceled"
+      },
+      "onUpdateAvailable": {
+        "!doc": "Fired when an update is available, but isn't installed immediately because the app is currently running. If you do nothing, the update will be installed the next time the background page gets unloaded, if you want it to be installed sooner you can explicitly call $(ref:runtime.reload). If your extension is using a persistent background page, the background page of course never gets unloaded, so unless you call $(ref:runtime.reload) manually in response to this event the update will not get installed until the next time the browser itself restarts. If no handlers are listening for this event, and your extension has a persistent background page, it behaves as if $(ref:runtime.reload) is called in response to this event.",
+        "!type": "fn(details: object)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onUpdateAvailable"
+      },
+      "onBrowserUpdateAvailable": {
+        "!doc": "Fired when an update for the browser is available, but isn't installed immediately because a browser restart is required.",
+        "!type": "fn()",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onBrowserUpdateAvailable"
+      },
+      "onConnect": {
+        "!doc": "Fired when a connection is made from either an extension process or a content script.",
+        "!type": "fn(port: +runtime.Port)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onConnect"
+      },
+      "onConnectExternal": {
+        "!doc": "Fired when a connection is made from another extension.",
+        "!type": "fn(port: +runtime.Port)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onConnectExternal"
+      },
+      "onMessage": {
+        "!doc": "Fired when a message is sent from either an extension process or a content script.",
+        "!type": "fn(message: ?, sender: +runtime.MessageSender, sendResponse: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage"
+      },
+      "onMessageExternal": {
+        "!doc": "Fired when a message is sent from another extension/app. Cannot be used in a content script.",
+        "!type": "fn(message: ?, sender: +runtime.MessageSender, sendResponse: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessageExternal"
+      },
+      "onRestartRequired": {
+        "!doc": "Fired when an app or the device that it runs on needs to be restarted. The app should close all its windows at its earliest convenient time to let the restart to happen. If the app does nothing, a restart will be enforced after a 24-hour grace period has passed. Currently, this event is only fired for Chrome OS kiosk apps.",
+        "!type": "fn(reason: +runtime.OnRestartRequiredReason)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onRestartRequired"
+      },
+      "lastError": {
+        "!doc": "This will be defined during an API method callback if there was an error",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/lastError",
+        "message": {
+          "!doc": "Details about the error which occurred.",
+          "!type": "string"
+        }
+      },
+      "id": {
+        "!doc": "The ID of the extension/app.",
+        "!type": "string",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/id"
+      }
+    },
+    "theme": {
+      "!doc": "The theme API allows customizing of visual elements of the browser.",
+      "getCurrent": {
+        "!doc": "Returns the current theme for the specified window or the last focused window.",
+        "!type": "fn(windowId: number)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/theme/getCurrent"
+      },
+      "update": {
+        "!doc": "Make complete updates to the theme. Resolves when the update has completed.",
+        "!type": "fn(windowId: number, details: +manifest.ThemeType)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/theme/update"
+      },
+      "reset": {
+        "!doc": "Removes the updates made to the theme.",
+        "!type": "fn(windowId: number)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/theme/reset"
+      },
+      "onUpdated": {
+        "!doc": "Fired when a new theme has been applied",
+        "!type": "fn(updateInfo: +theme.ThemeUpdateInfo)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/theme/onUpdated"
+      }
+    }
+  }
+}
