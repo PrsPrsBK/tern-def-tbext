@@ -173,20 +173,6 @@
         "!doc": "Contents of the file to be transferred"
       }
     },
-    "commands.Command": {
-      "name": {
-        "!doc": "The name of the Extension Command",
-        "!type": "string"
-      },
-      "description": {
-        "!doc": "The Extension Command description",
-        "!type": "string"
-      },
-      "shortcut": {
-        "!doc": "The shortcut active for this command, or blank if not active.",
-        "!type": "string"
-      }
-    },
     "compose.ComposeParams": {
       "to": {
         "!type": "[+compose.ComposeRecipient]"
@@ -479,6 +465,21 @@
     },
     "windows.CreateType": {
       "!doc": "Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set."
+    },
+    "commands.Command": {
+      "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/commands/Command",
+      "name": {
+        "!doc": "The name of the Extension Command",
+        "!type": "string"
+      },
+      "description": {
+        "!doc": "The Extension Command description",
+        "!type": "string"
+      },
+      "shortcut": {
+        "!doc": "The shortcut active for this command, or blank if not active.",
+        "!type": "string"
+      }
     },
     "contentScripts.RegisteredContentScriptOptions": {
       "!doc": "Details of a content script registered programmatically",
@@ -1074,25 +1075,6 @@
         "!type": "fn(accountId: string)"
       }
     },
-    "commands": {
-      "!doc": "Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the xtension.",
-      "update": {
-        "!doc": "Update the details of an already defined command.",
-        "!type": "fn(detail: object)"
-      },
-      "reset": {
-        "!doc": "Reset a command's details to what is specified in the manifest.",
-        "!type": "fn(name: string)"
-      },
-      "getAll": {
-        "!doc": "Returns all the registered extension commands for this extension and their shortcut (if active).",
-        "!type": "fn(callback: fn(commands: [+commands.Command]))"
-      },
-      "onCommand": {
-        "!doc": "Fired when a registered command is activated using a keyboard shortcut.",
-        "!type": "fn(command: string)"
-      }
-    },
     "compose": {
       "beginNew": {
         "!type": "fn(details: +compose.ComposeParams)"
@@ -1406,6 +1388,29 @@
       "WINDOW_ID_CURRENT": {
         "!doc": "The windowId value that represents the current window.",
         "!type": "number"
+      }
+    },
+    "commands": {
+      "!doc": "Use the commands API to add keyboard shortcuts that trigger actions in your extension, for example, an action to open the browser action or send a command to the xtension.",
+      "update": {
+        "!doc": "Update the details of an already defined command.",
+        "!type": "fn(detail: object)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/commands/update"
+      },
+      "reset": {
+        "!doc": "Reset a command's details to what is specified in the manifest.",
+        "!type": "fn(name: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/commands/reset"
+      },
+      "getAll": {
+        "!doc": "Returns all the registered extension commands for this extension and their shortcut (if active).",
+        "!type": "fn(callback: fn(commands: [+commands.Command]))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/commands/getAll"
+      },
+      "onCommand": {
+        "!doc": "Fired when a registered command is activated using a keyboard shortcut.",
+        "!type": "fn(command: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/commands/onCommand"
       }
     },
     "contentScripts": {

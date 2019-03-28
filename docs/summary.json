@@ -97,22 +97,8 @@
       },
       {
         "file": "mail/components/extensions/schemas/commands.json",
-        "namespaceList": [
-          {
-            "name": "manifest",
-            "types": 2
-          },
-          {
-            "name": "commands",
-            "permissions": [
-              "manifest:commands"
-            ],
-            "types": 1,
-            "functions": 3,
-            "events": 1
-          }
-        ],
-        "license": "BSD"
+        "namespaceList": [],
+        "error": "ENOENT: open"
       },
       {
         "file": "mail/components/extensions/schemas/compose.json",
@@ -258,6 +244,25 @@
   {
     "name": "mozillaAPI",
     "schemaList": [
+      {
+        "file": "browser/components/extensions/schemas/commands.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 2
+          },
+          {
+            "name": "commands",
+            "permissions": [
+              "manifest:commands"
+            ],
+            "types": 1,
+            "functions": 3,
+            "events": 1
+          }
+        ],
+        "license": "BSD"
+      },
       {
         "file": "toolkit/components/extensions/schemas/content_scripts.json",
         "namespaceList": [
