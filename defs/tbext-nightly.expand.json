@@ -1191,6 +1191,10 @@
     },
     "menus": {
       "!doc": "Use the browser.menus API to add items to the browser's menus. You can choose what types of objects your context menu additions apply to, such as images, hyperlinks, and pages.",
+      "getTargetElement": {
+        "!doc": "Retrieve the element that was associated with a recent contextmenu event.",
+        "!type": "fn(targetElementId: number)"
+      },
       "create": {
         "!doc": "Creates a new context menu item. Note that if an error occurs during creation, you may not find out until the creation callback fires (the details will be in `runtime.lastError <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/lastError>`_).",
         "!type": "fn(createProperties: object, callback: fn())"

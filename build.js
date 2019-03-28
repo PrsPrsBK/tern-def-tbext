@@ -413,11 +413,28 @@ const build = (rootDir, apiGroup, result, summary) => {
           }
 
           if(nameTreeTop.length === 1) {
-            browserObj[apiSpec.namespace] = ternApiObj;
+            // case:split over not only one file: menus
+            if(browserObj[apiSpec.namespace] === undefined) {
+              browserObj[apiSpec.namespace] = ternApiObj;
+            }
+            else {
+              console.log(`WARN:split over some files ${apiSpec.namespace}`);
+              for(const key of Object.keys(ternApiObj)) {
+                if(browserObj[apiSpec.namespace][key] !== undefined) {
+                  console.log(`  Problem:dup at ${apiSpec.namespace} ${key}`);
+                }
+                browserObj[apiSpec.namespace][key] = ternApiObj[key];
+              }
+            }
           }
           else {
             //console.log(`  namespace contains dot ${apiSpec.namespace}`);
-            browserObj[nameTreeTop[0]][nameTreeTop[1]] = ternApiObj; // length 2 is maybe enough
+            if(browserObj[nameTreeTop[0]][nameTreeTop[1]] === undefined) {
+              browserObj[nameTreeTop[0]][nameTreeTop[1]] = ternApiObj; // length 2 is maybe enough
+            }
+            else {
+              console.log(`WARN:split over some files ${apiSpec.namespace}`);
+            }
           }
         }
         else {
