@@ -81,5 +81,6 @@ Both are in `License` directory.
   * theme
 
 * 1.2.0 geckoProfiler
+* 1.3.0 fix for the place of `commands` API files.
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
