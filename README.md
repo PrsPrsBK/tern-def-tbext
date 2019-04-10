@@ -83,5 +83,10 @@ Both are in `License` directory.
 * 1.2.0 geckoProfiler
 * 1.3.0 fix: pick up getTargetElement() of menus API.
   fix: the place of `commands` API files changed.
+* 1.4.0 new functions
+
+  * `browser.accounts.createSubfolder`
+  * `browser.accounts.renameFolder`
+  * `browser.accounts.deleteFolder`
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
