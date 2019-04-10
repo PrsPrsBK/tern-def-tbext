@@ -131,6 +131,12 @@ tern定義ファイル生成
 ======================
 
 一応githubにpushしています。tern定義ファイルはないです。
+
+.. code-block:: console
+
+  git tag v_1.4.0
+  git push --tags
+
 あとtwitterでツイートしています。
 ツイート以外の通知はしていません。
 
