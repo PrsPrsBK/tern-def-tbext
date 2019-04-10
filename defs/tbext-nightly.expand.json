@@ -851,6 +851,18 @@
       "get": {
         "!doc": "Returns details of the requested account, or null if it doesn't exist.",
         "!type": "fn(accountId: string)"
+      },
+      "createSubfolder": {
+        "!doc": "Creates a new subfolder of <code>parentFolder</code>.",
+        "!type": "fn(parentFolder: +accounts.MailFolder, childName: string)"
+      },
+      "renameFolder": {
+        "!doc": "Renames a folder.",
+        "!type": "fn(folder: +accounts.MailFolder, newName: string)"
+      },
+      "deleteFolder": {
+        "!doc": "Deletes a folder.",
+        "!type": "fn(folder: +accounts.MailFolder)"
       }
     },
     "addressBooks": {
