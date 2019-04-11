@@ -67,7 +67,7 @@ Both are in `License` directory.
 
 * 0.1.0 initial release.
 * 1.0.0 `webextensions-desktop-nightly.json` is droped.
-* 1.1.0 browser.compose
+* 1.1.0 `browser.compose`
 * 1.1.1 fix: add Firefox APIs.
 
   * contentScripts
@@ -81,12 +81,16 @@ Both are in `License` directory.
   * theme
 
 * 1.2.0 geckoProfiler
-* 1.3.0 fix: pick up getTargetElement() of menus API.
+* 1.3.0 fix: pick up `getTargetElement()` of menus API.
   fix: the place of `commands` API files changed.
 * 1.4.0 new functions
 
-  * `browser.accounts.createSubfolder`
-  * `browser.accounts.renameFolder`
-  * `browser.accounts.deleteFolder`
+  * `browser.accounts.createSubfolder()`
+  * `browser.accounts.renameFolder()`
+  * `browser.accounts.deleteFolder()`
+
+* 1.5.0 new function
+
+  * `browser.contacts.quickSearch()`
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
