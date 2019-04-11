@@ -912,6 +912,10 @@
         "!doc": "Gets all the contacts in the address book with the id <code>parentId</code>.",
         "!type": "fn(parentId: string)"
       },
+      "quickSearch": {
+        "!doc": "Gets all contacts matching <code>searchString</code> in the address book with the id <code>parentId</code>.",
+        "!type": "fn(parentId: string, searchString: string)"
+      },
       "get": {
         "!doc": "Gets a single contact.",
         "!type": "fn(id: string)"
