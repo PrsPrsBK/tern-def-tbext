@@ -29,6 +29,21 @@ This package includes two definition-files.
 }
 ```
 
+(At 2019-04-11) You will see following error messages, but no problem.
+
+```console
+> tern-def-tbext@1.5.0 build X:\path\to\tern-def-tbext
+> node build.js "--mozilla-repo" "x:/repository/mozilla-central" "--comm-repo" "x:/repository/mozilla-central/comm"
+"--shrink"
+
+(API: commAPI, Schema Name: commands): Error: ENOENT: no such file or directory, open 'x:\repository\mozilla-central\comm\mail\components\extensions\schemas\commands.json'
+(API: commAPI, Schema Name: geckoProfiler): Error: ENOENT: no such file or directory, open 'x:\repository\mozilla-central\comm\toolkit\components\extensions\schemas\geckoProfiler.json'
+WARN:split over some files menus
+  Problem:dup at menus !doc
+(API: commAPI, Schema Name: pkcs11): Error: ENOENT: no such file or directory, open 'x:\repository\mozilla-central\comm\mail\components\extensions\schemas\pkcs11.json'
+```
+
+
 ## make definition files
 
 ```console
