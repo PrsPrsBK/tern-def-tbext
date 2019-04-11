@@ -29,6 +29,18 @@ This package includes two definition-files.
 }
 ```
 
+
+## make definition files
+
+```console
+$ npm run build -- --mozilla-repo /path/to/mozilla --comm-repo /path/to/comm
+```
+
+This create only `tbext-nightly.json` definition-file.
+
+*Notice*
+Since ver. 1.1.1, ``--mozilla-repo`` is necessary to include Firefox APIs.
+
 (At 2019-04-11) You will see following error messages, but no problem.
 
 ```console
@@ -42,18 +54,6 @@ WARN:split over some files menus
   Problem:dup at menus !doc
 (API: commAPI, Schema Name: pkcs11): Error: ENOENT: no such file or directory, open 'x:\repository\mozilla-central\comm\mail\components\extensions\schemas\pkcs11.json'
 ```
-
-
-## make definition files
-
-```console
-$ npm run build -- --mozilla-repo /path/to/mozilla --comm-repo /path/to/comm
-```
-
-This create only `tbext-nightly.json` definition-file.
-
-*Notice*
-Since ver. 1.1.1, ``--mozilla-repo`` is necessary to include Firefox APIs.
 
 
 ### use not nightly
