@@ -108,4 +108,8 @@ Both are in `License` directory.
 
   * `browser.contacts.quickSearch()`
 
+* 1.6.0 new function
+
+  * `browser.messages.archive()`
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
