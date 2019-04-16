@@ -1267,6 +1267,10 @@
         "!doc": "Deletes messages, or moves them to the trash folder.",
         "!type": "fn(messageIds: [number], skipTrash: bool)"
       },
+      "archive": {
+        "!doc": "Archives messages using the current settings.",
+        "!type": "fn(messageIds: [number])"
+      },
       "listTags": {
         "!doc": "Returns a list of tags that can be set on messages, and their human-friendly name, colour, and sort order.",
         "!type": "fn()"

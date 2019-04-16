@@ -77,6 +77,16 @@
         "license": "None"
       },
       {
+        "file": "mail/components/extensions/schemas/chrome_settings_overrides.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "mail/components/extensions/schemas/cloudFile.json",
         "namespaceList": [
           {
@@ -201,7 +211,7 @@
             "permissions": [
               "messagesRead"
             ],
-            "functions": 9
+            "functions": 10
           }
         ],
         "license": "None"
