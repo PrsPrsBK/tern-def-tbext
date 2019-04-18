@@ -18,7 +18,7 @@ since ver **1.0.0**,  that file is droped, because it is irrelevant.
 
 I confirmed only with vim. install [tern-for-vim](https://github.com/ternjs/tern_for_vim) 
 and add to project's `.tern-project` file.
-This package includes two definition-files.
+This package include a definition-file.
 
 ```.tern-project
 {
