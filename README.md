@@ -112,4 +112,9 @@ Both are in `License` directory.
 
   * `browser.messages.archive()`
 
+* 1.7.0 new API `folders` and permission `accountsFolders`
+
+  * `MailFolder` move from `accounts` to `folders`
+  * `browser.accounts.createSubolder` etc. move to `browser.folders`
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
