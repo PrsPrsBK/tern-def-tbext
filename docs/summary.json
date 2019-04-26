@@ -14,8 +14,7 @@
             "permissions": [
               "accountsRead"
             ],
-            "types": 1,
-            "functions": 5
+            "functions": 2
           }
         ],
         "license": "None"
@@ -136,6 +135,24 @@
             "types": 3,
             "functions": 13,
             "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
+        "file": "mail/components/extensions/schemas/folders.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "folders",
+            "permissions": [
+              "accountsFolders"
+            ],
+            "types": 1,
+            "functions": 3
           }
         ],
         "license": "None"

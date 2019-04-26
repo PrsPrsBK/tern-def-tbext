@@ -1,25 +1,6 @@
 {
   "!name": "tbext",
   "!define": {
-    "accounts.MailFolder": {
-      "!doc": "A folder object, as returned by the <var>list</var> and <var>get</var> methods. Use the accountId and path properties to refer to a folder.",
-      "accountId": {
-        "!doc": "The account this folder belongs to.",
-        "!type": "string"
-      },
-      "name": {
-        "!doc": "The human-friendly name of this folder.",
-        "!type": "string"
-      },
-      "path": {
-        "!doc": "Path to this folder in the account. Although paths look predictable, never guess a folder's path, as there are a number of reasons why it may not be what you think it is.",
-        "!type": "string"
-      },
-      "type": {
-        "!doc": "The type of folder, for several common types.",
-        "!type": "string"
-      }
-    },
     "addressBooks.NodeType": {
       "!doc": "Indicates the type of a Node, which can be one of <code>addressBook</code>, <code>contact</code>, or <code>mailingList</code>."
     },
@@ -207,6 +188,25 @@
     "composeAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
     },
+    "folders.MailFolder": {
+      "!doc": "A folder object, as returned by the <var>list</var> and <var>get</var> methods. Use the accountId and path properties to refer to a folder.",
+      "accountId": {
+        "!doc": "The account this folder belongs to.",
+        "!type": "string"
+      },
+      "name": {
+        "!doc": "The human-friendly name of this folder.",
+        "!type": "string"
+      },
+      "path": {
+        "!doc": "Path to this folder in the account. Although paths look predictable, never guess a folder's path, as there are a number of reasons why it may not be what you think it is.",
+        "!type": "string"
+      },
+      "type": {
+        "!doc": "The type of folder, for several common types.",
+        "!type": "string"
+      }
+    },
     "mailTabs.QuickFilterTagsDetail": {
       "tags": {
         "!doc": "Object keys are tags to filter on, values are <code>true</code> if the message must have the tag, or <code>false</code> if it must not have the tag. For a list of available tags, call the :ref:`messages.listTags` method."
@@ -320,11 +320,11 @@
       },
       "displayedFolder": {
         "!doc": "The displayed folder, if the context menu was opened in the message list.",
-        "!type": "+accounts.MailFolder"
+        "!type": "+folders.MailFolder"
       },
       "selectedFolder": {
         "!doc": "The selected folder, if the context menu was opened in the folder pane.",
-        "!type": "+accounts.MailFolder"
+        "!type": "+folders.MailFolder"
       }
     },
     "tabs.Tab": {
@@ -851,18 +851,6 @@
       "get": {
         "!doc": "Returns details of the requested account, or null if it doesn't exist.",
         "!type": "fn(accountId: string)"
-      },
-      "createSubfolder": {
-        "!doc": "Creates a new subfolder of <code>parentFolder</code>.",
-        "!type": "fn(parentFolder: +accounts.MailFolder, childName: string)"
-      },
-      "renameFolder": {
-        "!doc": "Renames a folder.",
-        "!type": "fn(folder: +accounts.MailFolder, newName: string)"
-      },
-      "deleteFolder": {
-        "!doc": "Deletes a folder.",
-        "!type": "fn(folder: +accounts.MailFolder)"
       }
     },
     "addressBooks": {
@@ -1161,6 +1149,20 @@
         "!type": "fn()"
       }
     },
+    "folders": {
+      "create": {
+        "!doc": "Creates a new subfolder of <code>parentFolder</code>.",
+        "!type": "fn(parentFolder: +folders.MailFolder, childName: string)"
+      },
+      "rename": {
+        "!doc": "Renames a folder.",
+        "!type": "fn(folder: +folders.MailFolder, newName: string)"
+      },
+      "delete": {
+        "!doc": "Deletes a folder.",
+        "!type": "fn(folder: +folders.MailFolder)"
+      }
+    },
     "mailTabs": {
       "query": {
         "!doc": "Gets all mail tabs that have the specified properties, or all mail tabs if no properties are specified.",
@@ -1237,7 +1239,7 @@
     "messages": {
       "list": {
         "!doc": "Gets all messages in a folder.",
-        "!type": "fn(folder: +accounts.MailFolder)"
+        "!type": "fn(folder: +folders.MailFolder)"
       },
       "continueList": {
         "!doc": "Returns the next chunk of messages in a list. See :doc:`how-to/messageLists` for more information.",
@@ -1257,11 +1259,11 @@
       },
       "move": {
         "!doc": "Moves messages to a specified folder.",
-        "!type": "fn(messageIds: [number], destination: +accounts.MailFolder)"
+        "!type": "fn(messageIds: [number], destination: +folders.MailFolder)"
       },
       "copy": {
         "!doc": "Copies messages to a specified folder.",
-        "!type": "fn(messageIds: [number], destination: +accounts.MailFolder)"
+        "!type": "fn(messageIds: [number], destination: +folders.MailFolder)"
       },
       "delete": {
         "!doc": "Deletes messages, or moves them to the trash folder.",
