@@ -117,4 +117,6 @@ Both are in `License` directory.
   * `MailFolder` move from `accounts` to `folders`
   * `browser.accounts.createSubolder` etc. move to `browser.folders`
 
+* 1.8.0 new arg `id` of `contacts.create()`
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
