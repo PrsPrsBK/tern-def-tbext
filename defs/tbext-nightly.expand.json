@@ -910,7 +910,7 @@
       },
       "create": {
         "!doc": "Adds a new contact to the address book with the id <code>parentId</code>.",
-        "!type": "fn(parentId: string, properties: +contacts.ContactProperties)"
+        "!type": "fn(parentId: string, id: string, properties: +contacts.ContactProperties)"
       },
       "update": {
         "!doc": "Edits the properties of a contact. To remove a property, specify it as <code>null</code>.",
