@@ -118,5 +118,6 @@ Both are in `License` directory.
   * `browser.accounts.createSubolder` etc. move to `browser.folders`
 
 * 1.8.0 new arg `id` of `contacts.create()`
+* 1.9.0 new property `mailTabs.QuickFilterTextDetail`
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
