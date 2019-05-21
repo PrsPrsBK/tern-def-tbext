@@ -218,7 +218,7 @@
     },
     "mailTabs.QuickFilterTextDetail": {
       "text": {
-        "!doc": "String to match against the <var>recipients</var>, <var>sender</var>, <var>subject</var>, or <var>body</var>.",
+        "!doc": "String to match against the <var>recipients</var>, <var>author</var>, <var>subject</var>, or <var>body</var>.",
         "!type": "string"
       },
       "recipients": {
@@ -226,7 +226,11 @@
         "!type": "bool"
       },
       "sender": {
-        "!doc": "Shows messages where <var>text</var> matches the sender.",
+        "!doc": "Use <var>author</var> instead.",
+        "!type": "bool"
+      },
+      "author": {
+        "!doc": "Shows messages where <var>text</var> matches the author.",
         "!type": "bool"
       },
       "subject": {
@@ -1254,7 +1258,7 @@
         "!type": "fn(messageId: number)"
       },
       "update": {
-        "!doc": "Marks or unmarks a message as read, starred, or tagged.",
+        "!doc": "Marks or unmarks a message as read, flagged, or tagged.",
         "!type": "fn(messageId: number, newProperties: object)"
       },
       "move": {
