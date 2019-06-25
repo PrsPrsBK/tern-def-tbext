@@ -1257,6 +1257,10 @@
         "!doc": "Returns a specified message, including all headers and MIME parts.",
         "!type": "fn(messageId: number)"
       },
+      "query": {
+        "!doc": "Gets all messages that have the specified properties, or all messages if no properties are specified.",
+        "!type": "fn(queryInfo: object)"
+      },
       "update": {
         "!doc": "Marks or unmarks a message as read, flagged, or tagged.",
         "!type": "fn(messageId: number, newProperties: object)"

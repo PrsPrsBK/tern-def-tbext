@@ -228,7 +228,7 @@
             "permissions": [
               "messagesRead"
             ],
-            "functions": 10
+            "functions": 11
           }
         ],
         "license": "None"
