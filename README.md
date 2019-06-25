@@ -119,5 +119,7 @@ Both are in `License` directory.
 
 * 1.8.0 new arg `id` of `contacts.create()`
 * 1.9.0 new property `mailTabs.QuickFilterTextDetail`
+* 1.10.0 New: `query()` function of `messages` API
+  [1531317](https://bugzilla.mozilla.org/show_bug.cgi?id=1531317)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
