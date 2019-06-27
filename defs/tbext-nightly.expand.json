@@ -1536,6 +1536,10 @@
         "!doc": "Gathers the profile data from the current profiling session. The returned promise resolves to an array buffer that contains a JSON string.",
         "!type": "fn()"
       },
+      "getProfileAsGzippedArrayBuffer": {
+        "!doc": "Gathers the profile data from the current profiling session. The returned promise resolves to an array buffer that contains a gzipped JSON string.",
+        "!type": "fn()"
+      },
       "getSymbols": {
         "!doc": "Gets the debug symbols for a particular library.",
         "!type": "fn(debugName: string, breakpadId: string)"
