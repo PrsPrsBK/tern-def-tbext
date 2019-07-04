@@ -123,5 +123,7 @@ Both are in `License` directory.
   [1531317](https://bugzilla.mozilla.org/show_bug.cgi?id=1531317)
 * 1.11.0 New: `getProfileAsGzippedArrayBuffer()` function of `geckoProfiler` API
   [1551992](https://bugzilla.mozilla.org/show_bug.cgi?id=1551992)
+* 1.12.0 New: `dumpProfileToFile()` of `geckoProfiler` API
+  [1552845](https://bugzilla.mozilla.org/show_bug.cgi?id=1552845)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
