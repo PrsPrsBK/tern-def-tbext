@@ -1528,6 +1528,10 @@
         "!doc": "Resumes the profiler with the settings that were initially used to start it.",
         "!type": "fn()"
       },
+      "dumpProfileToFile": {
+        "!doc": "Gathers the profile data from the current profiling session, and writes it to disk. The returned promise resolves to a path that locates the created file.",
+        "!type": "fn(fileName: string)"
+      },
       "getProfile": {
         "!doc": "Gathers the profile data from the current profiling session.",
         "!type": "fn()"
