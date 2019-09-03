@@ -1240,6 +1240,16 @@
         "!type": "number"
       }
     },
+    "messageDisplay": {
+      "getDisplayedMessage": {
+        "!doc": "Gets the currently displayed message in the specified tab, or null if no message is displayed.",
+        "!type": "fn(tabId: number)"
+      },
+      "onMessageDisplayed": {
+        "!doc": "Fired when a message is displayed, whether in a 3-pane tab, a message tab, or a message window.",
+        "!type": "fn(tabId: number, message: +messages.MessageHeader)"
+      }
+    },
     "messages": {
       "list": {
         "!doc": "Gets all messages in a folder.",

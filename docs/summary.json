@@ -217,6 +217,20 @@
         "license": "BSD"
       },
       {
+        "file": "mail/components/extensions/schemas/messageDisplay.json",
+        "namespaceList": [
+          {
+            "name": "messageDisplay",
+            "permissions": [
+              "messagesRead"
+            ],
+            "functions": 1,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "mail/components/extensions/schemas/messages.json",
         "namespaceList": [
           {
