@@ -125,5 +125,7 @@ Both are in `License` directory.
   [1551992](https://bugzilla.mozilla.org/show_bug.cgi?id=1551992)
 * 1.12.0 New: `dumpProfileToFile()` of `geckoProfiler` API
   [1552845](https://bugzilla.mozilla.org/show_bug.cgi?id=1552845)
+* 1.13.0 New: `messageDisplay` API
+  [1575708](https://bugzilla.mozilla.org/show_bug.cgi?id=1575708)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
