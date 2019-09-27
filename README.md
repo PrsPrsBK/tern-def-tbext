@@ -127,5 +127,7 @@ Both are in `License` directory.
   [1552845](https://bugzilla.mozilla.org/show_bug.cgi?id=1552845)
 * 1.13.0 New: `messageDisplay` API
   [1575708](https://bugzilla.mozilla.org/show_bug.cgi?id=1575708)
+* 1.14.0 New: `messageDisplayAction` API
+  [1531597](https://bugzilla.mozilla.org/show_bug.cgi?id=1531597)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
