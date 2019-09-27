@@ -151,7 +151,7 @@
         "!type": "string"
       },
       "data": {
-        "!doc": "Contents of the file to be transferred"
+        "!type": "[object]?, [object]?"
       }
     },
     "compose.ComposeParams": {
@@ -330,6 +330,20 @@
         "!doc": "The selected folder, if the context menu was opened in the folder pane.",
         "!type": "+folders.MailFolder"
       }
+    },
+    "messageDisplayAction.Details": {
+      "!doc": "Specifies to which tab or window the value should be set, or from which one it should be retrieved. If no tab nor window is specified, the global value is set or retrieved.",
+      "tabId": {
+        "!doc": "When setting a value, it will be specific to the specified tab, and will automatically reset when the tab navigates. When getting, specifies the tab to get the value from; if there is no tab-specific value, the window one will be inherited.",
+        "!type": "number"
+      },
+      "windowId": {
+        "!doc": "When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.",
+        "!type": "number"
+      }
+    },
+    "messageDisplayAction.ImageDataType": {
+      "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
     },
     "tabs.Tab": {
       "id": {
@@ -1248,6 +1262,65 @@
       "onMessageDisplayed": {
         "!doc": "Fired when a message is displayed, whether in a 3-pane tab, a message tab, or a message window.",
         "!type": "fn(tabId: number, message: +messages.MessageHeader)"
+      }
+    },
+    "messageDisplayAction": {
+      "!doc": "Use toolbar actions to put icons in the mail window toolbar. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup. This namespace is called browserAction for compatibility with browser WebExtensions.",
+      "setTitle": {
+        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getTitle": {
+        "!doc": "Gets the title of the toolbar action.",
+        "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
+      },
+      "setIcon": {
+        "!doc": "Sets the icon for the toolbar action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "setPopup": {
+        "!doc": "Sets the html document to be opened as a popup when the user clicks on the toolbar action's icon.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getPopup": {
+        "!doc": "Gets the html document set as the popup for this toolbar action.",
+        "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
+      },
+      "setBadgeText": {
+        "!doc": "Sets the badge text for the toolbar action. The badge is displayed on top of the icon.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getBadgeText": {
+        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified is specified, the global badge text is returned.",
+        "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
+      },
+      "setBadgeBackgroundColor": {
+        "!doc": "Sets the background color for the badge.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getBadgeBackgroundColor": {
+        "!doc": "Gets the background color of the toolbar action.",
+        "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: +messageDisplayAction.ColorArray))"
+      },
+      "enable": {
+        "!doc": "Enables the toolbar action for a tab. By default, toolbar actions are enabled.",
+        "!type": "fn(tabId: number, callback: fn())"
+      },
+      "disable": {
+        "!doc": "Disables the toolbar action for a tab.",
+        "!type": "fn(tabId: number, callback: fn())"
+      },
+      "isEnabled": {
+        "!doc": "Checks whether the toolbar action is enabled.",
+        "!type": "fn(details: +messageDisplayAction.Details)"
+      },
+      "openPopup": {
+        "!doc": "Opens the extension popup window in the active window.",
+        "!type": "fn()"
+      },
+      "onClicked": {
+        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
+        "!type": "fn(tabId: number)"
       }
     },
     "messages": {

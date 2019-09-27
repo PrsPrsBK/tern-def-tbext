@@ -231,6 +231,25 @@
         "license": "None"
       },
       {
+        "file": "mail/components/extensions/schemas/messageDisplayAction.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "messageDisplayAction",
+            "permissions": [
+              "manifest:message_display_action"
+            ],
+            "types": 3,
+            "functions": 13,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "mail/components/extensions/schemas/messages.json",
         "namespaceList": [
           {
