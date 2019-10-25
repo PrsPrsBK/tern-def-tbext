@@ -129,5 +129,12 @@ Both are in `License` directory.
   [1575708](https://bugzilla.mozilla.org/show_bug.cgi?id=1575708)
 * 1.14.0 New: `messageDisplayAction` API
   [1531597](https://bugzilla.mozilla.org/show_bug.cgi?id=1531597)
+* 1.15.0
+
+  * Removal: `settingsUrl` of `CloudFile` API
+    [1581496](https://bugzilla.mozilla.org/show_bug.cgi?id=1581496)
+  * Removal: `sender`  from `mailTabs` API
+    [1581498](https://bugzilla.mozilla.org/show_bug.cgi?id=1581498)
+
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
