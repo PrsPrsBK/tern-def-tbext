@@ -91,10 +91,10 @@ Process {
 
   if(Test-Path -Path $cset_pubed) {
     if(Compare-Object (Get-Content $cset_pubed) (Get-Content $cset_today)) {
-      Write-Host "Result: May need to UPDATE!!!!!!!!!!!"
+      Write-Host "Result: May need to UPDATE!!!!!!!!!!!" -ForegroundColor Magenta
     }
     else {
-      Write-Host "Result: no change added."
+      Write-Host "Result: no change added." -ForegroundColor Green
     }
   }
   else {
