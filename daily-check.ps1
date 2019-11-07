@@ -53,16 +53,16 @@ Begin {
     throw "hg does not exist on the PATH."
   }
   if($SkipUpdate) {
-    Write-Host "Skip 1st phase: no fetch from remote."
+    Write-Host "Skip 1st phase: no fetch from remote." -ForegroundColor Cyan
   }
   else {
-    Write-Host "1st phase: update. fetch from remote."
-    Write-Host "Fetch: from Mozilla Repository"
+    Write-Host "1st phase: update. fetch from remote." -ForegroundColor Cyan
+    Write-Host "Fetch: from Mozilla Repository" -ForegroundColor Cyan
     Update-Repository $MozillaRepo
-    Write-Host "Fetch: from Comm Repository"
+    Write-Host "Fetch: from Comm Repository" -ForegroundColor Cyan
     Update-Repository $CommRepo
   }
-  Write-Host "Next phase: check if we need to update or not."
+  Write-Host "Next phase: check if we need to update or not." -ForegroundColor Cyan
 }
 
 Process {
