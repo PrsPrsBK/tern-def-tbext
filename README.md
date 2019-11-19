@@ -136,5 +136,7 @@ Both are in `License` directory.
   * Removal: `sender`  from `mailTabs` API
     [1581498](https://bugzilla.mozilla.org/show_bug.cgi?id=1581498)
 
+* 1.16.0 New: `getRaw()` of `messages` API
+  [1525274](https://bugzilla.mozilla.org/show_bug.cgi?id=1525274)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
