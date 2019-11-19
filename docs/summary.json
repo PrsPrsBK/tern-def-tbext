@@ -261,7 +261,7 @@
             "permissions": [
               "messagesRead"
             ],
-            "functions": 11
+            "functions": 12
           }
         ],
         "license": "None"
