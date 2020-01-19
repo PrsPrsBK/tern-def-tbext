@@ -198,6 +198,9 @@
         "!doc": "Path to this folder in the account. Although paths look predictable, never guess a folder's path, as there are a number of reasons why it may not be what you think it is.",
         "!type": "string"
       },
+      "subFolders": {
+        "!type": "[+folders.MailFolder]"
+      },
       "type": {
         "!doc": "The type of folder, for several common types.",
         "!type": "string"

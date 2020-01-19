@@ -138,5 +138,6 @@ Both are in `License` directory.
 
 * 1.16.0 New: `getRaw()` of `messages` API
   [1525274](https://bugzilla.mozilla.org/show_bug.cgi?id=1525274)
-
+* 1.17.0 New: `subFolders` of `folders.MailFolder`
+  [1606584](https://bugzilla.mozilla.org/show_bug.cgi?id=1606584)
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
