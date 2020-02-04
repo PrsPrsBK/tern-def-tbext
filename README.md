@@ -140,4 +140,7 @@ Both are in `License` directory.
   [1525274](https://bugzilla.mozilla.org/show_bug.cgi?id=1525274)
 * 1.17.0 New: `subFolders` of `folders.MailFolder`
   [1606584](https://bugzilla.mozilla.org/show_bug.cgi?id=1606584)
+* 1.18.0 New: `onBeforeSend()` of `compose` API
+  [1532528](https://bugzilla.mozilla.org/show_bug.cgi?id=1532528)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
