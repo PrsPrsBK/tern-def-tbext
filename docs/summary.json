@@ -115,7 +115,8 @@
           {
             "name": "compose",
             "types": 2,
-            "functions": 3
+            "functions": 3,
+            "events": 1
           }
         ],
         "license": "None"

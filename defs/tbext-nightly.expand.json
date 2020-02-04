@@ -1101,6 +1101,10 @@
       },
       "beginForward": {
         "!type": "fn(messageId: number, forwardType: string, details: +compose.ComposeParams)"
+      },
+      "onBeforeSend": {
+        "!doc": "Fired when a message is about to be sent from the compose window.",
+        "!type": "fn()"
       }
     },
     "composeAction": {
