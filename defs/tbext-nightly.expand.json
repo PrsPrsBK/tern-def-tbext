@@ -314,15 +314,15 @@
         "!type": "number"
       },
       "selectedMessages": {
-        "!doc": "The selected messages, if the context menu was opened in the message list.",
+        "!doc": "The selected messages, if the context menu was opened in the message list. The ``messagesRead`` permission is required.",
         "!type": "+messages.MessageList"
       },
       "displayedFolder": {
-        "!doc": "The displayed folder, if the context menu was opened in the message list.",
+        "!doc": "The displayed folder, if the context menu was opened in the message list. The ``accountsRead`` permission is required.",
         "!type": "+folders.MailFolder"
       },
       "selectedFolder": {
-        "!doc": "The selected folder, if the context menu was opened in the folder pane.",
+        "!doc": "The selected folder, if the context menu was opened in the folder pane. The ``accountsRead`` permission is required.",
         "!type": "+folders.MailFolder"
       }
     },
