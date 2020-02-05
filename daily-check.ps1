@@ -91,6 +91,14 @@ Process {
 
   $separator | Add-Content $cset_today
 
+  Start-Job -ArgumentList $MozillaRepo, $cset_today -ScriptBlock {
+    Param($repo, $log)
+    hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/toolkit/components/extensions/schemas/manifest.json") --removed --template status `
+    | Add-Content $log
+  } | Wait-Job | Receive-Job | Remove-Job
+
+  $separator | Add-Content $cset_today
+
   Start-Job -ArgumentList $CommRepo, $cset_today -ScriptBlock {
     Param($repo, $log)
     hg log -l 3 -R $repo -I (Join-Path -Path $repo -ChildPath "/mail/components/extensions/schemas/*.json") --removed --template status `
