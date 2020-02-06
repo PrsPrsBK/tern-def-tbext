@@ -150,18 +150,25 @@
         "!type": "[object]?, [object]?"
       }
     },
-    "compose.ComposeParams": {
+    "compose.ComposeDetails": {
+      "!doc": "Used by various functions to represent the state of a message being composed. Note that functions using this type may have a partial implementation.",
       "to": {
-        "!type": "[+compose.ComposeRecipient]"
+        "!type": "+compose.ComposeRecipientList"
       },
       "cc": {
-        "!type": "[+compose.ComposeRecipient]"
+        "!type": "+compose.ComposeRecipientList"
       },
       "bcc": {
-        "!type": "[+compose.ComposeRecipient]"
+        "!type": "+compose.ComposeRecipientList"
       },
       "replyTo": {
-        "!type": "string"
+        "!type": "+compose.ComposeRecipientList"
+      },
+      "followupTo": {
+        "!type": "+compose.ComposeRecipientList"
+      },
+      "newsgroups": {
+        "!type": "[string]?, [[string]]?"
       },
       "subject": {
         "!type": "string"
@@ -1094,17 +1101,25 @@
     },
     "compose": {
       "beginNew": {
-        "!type": "fn(details: +compose.ComposeParams)"
+        "!type": "fn(details: +compose.ComposeDetails)"
       },
       "beginReply": {
         "!type": "fn(messageId: number, replyType: string)"
       },
       "beginForward": {
-        "!type": "fn(messageId: number, forwardType: string, details: +compose.ComposeParams)"
+        "!type": "fn(messageId: number, forwardType: string, details: +compose.ComposeDetails)"
+      },
+      "getComposeDetails": {
+        "!doc": "Fetches the current state of a compose window. Currently only a limited amount of information is available, more will be added in later versions.",
+        "!type": "fn(tabId: number)"
+      },
+      "setComposeDetails": {
+        "!doc": "Updates the compose window. Specify only fields that you want to change. Currently only the to/cc/bcc/replyTo/followupTo/newsgroups fields and the subject are implemented.",
+        "!type": "fn(tabId: number, details: +compose.ComposeDetails)"
       },
       "onBeforeSend": {
         "!doc": "Fired when a message is about to be sent from the compose window.",
-        "!type": "fn()"
+        "!type": "fn(details: +compose.ComposeDetails)"
       }
     },
     "composeAction": {

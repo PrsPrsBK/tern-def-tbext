@@ -114,8 +114,8 @@
         "namespaceList": [
           {
             "name": "compose",
-            "types": 2,
-            "functions": 3,
+            "types": 3,
+            "functions": 5,
             "events": 1
           }
         ],
