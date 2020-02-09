@@ -2,7 +2,8 @@
   "!name": "tbext",
   "!define": {
     "addressBooks.NodeType": {
-      "!doc": "Indicates the type of a Node, which can be one of <code>addressBook</code>, <code>contact</code>, or <code>mailingList</code>."
+      "!doc": "Indicates the type of a Node, which can be one of <code>addressBook</code>, <code>contact</code>, or <code>mailingList</code>.",
+      "!type": "string"
     },
     "addressBooks.AddressBookNode": {
       "!doc": "A node representing an address book.",
@@ -102,6 +103,9 @@
         "!type": "number"
       }
     },
+    "browserAction.ColorArray": {
+      "!type": "[number]"
+    },
     "browserAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
     },
@@ -150,6 +154,12 @@
         "!type": "[object]?, [object]?"
       }
     },
+    "compose.ComposeRecipient": {
+      "!type": "[string]?, [object]?"
+    },
+    "compose.ComposeRecipientList": {
+      "!type": "[string]?, [[+compose.ComposeRecipient]]?"
+    },
     "compose.ComposeDetails": {
       "!doc": "Used by various functions to represent the state of a message being composed. Note that functions using this type may have a partial implementation.",
       "to": {
@@ -187,6 +197,9 @@
         "!doc": "When setting a value, it will be specific to the specified window. When getting, specifies the window to get the value from; if there is no window-specific value, the global one will be inherited.",
         "!type": "number"
       }
+    },
+    "composeAction.ColorArray": {
+      "!type": "[number]"
     },
     "composeAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
@@ -245,10 +258,12 @@
       }
     },
     "menus.ContextType": {
-      "!doc": "The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'tab'."
+      "!doc": "The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'tab'.",
+      "!type": "string"
     },
     "menus.ItemType": {
-      "!doc": "The type of menu item."
+      "!doc": "The type of menu item.",
+      "!type": "string"
     },
     "menus.OnClickData": {
       "!doc": "Information sent when a context menu item is clicked.",
@@ -344,6 +359,9 @@
         "!type": "number"
       }
     },
+    "messageDisplayAction.ColorArray": {
+      "!type": "[number]"
+    },
     "messageDisplayAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
     },
@@ -402,13 +420,16 @@
       }
     },
     "tabs.TabStatus": {
-      "!doc": "Whether the tabs have completed loading."
+      "!doc": "Whether the tabs have completed loading.",
+      "!type": "string"
     },
     "tabs.WindowType": {
-      "!doc": "The type of window."
+      "!doc": "The type of window.",
+      "!type": "string"
     },
     "tabs.UpdatePropertyName": {
-      "!doc": "Event names supported in onUpdated."
+      "!doc": "Event names supported in onUpdated.",
+      "!type": "string"
     },
     "tabs.UpdateFilter": {
       "!doc": "An object describing filters to apply to tabs.onUpdated events.",
@@ -428,10 +449,12 @@
       }
     },
     "windows.WindowType": {
-      "!doc": "The type of window this is. Under some circumstances a Window may not be assigned type property."
+      "!doc": "The type of window this is. Under some circumstances a Window may not be assigned type property.",
+      "!type": "string"
     },
     "windows.WindowState": {
-      "!doc": "The state of this window."
+      "!doc": "The state of this window.",
+      "!type": "string"
     },
     "windows.Window": {
       "id": {
@@ -484,7 +507,8 @@
       }
     },
     "windows.CreateType": {
-      "!doc": "Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set."
+      "!doc": "Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set.",
+      "!type": "string"
     },
     "commands.Command": {
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/commands/Command",
@@ -575,12 +599,35 @@
         }
       }
     },
+    "experiments.ExperimentURL": {
+      "!type": "string"
+    },
+    "experiments.APIPaths": {
+      "!type": "[+experiments.APIPath]"
+    },
+    "experiments.APIPath": {
+      "!type": "[string]"
+    },
+    "experiments.APIEvents": {
+      "!type": "[+experiments.APIEvent]"
+    },
+    "experiments.APIEvent": {
+      "!type": "string"
+    },
+    "experiments.APIParentScope": {
+      "!type": "string"
+    },
+    "experiments.APIChildScope": {
+      "!type": "string"
+    },
     "extension.ViewType": {
       "!doc": "The type of extension view.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extension/ViewType"
     },
     "extensionTypes.ImageFormat": {
       "!doc": "The format of an image.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageFormat"
     },
     "extensionTypes.ImageDetails": {
@@ -597,10 +644,12 @@
     },
     "extensionTypes.RunAt": {
       "!doc": "The soonest that the JavaScript or CSS will be injected into the tab.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/RunAt"
     },
     "extensionTypes.CSSOrigin": {
-      "!doc": "The origin of the CSS to inject, this affects the cascading order (priority) of the stylesheet."
+      "!doc": "The origin of the CSS to inject, this affects the cascading order (priority) of the stylesheet.",
+      "!type": "string"
     },
     "extensionTypes.InjectDetails": {
       "!doc": "Details of the script or CSS to inject. Either the code or the file property must be set, but both may not be set at the same time.",
@@ -633,11 +682,25 @@
         "!type": "+extensionTypes.CSSOrigin"
       }
     },
+    "extensionTypes.Date": {
+      "!type": "[string]?, [number]?, [object]?"
+    },
+    "extensionTypes.ExtensionFileOrCode": {
+      "!type": "[object]?, [object]?"
+    },
     "extensionTypes.PlainJSONValue": {
-      "!doc": "A plain JSON value"
+      "!doc": "A plain JSON value",
+      "!type": "[null]?, [number]?, [string]?, [bool]?, [[+extensionTypes.PlainJSONValue]]?, [object]?"
+    },
+    "geckoProfiler.ProfilerFeature": {
+      "!type": "string"
+    },
+    "geckoProfiler.supports": {
+      "!type": "string"
     },
     "i18n.LanguageCode": {
       "!doc": "An ISO language code such as <code>en</code> or <code>fr</code>. For a complete list of languages supported by this method, see <a href='http://src.chromium.org/viewvc/chrome/trunk/src/third_party/cld/languages/internal/languages.cc'>kLanguageInfoTable</a>. For an unknown language, <code>und</code> will be returned, which means that [percentage] of the text is unknown to CLD",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/i18n/LanguageCode"
     },
     "management.IconInfo": {
@@ -652,13 +715,16 @@
       }
     },
     "management.ExtensionDisabledReason": {
-      "!doc": "A reason the item is disabled."
+      "!doc": "A reason the item is disabled.",
+      "!type": "string"
     },
     "management.ExtensionType": {
-      "!doc": "The type of this extension, 'extension' or 'theme'."
+      "!doc": "The type of this extension, 'extension' or 'theme'.",
+      "!type": "string"
     },
     "management.ExtensionInstallType": {
-      "!doc": "How the extension was installed. One of<br><var>development</var>: The extension was loaded unpacked in developer mode,<br><var>normal</var>: The extension was installed normally via an .xpi file,<br><var>sideload</var>: The extension was installed by other software on the machine,<br><var>other</var>: The extension was installed by other means."
+      "!doc": "How the extension was installed. One of<br><var>development</var>: The extension was loaded unpacked in developer mode,<br><var>normal</var>: The extension was installed normally via an .xpi file,<br><var>sideload</var>: The extension was installed by other software on the machine,<br><var>other</var>: The extension was installed by other means.",
+      "!type": "string"
     },
     "management.ExtensionInfo": {
       "!doc": "Information about an installed extension.",
@@ -798,10 +864,12 @@
     },
     "runtime.PlatformOs": {
       "!doc": "The operating system the browser is running on.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/PlatformOs"
     },
     "runtime.PlatformArch": {
       "!doc": "The machine's processor architecture.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/PlatformArch"
     },
     "runtime.PlatformInfo": {
@@ -841,14 +909,17 @@
     },
     "runtime.RequestUpdateCheckStatus": {
       "!doc": "Result of the update check.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/RequestUpdateCheckStatus"
     },
     "runtime.OnInstalledReason": {
       "!doc": "The reason that this event is being dispatched.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/OnInstalledReason"
     },
     "runtime.OnRestartRequiredReason": {
       "!doc": "The reason that the event is being dispatched. 'app_update' is used when the restart is needed because the application is updated to a newer version. 'os_update' is used when the restart is needed because the browser/OS is updated to a newer version. 'periodic' is used when the system runs for more than the permitted uptime set in the enterprise policy.",
+      "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/runtime/OnRestartRequiredReason"
     },
     "theme.ThemeUpdateInfo": {

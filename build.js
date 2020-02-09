@@ -309,13 +309,11 @@ const makeTernDefTree = (declaredAt, nameTree, curItem, useMdn, options = {}) =>
   if(curItem.description !== undefined) {
     result['!doc'] = escapeTag(curItem.description);
   }
-  // top level can not have tern !type. knowing need for long hours.
-  if(isDefZone === false || (isDefZone && defZoneStep > 0)) {
-    const atomString = toTernAtom(curItem);
-    // anyway avoid "!type": "object". [object] is not problemsome.
-    if(atomString !== 'object') {
-      result['!type'] = atomString;
-    }
+
+  const atomString = toTernAtom(curItem);
+  // anyway avoid "!type": "object". [object] is not problemsome.
+  if(atomString !== 'object') {
+    result['!type'] = atomString;
   }
 
   if(useMdn) {
