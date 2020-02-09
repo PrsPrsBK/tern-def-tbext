@@ -148,4 +148,7 @@ Both are in `License` directory.
     [1590121](https://bugzilla.mozilla.org/show_bug.cgi?id=1590121)
   * fix: failed to include many top level definitions
 
+* 2020-02-09 (NO RELEASE) New permission `compose`
+  [1613562](https://bugzilla.mozilla.org/show_bug.cgi?id=1613562)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

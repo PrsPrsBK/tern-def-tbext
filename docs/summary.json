@@ -113,6 +113,10 @@
         "file": "mail/components/extensions/schemas/compose.json",
         "namespaceList": [
           {
+            "name": "manifest",
+            "types": 1
+          },
+          {
             "name": "compose",
             "types": 3,
             "functions": 5,
