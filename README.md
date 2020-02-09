@@ -142,7 +142,10 @@ Both are in `License` directory.
   [1606584](https://bugzilla.mozilla.org/show_bug.cgi?id=1606584)
 * 1.18.0 New: `onBeforeSend()` of `compose` API
   [1532528](https://bugzilla.mozilla.org/show_bug.cgi?id=1532528)
-* 1.19.0(NO REREASE because of bug of this project) New: `getComposeDetails()/setComposeDetails` of `compose` API
-  [1590121](https://bugzilla.mozilla.org/show_bug.cgi?id=1590121)
+* 1.19.0
+
+  * New: `getComposeDetails()/setComposeDetails` of `compose` API
+    [1590121](https://bugzilla.mozilla.org/show_bug.cgi?id=1590121)
+  * fix: failed to include many top level definitions
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
