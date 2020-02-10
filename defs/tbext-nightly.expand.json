@@ -226,15 +226,6 @@
         "!type": "string"
       }
     },
-    "mailTabs.QuickFilterTagsDetail": {
-      "tags": {
-        "!doc": "Object keys are tags to filter on, values are <code>true</code> if the message must have the tag, or <code>false</code> if it must not have the tag. For a list of available tags, call the :ref:`messages.listTags` method."
-      },
-      "mode": {
-        "!doc": "Whether all of the tag filters must apply, or any of them.",
-        "!type": "string"
-      }
-    },
     "mailTabs.QuickFilterTextDetail": {
       "text": {
         "!doc": "String to match against the <var>recipients</var>, <var>author</var>, <var>subject</var>, or <var>body</var>.",
@@ -364,6 +355,16 @@
     },
     "messageDisplayAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
+    },
+    "messages.TagsDetail": {
+      "!doc": "Used for filtering messages by tag in various methods. Note that functions using this type may have a partial implementation.",
+      "tags": {
+        "!doc": "Object keys are tags to filter on, values are <code>true</code> if the message must have the tag, or <code>false</code> if it must not have the tag. For a list of available tags, call the :ref:`messages.listTags` method."
+      },
+      "mode": {
+        "!doc": "Whether all of the tag filters must apply, or any of them.",
+        "!type": "string"
+      }
     },
     "tabs.Tab": {
       "id": {

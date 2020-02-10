@@ -151,4 +151,11 @@ Both are in `License` directory.
 * 2020-02-09 (NO RELEASE) New permission `compose`
   [1613562](https://bugzilla.mozilla.org/show_bug.cgi?id=1613562)
 
+* 2020-02-11 (NO RELEASE. This project does not handle the details of arguments of each function.)
+
+  * Removal: `legacy` API
+    [1614237](https://bugzilla.mozilla.org/show_bug.cgi?id=1614237)
+  * New: `tags` property in argument of `query()` of `messages` API. / Change: `tags` property in argument of `setQuickFilter()` of `mailTab` API
+    [1600547](https://bugzilla.mozilla.org/show_bug.cgi?id=1600547)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

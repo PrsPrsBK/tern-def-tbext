@@ -168,21 +168,11 @@
         "error": "ENOENT: open"
       },
       {
-        "file": "mail/components/extensions/schemas/legacy.json",
-        "namespaceList": [
-          {
-            "name": "manifest",
-            "types": 1
-          }
-        ],
-        "license": "None"
-      },
-      {
         "file": "mail/components/extensions/schemas/mailTabs.json",
         "namespaceList": [
           {
             "name": "mailTabs",
-            "types": 2,
+            "types": 1,
             "functions": 4,
             "events": 2
           }
@@ -266,6 +256,7 @@
             "permissions": [
               "messagesRead"
             ],
+            "types": 1,
             "functions": 12
           }
         ],
