@@ -158,4 +158,9 @@ Both are in `License` directory.
   * New: `tags` property in argument of `query()` of `messages` API. / Change: `tags` property in argument of `setQuickFilter()` of `mailTab` API
     [1600547](https://bugzilla.mozilla.org/show_bug.cgi?id=1600547)
 
+* 2020-02-20
+
+  * New: `tabId` argument of `onBeforeSend()` of `compose` API / New: `tabId` argument of `onClicked()` of `composeAction` API
+    [1615934](https://bugzilla.mozilla.org/show_bug.cgi?id=1615934)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
