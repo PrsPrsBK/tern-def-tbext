@@ -1191,7 +1191,7 @@
       },
       "onBeforeSend": {
         "!doc": "Fired when a message is about to be sent from the compose window.",
-        "!type": "fn(details: +compose.ComposeDetails)"
+        "!type": "fn(tabId: number, details: +compose.ComposeDetails)"
       }
     },
     "composeAction": {
@@ -1250,7 +1250,7 @@
       },
       "onClicked": {
         "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
-        "!type": "fn()"
+        "!type": "fn(tabId: number)"
       }
     },
     "folders": {
