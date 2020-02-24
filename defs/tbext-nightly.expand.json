@@ -109,6 +109,17 @@
     "browserAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
     },
+    "browserAction.OnClickData": {
+      "!doc": "Information sent when a browser action is clicked.",
+      "modifiers": {
+        "!doc": "An array of keyboard modifiers that were held while the menu item was clicked.",
+        "!type": "[string]"
+      },
+      "button": {
+        "!doc": "An integer value of button by which menu item was clicked.",
+        "!type": "number"
+      }
+    },
     "cloudFile.CloudFileAccount": {
       "!doc": "Information about a cloud file account",
       "id": {
@@ -203,6 +214,17 @@
     },
     "composeAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
+    },
+    "composeAction.OnClickData": {
+      "!doc": "Information sent when a compose action is clicked.",
+      "modifiers": {
+        "!doc": "An array of keyboard modifiers that were held while the menu item was clicked.",
+        "!type": "[string]"
+      },
+      "button": {
+        "!doc": "An integer value of button by which menu item was clicked.",
+        "!type": "number"
+      }
     },
     "folders.MailFolder": {
       "!doc": "A folder object, as returned by the <var>list</var> and <var>get</var> methods. Use the accountId and path properties to refer to a folder.",
@@ -355,6 +377,17 @@
     },
     "messageDisplayAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
+    },
+    "messageDisplayAction.OnClickData": {
+      "!doc": "Information sent when a message display action is clicked.",
+      "modifiers": {
+        "!doc": "An array of keyboard modifiers that were held while the menu item was clicked.",
+        "!type": "[string]"
+      },
+      "button": {
+        "!doc": "An integer value of button by which menu item was clicked.",
+        "!type": "number"
+      }
     },
     "messages.TagsDetail": {
       "!doc": "Used for filtering messages by tag in various methods. Note that functions using this type may have a partial implementation.",
@@ -1135,7 +1168,7 @@
       },
       "onClicked": {
         "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
-        "!type": "fn()"
+        "!type": "fn(tab: +tabs.Tab, info: +browserAction.OnClickData)"
       }
     },
     "cloudFile": {
@@ -1191,7 +1224,7 @@
       },
       "onBeforeSend": {
         "!doc": "Fired when a message is about to be sent from the compose window.",
-        "!type": "fn(tabId: number, details: +compose.ComposeDetails)"
+        "!type": "fn(tab: +tabs.Tab, details: +compose.ComposeDetails)"
       }
     },
     "composeAction": {
@@ -1250,7 +1283,7 @@
       },
       "onClicked": {
         "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
-        "!type": "fn(tabId: number)"
+        "!type": "fn(tab: +tabs.Tab, info: +composeAction.OnClickData)"
       }
     },
     "folders": {
@@ -1351,7 +1384,7 @@
       }
     },
     "messageDisplayAction": {
-      "!doc": "Use toolbar actions to put icons in the mail window toolbar. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup. This namespace is called browserAction for compatibility with browser WebExtensions.",
+      "!doc": "Use toolbar actions to put icons in the message display toolbar. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup.",
       "setTitle": {
         "!doc": "Sets the title of the toolbar action. This shows up in the tooltip.",
         "!type": "fn(details: object, callback: fn())"
@@ -1406,7 +1439,7 @@
       },
       "onClicked": {
         "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
-        "!type": "fn(tabId: number)"
+        "!type": "fn(tab: +tabs.Tab, info: +messageDisplayAction.OnClickData)"
       }
     },
     "messages": {
