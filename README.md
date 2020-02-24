@@ -163,4 +163,7 @@ Both are in `License` directory.
   * New: `tabId` argument of `onBeforeSend()` of `compose` API / New: `tabId` argument of `onClicked()` of `composeAction` API
     [1615934](https://bugzilla.mozilla.org/show_bug.cgi?id=1615934)
 
+* 2020-02-25 Change and New: argument of some functions; `onClicked()` of `browserAction`, `onBeforeSend()` of `compose`, `onClicked()` of `composeAction`, `onClicked()` of `messageDisplayAction`
+  [1617514](https://bugzilla.mozilla.org/show_bug.cgi?id=1617514)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
