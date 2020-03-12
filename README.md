@@ -166,4 +166,11 @@ Both are in `License` directory.
 * 2020-02-25 Change and New: argument of some functions; `onClicked()` of `browserAction`, `onBeforeSend()` of `compose`, `onClicked()` of `composeAction`, `onClicked()` of `messageDisplayAction`
   [1617514](https://bugzilla.mozilla.org/show_bug.cgi?id=1617514)
 
+* 2020-03-10
+
+  * New: `onNewMailReceived()` of `messages` API
+    [1599380](https://bugzilla.mozilla.org/show_bug.cgi?id=1599380)
+  * New: `plainTextBody` and `isPlainText` properties in arguments of functions of `compose` API
+    [1613534](https://bugzilla.mozilla.org/show_bug.cgi?id=1613534)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
