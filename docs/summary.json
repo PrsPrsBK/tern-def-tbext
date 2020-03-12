@@ -257,7 +257,8 @@
               "messagesRead"
             ],
             "types": 1,
-            "functions": 12
+            "functions": 12,
+            "events": 1
           }
         ],
         "license": "None"

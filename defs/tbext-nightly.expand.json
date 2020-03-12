@@ -196,6 +196,12 @@
       },
       "body": {
         "!type": "string"
+      },
+      "plainTextBody": {
+        "!type": "string"
+      },
+      "isPlainText": {
+        "!type": "bool"
       }
     },
     "composeAction.Details": {
@@ -1490,6 +1496,10 @@
       "listTags": {
         "!doc": "Returns a list of tags that can be set on messages, and their human-friendly name, colour, and sort order.",
         "!type": "fn()"
+      },
+      "onNewMailReceived": {
+        "!doc": "Fired when a new message is received, and has been through junk classification and message filters.",
+        "!type": "fn(folder: +folders.MailFolder, messages: +messages.MessageList)"
       }
     },
     "tabs": {
