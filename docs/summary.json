@@ -14,7 +14,7 @@
             "permissions": [
               "accountsRead"
             ],
-            "functions": 2
+            "functions": 3
           }
         ],
         "license": "None"

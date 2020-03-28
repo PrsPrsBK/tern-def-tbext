@@ -982,6 +982,10 @@
       "get": {
         "!doc": "Returns details of the requested account, or null if it doesn't exist.",
         "!type": "fn(accountId: string)"
+      },
+      "setDefaultIdentity": {
+        "!doc": "Sets the default identity for an account.",
+        "!type": "fn(accountId: string, identityId: string)"
       }
     },
     "addressBooks": {
