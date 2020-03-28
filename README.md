@@ -158,15 +158,15 @@ Both are in `License` directory.
   * New: `tags` property in argument of `query()` of `messages` API. / Change: `tags` property in argument of `setQuickFilter()` of `mailTab` API
     [1600547](https://bugzilla.mozilla.org/show_bug.cgi?id=1600547)
 
-* 2020-02-20
+* 2020-02-20 1.20.0
 
   * New: `tabId` argument of `onBeforeSend()` of `compose` API / New: `tabId` argument of `onClicked()` of `composeAction` API
     [1615934](https://bugzilla.mozilla.org/show_bug.cgi?id=1615934)
 
-* 2020-02-25 Change and New: argument of some functions; `onClicked()` of `browserAction`, `onBeforeSend()` of `compose`, `onClicked()` of `composeAction`, `onClicked()` of `messageDisplayAction`
+* 2020-02-25 1.21.0 Change and New: argument of some functions; `onClicked()` of `browserAction`, `onBeforeSend()` of `compose`, `onClicked()` of `composeAction`, `onClicked()` of `messageDisplayAction`
   [1617514](https://bugzilla.mozilla.org/show_bug.cgi?id=1617514)
 
-* 2020-03-10
+* 2020-03-10 1.22.0
 
   * New: `onNewMailReceived()` of `messages` API
     [1599380](https://bugzilla.mozilla.org/show_bug.cgi?id=1599380)
