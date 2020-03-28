@@ -173,4 +173,7 @@ Both are in `License` directory.
   * New: `plainTextBody` and `isPlainText` properties in arguments of functions of `compose` API
     [1613534](https://bugzilla.mozilla.org/show_bug.cgi?id=1613534)
 
+* 2020-03-28 New: `setDefaultIdentity()` of `accounts` API
+  [1531593](https://bugzilla.mozilla.org/show_bug.cgi?id=1531593)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
