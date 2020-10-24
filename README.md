@@ -176,4 +176,6 @@ Both are in `License` directory.
 * 2020-03-28 1.23.0 New: `setDefaultIdentity()` of `accounts` API
   [1531593](https://bugzilla.mozilla.org/show_bug.cgi?id=1531593)
 
+* 2020-04-01 New: `details` argument of `beginReply()` of `compose` API
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

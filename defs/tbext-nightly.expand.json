@@ -173,6 +173,10 @@
     },
     "compose.ComposeDetails": {
       "!doc": "Used by various functions to represent the state of a message being composed. Note that functions using this type may have a partial implementation.",
+      "identityId": {
+        "!doc": "The ID of an identity from the :doc:`accounts` API. The settings from the identity will be used in the composed message. If ``from`` is also specified, the ``name`` and ``email`` properties of the identity are overridden. If ``replyTo`` is also specified, the ``replyTo`` property of the identity is overridden.",
+        "!type": "string"
+      },
       "to": {
         "!type": "+compose.ComposeRecipientList"
       },
@@ -1219,7 +1223,7 @@
         "!type": "fn(details: +compose.ComposeDetails)"
       },
       "beginReply": {
-        "!type": "fn(messageId: number, replyType: string)"
+        "!type": "fn(messageId: number, replyType: string, details: +compose.ComposeDetails)"
       },
       "beginForward": {
         "!type": "fn(messageId: number, forwardType: string, details: +compose.ComposeDetails)"
