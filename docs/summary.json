@@ -40,7 +40,7 @@
             "permissions": [
               "addressBooks"
             ],
-            "types": 2,
+            "types": 3,
             "functions": 6,
             "events": 3
           },
@@ -118,9 +118,9 @@
           },
           {
             "name": "compose",
-            "types": 3,
-            "functions": 5,
-            "events": 1
+            "types": 4,
+            "functions": 9,
+            "events": 4
           }
         ],
         "license": "None"
@@ -145,6 +145,32 @@
         "license": "None"
       },
       {
+        "file": "mail/components/extensions/schemas/extensionScripts.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "composeScripts",
+            "permissions": [
+              "compose"
+            ],
+            "types": 2,
+            "functions": 1
+          },
+          {
+            "name": "messageDisplayScripts",
+            "permissions": [
+              "messagesModify"
+            ],
+            "types": 2,
+            "functions": 1
+          }
+        ],
+        "license": "MPL"
+      },
+      {
         "file": "mail/components/extensions/schemas/folders.json",
         "namespaceList": [
           {
@@ -164,6 +190,11 @@
       },
       {
         "file": "toolkit/components/extensions/schemas/geckoProfiler.json",
+        "namespaceList": [],
+        "error": "ENOENT: open"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/identity.json",
         "namespaceList": [],
         "error": "ENOENT: open"
       },
@@ -219,8 +250,8 @@
             "permissions": [
               "messagesRead"
             ],
-            "functions": 1,
-            "events": 1
+            "functions": 2,
+            "events": 2
           }
         ],
         "license": "None"
@@ -273,12 +304,12 @@
         "namespaceList": [
           {
             "name": "manifest",
-            "types": 1
+            "types": 2
           },
           {
             "name": "tabs",
             "types": 5,
-            "functions": 12,
+            "functions": 14,
             "events": 7
           }
         ],
@@ -289,7 +320,7 @@
         "namespaceList": [
           {
             "name": "windows",
-            "types": 4,
+            "types": 5,
             "functions": 7,
             "events": 3
           }

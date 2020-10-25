@@ -60,6 +60,9 @@
     "contacts.ContactProperties": {
       "!doc": "A set of properties for a particular contact. For a complete list of properties that Thunderbird uses, see https://hg.mozilla.org/comm-central/file/tip/mailnews/addrbook/public/nsIAbCard.idl\nIt is also possible to store custom properties. The custom property name however may only use a to z, A to Z, 1 to 9 and underscores."
     },
+    "contacts.PropertyChange": {
+      "!doc": "A dictionary of changed properties. Keys are the property name that changed, values are an object containing ``oldValue`` and ``newValue``. Values can be either a string or null."
+    },
     "mailingLists.MailingListNode": {
       "!doc": "A node representing a mailing list.",
       "id": {
@@ -174,7 +177,7 @@
     "compose.ComposeDetails": {
       "!doc": "Used by various functions to represent the state of a message being composed. Note that functions using this type may have a partial implementation.",
       "identityId": {
-        "!doc": "The ID of an identity from the :doc:`accounts` API. The settings from the identity will be used in the composed message. If ``from`` is also specified, the ``name`` and ``email`` properties of the identity are overridden. If ``replyTo`` is also specified, the ``replyTo`` property of the identity is overridden.",
+        "!doc": "The ID of an identity from the :doc:`accounts` API. The settings from the identity will be used in the composed message. If ``replyTo`` is also specified, the ``replyTo`` property of the identity is overridden. The permission ``accountsRead`` is required to include the ``identityId``.",
         "!type": "string"
       },
       "to": {
@@ -206,6 +209,29 @@
       },
       "isPlainText": {
         "!type": "bool"
+      },
+      "attachments": {
+        "!doc": "Attachments to add to the message. Only used in the begin* functions.",
+        "!type": "[object]"
+      }
+    },
+    "compose.ComposeAttachment": {
+      "!doc": "Represents an attachment in a message being composed.",
+      "getFile": {
+        "!doc": "Retrieves the contents of the attachment as a DOM ``File`` object.",
+        "!type": "fn()"
+      },
+      "id": {
+        "!doc": "A unique identifier for this attachment.",
+        "!type": "number"
+      },
+      "name": {
+        "!doc": "The name, as displayed to the user, of this attachment. This is usually but not always the filename of the attached file.",
+        "!type": "string"
+      },
+      "size": {
+        "!doc": "The size in bytes of this attachment.",
+        "!type": "number"
       }
     },
     "composeAction.Details": {
@@ -234,6 +260,42 @@
       "button": {
         "!doc": "An integer value of button by which menu item was clicked.",
         "!type": "number"
+      }
+    },
+    "composeScripts.RegisteredComposeScriptOptions": {
+      "!doc": "Details of a compose script registered programmatically",
+      "css": {
+        "!doc": "The list of CSS files to inject",
+        "!type": "[+extensionTypes.ExtensionFileOrCode]"
+      },
+      "js": {
+        "!doc": "The list of JavaScript files to inject",
+        "!type": "[+extensionTypes.ExtensionFileOrCode]"
+      }
+    },
+    "composeScripts.RegisteredComposeScript": {
+      "!doc": "An object that represents a compose script registered programmatically",
+      "unregister": {
+        "!doc": "Unregister a compose script registered programmatically",
+        "!type": "fn()"
+      }
+    },
+    "messageDisplayScripts.RegisteredMessageDisplayScriptOptions": {
+      "!doc": "Details of a message display script registered programmatically",
+      "css": {
+        "!doc": "The list of CSS files to inject",
+        "!type": "[+extensionTypes.ExtensionFileOrCode]"
+      },
+      "js": {
+        "!doc": "The list of JavaScript files to inject",
+        "!type": "[+extensionTypes.ExtensionFileOrCode]"
+      }
+    },
+    "messageDisplayScripts.RegisteredMessageDisplayScript": {
+      "!doc": "An object that represents a message display script registered programmatically",
+      "unregister": {
+        "!doc": "Unregister a message display script registered programmatically",
+        "!type": "fn()"
       }
     },
     "folders.MailFolder": {
@@ -369,6 +431,10 @@
       "selectedFolder": {
         "!doc": "The selected folder, if the context menu was opened in the folder pane. The ``accountsRead`` permission is required.",
         "!type": "+folders.MailFolder"
+      },
+      "attachments": {
+        "!doc": "The selected attachments of a message being composed.",
+        "!type": "[+compose.ComposeAttachment]"
       }
     },
     "messageDisplayAction.Details": {
@@ -554,6 +620,17 @@
       "!doc": "Specifies what type of browser window to create. The 'panel' and 'detached_panel' types create a popup unless the '--enable-panels' flag is set.",
       "!type": "string"
     },
+    "windows.GetInfo": {
+      "!doc": "Specifies whether the :ref:`windows.Window` returned should contain a list of the :ref:`tabs.Tab` objects.",
+      "populate": {
+        "!doc": "If true, the :ref:`windows.Window` returned will have a <var>tabs</var> property that contains a list of the :ref:`tabs.Tab` objects. The <code>Tab</code> objects only contain the <code>url</code>, <code>title</code> and <code>favIconUrl</code> properties if the extension's manifest file includes the <code>\"tabs\"</code> permission.",
+        "!type": "bool"
+      },
+      "windowTypes": {
+        "!doc": "<code>windowTypes</code> is deprecated and ignored on Thunderbird.",
+        "!type": "[+windows.WindowType]"
+      }
+    },
     "commands.Command": {
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/commands/Command",
       "name": {
@@ -675,7 +752,7 @@
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageFormat"
     },
     "extensionTypes.ImageDetails": {
-      "!doc": "Details about the format and quality of an image.",
+      "!doc": "Details about the format, quality, area and scale of the capture.",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/extensionTypes/ImageDetails",
       "format": {
         "!doc": "The format of the resulting image.  Default is <code>\"jpeg\"</code>.",
@@ -683,6 +760,25 @@
       },
       "quality": {
         "!doc": "When format is <code>\"jpeg\"</code>, controls the quality of the resulting image.  This value is ignored for PNG images.  As quality is decreased, the resulting image will have more visual artifacts, and the number of bytes needed to store it will decrease.",
+        "!type": "number"
+      },
+      "rect": {
+        "!doc": "The area of the document to capture, in CSS pixels, relative to the page.  If omitted, capture the visible viewport.",
+        "x": {
+          "!type": "number"
+        },
+        "y": {
+          "!type": "number"
+        },
+        "width": {
+          "!type": "number"
+        },
+        "height": {
+          "!type": "number"
+        }
+      },
+      "scale": {
+        "!doc": "The scale of the resulting image.  Defaults to <code>devicePixelRatio</code>.",
         "!type": "number"
       }
     },
@@ -1065,7 +1161,7 @@
       },
       "onUpdated": {
         "!doc": "Fired when a contact is changed.",
-        "!type": "fn(node: +contacts.ContactNode)"
+        "!type": "fn(node: +contacts.ContactNode, changedProperties: +contacts.PropertyChange)"
       },
       "onDeleted": {
         "!doc": "Fired when a contact is removed from an address book.",
@@ -1220,7 +1316,7 @@
     },
     "compose": {
       "beginNew": {
-        "!type": "fn(details: +compose.ComposeDetails)"
+        "!type": "fn(messageId: number, details: +compose.ComposeDetails)"
       },
       "beginReply": {
         "!type": "fn(messageId: number, replyType: string, details: +compose.ComposeDetails)"
@@ -1236,9 +1332,37 @@
         "!doc": "Updates the compose window. Specify only fields that you want to change. Currently only the to/cc/bcc/replyTo/followupTo/newsgroups fields and the subject are implemented.",
         "!type": "fn(tabId: number, details: +compose.ComposeDetails)"
       },
+      "listAttachments": {
+        "!doc": "Lists all of the attachments of the message being composed in the specified tab.",
+        "!type": "fn(tabId: number)"
+      },
+      "addAttachment": {
+        "!doc": "Adds an attachment to the message being composed in the specified tab.",
+        "!type": "fn(tabId: number, data: object)"
+      },
+      "updateAttachment": {
+        "!doc": "Renames and/or replaces the contents of an attachment to the message being composed in the specified tab.",
+        "!type": "fn(tabId: number, attachmentId: number, data: object)"
+      },
+      "removeAttachment": {
+        "!doc": "Removes an attachment from the message being composed in the specified tab.",
+        "!type": "fn(tabId: number, attachmentId: number)"
+      },
       "onBeforeSend": {
         "!doc": "Fired when a message is about to be sent from the compose window.",
         "!type": "fn(tab: +tabs.Tab, details: +compose.ComposeDetails)"
+      },
+      "onAttachmentAdded": {
+        "!doc": "Fired when an attachment is added to a message being composed.",
+        "!type": "fn(tab: +tabs.Tab, attachment: +compose.ComposeAttachment)"
+      },
+      "onAttachmentRemoved": {
+        "!doc": "Fired when an attachment is removed from a message being composed.",
+        "!type": "fn(tab: +tabs.Tab, attachmentId: number)"
+      },
+      "onIdentityChanged": {
+        "!doc": "Fired when the user changes the identity that will be used to send a message being composed.",
+        "!type": "fn(tab: +tabs.Tab, identityId: string)"
       }
     },
     "composeAction": {
@@ -1300,6 +1424,18 @@
         "!type": "fn(tab: +tabs.Tab, info: +composeAction.OnClickData)"
       }
     },
+    "composeScripts": {
+      "register": {
+        "!doc": "Register a compose script programmatically",
+        "!type": "fn(composeScriptOptions: +composeScripts.RegisteredComposeScriptOptions)"
+      }
+    },
+    "messageDisplayScripts": {
+      "register": {
+        "!doc": "Register a message display script programmatically",
+        "!type": "fn(messageDisplayScriptOptions: +messageDisplayScripts.RegisteredMessageDisplayScriptOptions)"
+      }
+    },
     "folders": {
       "create": {
         "!doc": "Creates a new subfolder of <code>parentFolder</code>.",
@@ -1333,11 +1469,11 @@
       },
       "onDisplayedFolderChanged": {
         "!doc": "Fired when the displayed folder changes in any mail tab.",
-        "!type": "fn()"
+        "!type": "fn(tab: +tabs.Tab, displayedFolder: +folders.MailFolder)"
       },
       "onSelectedMessagesChanged": {
         "!doc": "Fired when the selected messages change in any mail tab.",
-        "!type": "fn()"
+        "!type": "fn(tab: +tabs.Tab, selectedMessages: +messages.MessageList)"
       }
     },
     "menus": {
@@ -1389,12 +1525,20 @@
     },
     "messageDisplay": {
       "getDisplayedMessage": {
-        "!doc": "Gets the currently displayed message in the specified tab, or null if no message is displayed.",
+        "!doc": "Gets the currently displayed message in the specified tab. It returns null if no messages are selected, or if multiple messages are selected.",
+        "!type": "fn(tabId: number)"
+      },
+      "getDisplayedMessages": {
+        "!doc": "Gets an array of the currently displayed messages in the specified tab. The array is empty if no messages are displayed.",
         "!type": "fn(tabId: number)"
       },
       "onMessageDisplayed": {
         "!doc": "Fired when a message is displayed, whether in a 3-pane tab, a message tab, or a message window.",
-        "!type": "fn(tabId: number, message: +messages.MessageHeader)"
+        "!type": "fn(tab: +tabs.Tab, message: +messages.MessageHeader)"
+      },
+      "onMessagesDisplayed": {
+        "!doc": "Fired when either a single message is displayed or when multiple messages are displayed, whether in a 3-pane tab, a message tab, or a message window.",
+        "!type": "fn(tab: +tabs.Tab, messages: [+messages.MessageHeader])"
       }
     },
     "messageDisplayAction": {
@@ -1520,6 +1664,14 @@
         "!doc": "Gets the tab that this script call is being made from. May be undefined if called from a non-tab context (for example: a background page or popup view).",
         "!type": "fn(callback: fn(tab: +tabs.Tab))"
       },
+      "connect": {
+        "!doc": "Connects to the content script(s) in the specified tab. The `runtime.onConnect <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onConnect>`_ event is fired in each content script running in the specified tab for the current extension. For more details, see `Content Script Messaging <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts>`_.",
+        "!type": "fn(tabId: number, connectInfo: object)"
+      },
+      "sendMessage": {
+        "!doc": "Sends a single message to the content script(s) in the specified tab, with an optional callback to run when a response is sent back.  The `runtime.onMessage <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage>`_ event is fired in each content script running in the specified tab for the current extension.",
+        "!type": "fn(tabId: number, message: ?, options: object, responseCallback: fn(response: ?))"
+      },
       "create": {
         "!doc": "Creates a new tab.",
         "!type": "fn(createProperties: object, callback: fn(tab: +tabs.Tab))"
@@ -1597,15 +1749,15 @@
       "!doc": "Use the <code>browser.windows</code> API to interact with Thunderbird. You can use this API to create, modify, and rearrange windows.",
       "get": {
         "!doc": "Gets details about a window.",
-        "!type": "fn(windowId: number, getInfo: object, callback: fn(window: +windows.Window))"
+        "!type": "fn(windowId: number, getInfo: +windows.GetInfo, callback: fn(window: +windows.Window))"
       },
       "getCurrent": {
         "!doc": "Gets the current window.",
-        "!type": "fn(getInfo: object, callback: fn(window: +windows.Window))"
+        "!type": "fn(getInfo: +windows.GetInfo, callback: fn(window: +windows.Window))"
       },
       "getLastFocused": {
         "!doc": "Gets the window that was most recently focused &mdash; typically the window 'on top'.",
-        "!type": "fn(getInfo: object, callback: fn(window: +windows.Window))"
+        "!type": "fn(getInfo: +windows.GetInfo, callback: fn(window: +windows.Window))"
       },
       "getAll": {
         "!doc": "Gets all windows.",
