@@ -1,7 +1,7 @@
 {
   "name": "tern-def-tbext",
   "description": "tern definition file for Thunderbird Extension.",
-  "version": "1.23.0",
+  "version": "1.24.0",
   "author": "PrsPrsBK",
   "devDependencies": {
     "eslint": "^7.0.1",
