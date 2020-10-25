@@ -177,5 +177,7 @@ Both are in `License` directory.
   [1531593](https://bugzilla.mozilla.org/show_bug.cgi?id=1531593)
 
 * 2020-04-01 New: `details` argument of `beginReply()` of `compose` API
+* 2020-10-26 very many changes from April To October.
+  This may fail to handle informations about `mail/components/extensions/schemas/extensionScripts.json`.
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
