@@ -6,7 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 const stripJsonComments = require('strip-json-comments');
-const mdnData = require('mdn-browser-compat-data').webextensions.api;
+const mdnData = require('@mdn/browser-compat-data').webextensions.api;
 
 let mozillaRepo = '';
 let commRepo = '';
