@@ -1799,6 +1799,10 @@
         "!doc": "Removes (closes) a window, and all the tabs inside it.",
         "!type": "fn(windowId: number, callback: fn())"
       },
+      "openDefaultBrowser": {
+        "!doc": "Opens the provided URL in the default system browser.",
+        "!type": "fn(url: string)"
+      },
       "onCreated": {
         "!doc": "Fired when a window is created.",
         "!type": "fn(window: +windows.Window)"
