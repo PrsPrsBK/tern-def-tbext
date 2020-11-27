@@ -179,5 +179,7 @@ Both are in `License` directory.
 * 2020-04-01 New: `details` argument of `beginReply()` of `compose` API
 * 2020-10-26 very many changes from April To October.
   This may fail to handle informations about `mail/components/extensions/schemas/extensionScripts.json`.
+* 2020-11-28 1.25.0 New: `setLabel()` and `getLabel()` of `browser_action`, `compose_action`, and `message_display_action`
+  [1583478](https://bugzilla.mozilla.org/show_bug.cgi?id=1583478)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
