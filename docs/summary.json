@@ -69,7 +69,7 @@
               "manifest:browser_action"
             ],
             "types": 4,
-            "functions": 13,
+            "functions": 15,
             "events": 1
           }
         ],
@@ -138,7 +138,7 @@
               "manifest:compose_action"
             ],
             "types": 4,
-            "functions": 13,
+            "functions": 15,
             "events": 1
           }
         ],
@@ -269,7 +269,7 @@
               "manifest:message_display_action"
             ],
             "types": 4,
-            "functions": 13,
+            "functions": 15,
             "events": 1
           }
         ],

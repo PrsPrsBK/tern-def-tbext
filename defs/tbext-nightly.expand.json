@@ -1225,11 +1225,19 @@
     "browserAction": {
       "!doc": "Use toolbar actions to put icons in the mail window toolbar. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup. This namespace is called browserAction for compatibility with browser WebExtensions.",
       "setTitle": {
-        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip.",
+        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip and the label. Defaults to the add-on name.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getTitle": {
         "!doc": "Gets the title of the toolbar action.",
+        "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
+      },
+      "setLabel": {
+        "!doc": "Sets the label of the toolbar action, defaults to its title. Can be set to an empty string to not display any label. If the containing toolbar is configured to display text only, the title will be used as fallback.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getLabel": {
+        "!doc": "Gets the label of the toolbar action.",
         "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
       },
       "setIcon": {
@@ -1368,11 +1376,19 @@
     "composeAction": {
       "!doc": "Use toolbar actions to put icons in the message composition toolbars. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup.",
       "setTitle": {
-        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip.",
+        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip and the label. Defaults to the add-on name.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getTitle": {
         "!doc": "Gets the title of the toolbar action.",
+        "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
+      },
+      "setLabel": {
+        "!doc": "Sets the label of the toolbar action, defaults to its title. Can be set to an empty string to not display any label. If the containing toolbar is configured to display text only, the title will be used as fallback.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getLabel": {
+        "!doc": "Gets the label of the toolbar action.",
         "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
       },
       "setIcon": {
@@ -1544,11 +1560,19 @@
     "messageDisplayAction": {
       "!doc": "Use toolbar actions to put icons in the message display toolbar. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup.",
       "setTitle": {
-        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip.",
+        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip and the label. Defaults to the add-on name.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getTitle": {
         "!doc": "Gets the title of the toolbar action.",
+        "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
+      },
+      "setLabel": {
+        "!doc": "Sets the label of the toolbar action, defaults to its title. Can be set to an empty string to not display any label. If the containing toolbar is configured to display text only, the title will be used as fallback.",
+        "!type": "fn(details: object, callback: fn())"
+      },
+      "getLabel": {
+        "!doc": "Gets the label of the toolbar action.",
         "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
       },
       "setIcon": {
