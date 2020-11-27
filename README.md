@@ -181,5 +181,7 @@ Both are in `License` directory.
   This may fail to handle informations about `mail/components/extensions/schemas/extensionScripts.json`.
 * 2020-11-28 1.25.0 New: `setLabel()` and `getLabel()` of `browser_action`, `compose_action`, and `message_display_action`
   [1583478](https://bugzilla.mozilla.org/show_bug.cgi?id=1583478)
+* 2020-11-28 1.26.0 New: `openDefaultBrowser()` of `windows`
+  [1664708](https://bugzilla.mozilla.org/show_bug.cgi?id=1664708)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
