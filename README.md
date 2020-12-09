@@ -183,7 +183,10 @@ Both are in `License` directory.
   [1583478](https://bugzilla.mozilla.org/show_bug.cgi?id=1583478)
 * 2020-11-28 1.26.0 New: `openDefaultBrowser()` of `windows`
   [1664708](https://bugzilla.mozilla.org/show_bug.cgi?id=1664708)
-* 2020-12-10 1.27.0 New: `getDefault()` and `getDefaultIdentity()` of `accounts` API
-  [1681141](https://bugzilla.mozilla.org/show_bug.cgi?id=1681141)
+* 2020-12-10 1.27.0
+
+  * New: `getDefault()` and `getDefaultIdentity()` of `accounts` API
+    [1681141](https://bugzilla.mozilla.org/show_bug.cgi?id=1681141)
+  * New schema file: `toolkit/components/extensions/schemas/browsing_data.json`
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
