@@ -1324,12 +1324,15 @@
     },
     "compose": {
       "beginNew": {
+        "!doc": "Open a new message compose window. If the provided ComposeDetails object does not provide 'body', 'plainTextBody' or 'isPlainText', the default compose format of the used/default identity is used.",
         "!type": "fn(messageId: number, details: +compose.ComposeDetails)"
       },
       "beginReply": {
+        "!doc": "Open a new message compose window replying to a given message. If the provided ComposeDetails object does not provide 'body', 'plainTextBody' or 'isPlainText', the default compose format of the used/default identity is used.",
         "!type": "fn(messageId: number, replyType: string, details: +compose.ComposeDetails)"
       },
       "beginForward": {
+        "!doc": "Open a new message compose window forwarding a given message. If the provided ComposeDetails object does not provide 'body', 'plainTextBody' or 'isPlainText', the default compose format of the used/default identity is used.",
         "!type": "fn(messageId: number, forwardType: string, details: +compose.ComposeDetails)"
       },
       "getComposeDetails": {
@@ -1337,7 +1340,7 @@
         "!type": "fn(tabId: number)"
       },
       "setComposeDetails": {
-        "!doc": "Updates the compose window. Specify only fields that you want to change. Currently only the to/cc/bcc/replyTo/followupTo/newsgroups fields and the subject are implemented.",
+        "!doc": "Updates the compose window. Specify only fields that you want to change. Currently only the to/cc/bcc/replyTo/followupTo/newsgroups fields and the subject are implemented. It is not possible to change the compose format.",
         "!type": "fn(tabId: number, details: +compose.ComposeDetails)"
       },
       "listAttachments": {
