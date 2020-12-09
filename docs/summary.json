@@ -14,7 +14,7 @@
             "permissions": [
               "accountsRead"
             ],
-            "functions": 3
+            "functions": 5
           }
         ],
         "license": "None"
@@ -74,6 +74,11 @@
           }
         ],
         "license": "None"
+      },
+      {
+        "file": "toolkit/components/extensions/schemas/browsing_data.json",
+        "namespaceList": [],
+        "error": "ENOENT: open"
       },
       {
         "file": "mail/components/extensions/schemas/chrome_settings_overrides.json",

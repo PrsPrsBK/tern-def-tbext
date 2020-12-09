@@ -1083,9 +1083,17 @@
         "!doc": "Returns details of the requested account, or null if it doesn't exist.",
         "!type": "fn(accountId: string)"
       },
+      "getDefault": {
+        "!doc": "Returns the default account, or null if it is not defined.",
+        "!type": "fn()"
+      },
       "setDefaultIdentity": {
         "!doc": "Sets the default identity for an account.",
         "!type": "fn(accountId: string, identityId: string)"
+      },
+      "getDefaultIdentity": {
+        "!doc": "Returns the default identity for an account, or null if it is not defined.",
+        "!type": "fn(accountId: string)"
       }
     },
     "addressBooks": {
