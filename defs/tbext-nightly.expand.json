@@ -107,6 +107,7 @@
       }
     },
     "browserAction.ColorArray": {
+      "!doc": "An array of four integers in the range [0,255] that make up the RGBA color. For example, opaque red is <code>[255, 0, 0, 255]</code>.",
       "!type": "[number]"
     },
     "browserAction.ImageDataType": {
@@ -130,7 +131,7 @@
         "!type": "string"
       },
       "configured": {
-        "!doc": "If true, the account is configured and ready to use. This property is currently ignored and all accounts are assumed to be configured.",
+        "!doc": "If true, the account is configured and ready to use. Only configured accounts are offered to the user.",
         "!type": "bool"
       },
       "name": {
@@ -177,7 +178,7 @@
     "compose.ComposeDetails": {
       "!doc": "Used by various functions to represent the state of a message being composed. Note that functions using this type may have a partial implementation.",
       "identityId": {
-        "!doc": "The ID of an identity from the :doc:`accounts` API. The settings from the identity will be used in the composed message. If ``replyTo`` is also specified, the ``replyTo`` property of the identity is overridden. The permission ``accountsRead`` is required to include the ``identityId``.",
+        "!doc": "The ID of an identity from the :doc:`accounts` API. The settings from the identity will be used in the composed message. If ``replyTo`` is also specified, the ``replyTo`` property of the identity is overridden. The permission <permission>accountsRead</permission> is required to include the ``identityId``.",
         "!type": "string"
       },
       "to": {
@@ -246,6 +247,7 @@
       }
     },
     "composeAction.ColorArray": {
+      "!doc": "An array of four integers in the range [0,255] that make up the RGBA color. For example, opaque red is <code>[255, 0, 0, 255]</code>.",
       "!type": "[number]"
     },
     "composeAction.ImageDataType": {
@@ -343,7 +345,7 @@
       }
     },
     "menus.ContextType": {
-      "!doc": "The different contexts a menu can appear in. Specifying 'all' is equivalent to the combination of all other contexts except for 'tab'.",
+      "!doc": "The different contexts a menu can appear in. Specifying <code>all</code> is equivalent to the combination of all other contexts except for <code>tab</code>.",
       "!type": "string"
     },
     "menus.ItemType": {
@@ -389,7 +391,7 @@
         "!type": "number"
       },
       "frameUrl": {
-        "!doc": " The URL of the frame of the element where the context menu was clicked, if it was in a frame.",
+        "!doc": "The URL of the frame of the element where the context menu was clicked, if it was in a frame.",
         "!type": "string"
       },
       "selectionText": {
@@ -421,15 +423,15 @@
         "!type": "number"
       },
       "selectedMessages": {
-        "!doc": "The selected messages, if the context menu was opened in the message list. The ``messagesRead`` permission is required.",
+        "!doc": "The selected messages, if the context menu was opened in the message list. The <permission>messagesRead</permission> permission is required.",
         "!type": "+messages.MessageList"
       },
       "displayedFolder": {
-        "!doc": "The displayed folder, if the context menu was opened in the message list. The ``accountsRead`` permission is required.",
+        "!doc": "The displayed folder, if the context menu was opened in the message list. The <permission>accountsRead</permission> permission is required.",
         "!type": "+folders.MailFolder"
       },
       "selectedFolder": {
-        "!doc": "The selected folder, if the context menu was opened in the folder pane. The ``accountsRead`` permission is required.",
+        "!doc": "The selected folder, if the context menu was opened in the folder pane. The <permission>accountsRead</permission> permission is required.",
         "!type": "+folders.MailFolder"
       },
       "attachments": {
@@ -449,6 +451,7 @@
       }
     },
     "messageDisplayAction.ColorArray": {
+      "!doc": "An array of four integers in the range [0,255] that make up the RGBA color. For example, opaque red is <code>[255, 0, 0, 255]</code>.",
       "!type": "[number]"
     },
     "messageDisplayAction.ImageDataType": {
@@ -501,15 +504,15 @@
         "!type": "bool"
       },
       "url": {
-        "!doc": "The URL the tab is displaying. This property is only present if the extension's manifest includes the <code>\"tabs\"</code> permission.",
+        "!doc": "The URL the tab is displaying. This property is only present if the extension's manifest includes the <permission>tabs</permission> permission.",
         "!type": "string"
       },
       "title": {
-        "!doc": "The title of the tab. This property is only present if the extension's manifest includes the <code>\"tabs\"</code> permission.",
+        "!doc": "The title of the tab. This property is only present if the extension's manifest includes the <permission>tabs</permission> permission.",
         "!type": "string"
       },
       "favIconUrl": {
-        "!doc": "The URL of the tab's favicon. This property is only present if the extension's manifest includes the <code>\"tabs\"</code> permission. It may also be an empty string if the tab is loading.",
+        "!doc": "The URL of the tab's favicon. This property is only present if the extension's manifest includes the <permission>tabs</permission> permission. It may also be an empty string if the tab is loading.",
         "!type": "string"
       },
       "status": {
@@ -544,7 +547,7 @@
     "tabs.UpdateFilter": {
       "!doc": "An object describing filters to apply to tabs.onUpdated events.",
       "urls": {
-        "!doc": "A list of URLs or URL patterns. Events that cannot match any of the URLs will be filtered out.  Filtering with urls requires the <code>\"tabs\"</code> or  <code>\"activeTab\"</code> permission.",
+        "!doc": "A list of URLs or URL patterns. Events that cannot match any of the URLs will be filtered out.  Filtering with urls requires the <permission>tabs</permission> or  <permission>activeTab</permission> permission.",
         "!type": "[string]"
       },
       "properties": {
@@ -559,7 +562,7 @@
       }
     },
     "windows.WindowType": {
-      "!doc": "The type of window this is. Under some circumstances a Window may not be assigned type property.",
+      "!doc": "The type of window this is. Under some circumstances a Window may not be assigned a type property.",
       "!type": "string"
     },
     "windows.WindowState": {
@@ -621,13 +624,13 @@
       "!type": "string"
     },
     "windows.GetInfo": {
-      "!doc": "Specifies whether the :ref:`windows.Window` returned should contain a list of the :ref:`tabs.Tab` objects.",
+      "!doc": "Specifies properties used to filter the :ref:`windows.Window` returned and to determine whether they should contain a list of the :ref:`tabs.Tab` objects.",
       "populate": {
-        "!doc": "If true, the :ref:`windows.Window` returned will have a <var>tabs</var> property that contains a list of the :ref:`tabs.Tab` objects. The <code>Tab</code> objects only contain the <code>url</code>, <code>title</code> and <code>favIconUrl</code> properties if the extension's manifest file includes the <code>\"tabs\"</code> permission.",
+        "!doc": "If true, the :ref:`windows.Window` returned will have a <var>tabs</var> property that contains a list of the :ref:`tabs.Tab` objects. The <code>Tab</code> objects only contain the <code>url</code>, <code>title</code> and <code>favIconUrl</code> properties if the extension's manifest file includes the <permission>tabs</permission> permission.",
         "!type": "bool"
       },
       "windowTypes": {
-        "!doc": "<code>windowTypes</code> is deprecated and ignored on Thunderbird.",
+        "!doc": "If set, the :ref:`windows.Window` returned will be filtered based on its type. Supported by :ref:`windows.getAll` only, ignored in all other functions.",
         "!type": "[+windows.WindowType]"
       }
     },
@@ -1265,7 +1268,7 @@
         "!type": "fn(details: object, callback: fn())"
       },
       "getBadgeText": {
-        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified is specified, the global badge text is returned.",
+        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified, the global badge text is returned.",
         "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
       },
       "setBadgeBackgroundColor": {
@@ -1332,15 +1335,15 @@
     },
     "compose": {
       "beginNew": {
-        "!doc": "Open a new message compose window. If the provided ComposeDetails object does not provide 'body', 'plainTextBody' or 'isPlainText', the default compose format of the used/default identity is used.",
+        "!doc": "Open a new message compose window. If the provided ComposeDetails object does not provide ``body``, ``plainTextBody`` or ``isPlainText``, the default compose format of the used/default identity is used. The :ref:`accounts_api` API can be used to get the used/default identity and its default compose format.",
         "!type": "fn(messageId: number, details: +compose.ComposeDetails)"
       },
       "beginReply": {
-        "!doc": "Open a new message compose window replying to a given message. If the provided ComposeDetails object does not provide 'body', 'plainTextBody' or 'isPlainText', the default compose format of the used/default identity is used.",
+        "!doc": "Open a new message compose window replying to a given message. If the provided ComposeDetails object does not provide ``body``, ``plainTextBody`` or ``isPlainText``, the default compose format of the used/default identity is used. The :ref:`accounts_api` API can be used to get the used/default identity and its default compose format.",
         "!type": "fn(messageId: number, replyType: string, details: +compose.ComposeDetails)"
       },
       "beginForward": {
-        "!doc": "Open a new message compose window forwarding a given message. If the provided ComposeDetails object does not provide 'body', 'plainTextBody' or 'isPlainText', the default compose format of the used/default identity is used.",
+        "!doc": "Open a new message compose window forwarding a given message. If the provided ComposeDetails object does not provide ``body``, ``plainTextBody`` or ``isPlainText``, the default compose format of the used/default identity is used. The :ref:`accounts_api` API can be used to get the used/default identity and its default compose format.",
         "!type": "fn(messageId: number, forwardType: string, details: +compose.ComposeDetails)"
       },
       "getComposeDetails": {
@@ -1419,7 +1422,7 @@
         "!type": "fn(details: object, callback: fn())"
       },
       "getBadgeText": {
-        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified is specified, the global badge text is returned.",
+        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified, the global badge text is returned.",
         "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
       },
       "setBadgeBackgroundColor": {
@@ -1487,7 +1490,7 @@
         "!type": "fn(tabId: number, updateProperties: object)"
       },
       "getSelectedMessages": {
-        "!doc": "Lists the selected messages in the current folder. A messages permission is required to do this.",
+        "!doc": "Lists the selected messages in the current folder.",
         "!type": "fn(tabId: number)"
       },
       "setQuickFilter": {
@@ -1603,7 +1606,7 @@
         "!type": "fn(details: object, callback: fn())"
       },
       "getBadgeText": {
-        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified is specified, the global badge text is returned.",
+        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified, the global badge text is returned.",
         "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
       },
       "setBadgeBackgroundColor": {
@@ -1724,7 +1727,7 @@
         "!type": "fn(tabId: number, updateProperties: object, callback: fn(tab: +tabs.Tab))"
       },
       "move": {
-        "!doc": "Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal (window.type === \"normal\") windows.",
+        "!doc": "Moves one or more tabs to a new position within its window, or to a new window. Note that tabs can only be moved to and from normal windows (<code>window.type === \"normal\"</code>).",
         "!type": "fn(tabIds?: number, tabIds?: [number], moveProperties: object, callback: fn(tabs?: +tabs.Tab, tabs?: [+tabs.Tab]))"
       },
       "reload": {
@@ -1796,7 +1799,7 @@
       },
       "getAll": {
         "!doc": "Gets all windows.",
-        "!type": "fn(getInfo: object, callback: fn(windows: [+windows.Window]))"
+        "!type": "fn(getInfo: +windows.GetInfo, callback: fn(windows: [+windows.Window]))"
       },
       "create": {
         "!doc": "Creates (opens) a new browser with any optional sizing, position or default URL provided.",
