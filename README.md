@@ -189,4 +189,6 @@ Both are in `License` directory.
     [1681141](https://bugzilla.mozilla.org/show_bug.cgi?id=1681141)
   * New schema file: `toolkit/components/extensions/schemas/browsing_data.json`
 
+* 2021-02-04 1.27.1 fix: some APIs are not included
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
