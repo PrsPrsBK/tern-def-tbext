@@ -634,6 +634,83 @@
         "!type": "[+windows.WindowType]"
       }
     },
+    "browsingData.RemovalOptions": {
+      "!doc": "Options that determine exactly what data will be removed.",
+      "since": {
+        "!doc": "Remove data accumulated on or after this date, represented in milliseconds since the epoch (accessible via the <code>getTime</code> method of the JavaScript <code>Date</code> object). If absent, defaults to 0 (which would remove all browsing data).",
+        "!type": "+extensionTypes.Date"
+      },
+      "hostnames": {
+        "!doc": "Only remove data associated with these hostnames (only applies to cookies and localStorage).",
+        "!type": "[string]"
+      },
+      "cookieStoreId": {
+        "!doc": "Only remove data associated with this specific cookieStoreId.",
+        "!type": "string"
+      },
+      "originTypes": {
+        "!doc": "An object whose properties specify which origin types ought to be cleared. If this object isn't specified, it defaults to clearing only \"unprotected\" origins. Please ensure that you <em>really</em> want to remove application data before adding 'protectedWeb' or 'extensions'.",
+        "unprotectedWeb": {
+          "!doc": "Normal websites.",
+          "!type": "bool"
+        },
+        "protectedWeb": {
+          "!doc": "Websites that have been installed as hosted applications (be careful!).",
+          "!type": "bool"
+        },
+        "extension": {
+          "!doc": "Extensions and packaged applications a user has installed (be _really_ careful!).",
+          "!type": "bool"
+        }
+      }
+    },
+    "browsingData.DataTypeSet": {
+      "!doc": "A set of data types. Missing data types are interpreted as <code>false</code>.",
+      "cache": {
+        "!doc": "The browser's cache. Note: when removing data, this clears the <em>entire</em> cache: it is not limited to the range you specify.",
+        "!type": "bool"
+      },
+      "cookies": {
+        "!doc": "The browser's cookies.",
+        "!type": "bool"
+      },
+      "downloads": {
+        "!doc": "The browser's download list.",
+        "!type": "bool"
+      },
+      "formData": {
+        "!doc": "The browser's stored form data.",
+        "!type": "bool"
+      },
+      "history": {
+        "!doc": "The browser's history.",
+        "!type": "bool"
+      },
+      "indexedDB": {
+        "!doc": "Websites' IndexedDB data.",
+        "!type": "bool"
+      },
+      "localStorage": {
+        "!doc": "Websites' local storage data.",
+        "!type": "bool"
+      },
+      "serverBoundCertificates": {
+        "!doc": "Server-bound certificates.",
+        "!type": "bool"
+      },
+      "passwords": {
+        "!doc": "Stored passwords.",
+        "!type": "bool"
+      },
+      "pluginData": {
+        "!doc": "Plugins' data.",
+        "!type": "bool"
+      },
+      "serviceWorkers": {
+        "!doc": "Service Workers.",
+        "!type": "bool"
+      }
+    },
     "commands.Command": {
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/commands/Command",
       "name": {
@@ -1836,6 +1913,75 @@
       "WINDOW_ID_CURRENT": {
         "!doc": "The windowId value that represents the current window.",
         "!type": "number"
+      }
+    },
+    "browsingData": {
+      "!doc": "Use the <code>chrome.browsingData</code> API to remove browsing data from a user's local profile.",
+      "settings": {
+        "!doc": "Reports which types of data are currently selected in the 'Clear browsing data' settings UI.  Note: some of the data types included in this API are not available in the settings UI, and some UI settings control more than one data type listed here.",
+        "!type": "fn(callback: fn(result: object))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/settings"
+      },
+      "remove": {
+        "!doc": "Clears various types of browsing data stored in a user's profile.",
+        "!type": "fn(options: +browsingData.RemovalOptions, dataToRemove: +browsingData.DataTypeSet, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/remove"
+      },
+      "removeAppcache": {
+        "!doc": "Clears websites' appcache data.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())"
+      },
+      "removeCache": {
+        "!doc": "Clears the browser's cache.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/removeCache"
+      },
+      "removeCookies": {
+        "!doc": "Clears the browser's cookies and server-bound certificates modified within a particular timeframe.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/removeCookies"
+      },
+      "removeDownloads": {
+        "!doc": "Clears the browser's list of downloaded files (<em>not</em> the downloaded files themselves).",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/removeDownloads"
+      },
+      "removeFileSystems": {
+        "!doc": "Clears websites' file system data.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())"
+      },
+      "removeFormData": {
+        "!doc": "Clears the browser's stored form data (autofill).",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/removeFormData"
+      },
+      "removeHistory": {
+        "!doc": "Clears the browser's history.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/removeHistory"
+      },
+      "removeIndexedDB": {
+        "!doc": "Clears websites' IndexedDB data.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())"
+      },
+      "removeLocalStorage": {
+        "!doc": "Clears websites' local storage data.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/removeLocalStorage"
+      },
+      "removePluginData": {
+        "!doc": "Clears plugins' data.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/removePluginData"
+      },
+      "removePasswords": {
+        "!doc": "Clears the browser's stored passwords.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/browsingData/removePasswords"
+      },
+      "removeWebSQL": {
+        "!doc": "Clears websites' WebSQL data.",
+        "!type": "fn(options: +browsingData.RemovalOptions, callback: fn())"
       }
     },
     "commands": {

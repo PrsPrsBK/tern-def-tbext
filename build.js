@@ -50,6 +50,10 @@ const outputSpec = {
       useMdn: true,
       schemaList: [
         {
+          name: 'browsing_data',
+          schema: 'toolkit/components/extensions/schemas/browsing_data.json',
+        },
+        {
           name: 'commands',
           schema: 'browser/components/extensions/schemas/commands.json',
         },

@@ -338,6 +338,24 @@
     "name": "mozillaAPI",
     "schemaList": [
       {
+        "file": "toolkit/components/extensions/schemas/browsing_data.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "browsingData",
+            "permissions": [
+              "browsingData"
+            ],
+            "types": 2,
+            "functions": 14
+          }
+        ],
+        "license": "BSD"
+      },
+      {
         "file": "browser/components/extensions/schemas/commands.json",
         "namespaceList": [
           {
