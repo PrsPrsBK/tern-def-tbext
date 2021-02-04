@@ -923,6 +923,13 @@
       "!type": "string",
       "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/i18n/LanguageCode"
     },
+    "identity.AccountInfo": {
+      "!doc": "An object encapsulating an OAuth account id.",
+      "id": {
+        "!doc": "A unique identifier for the account. This ID will not change for the lifetime of the account. ",
+        "!type": "string"
+      }
+    },
     "management.IconInfo": {
       "!doc": "Information about an icon belonging to an extension.",
       "size": {
@@ -2138,6 +2145,39 @@
         "!doc": "Detects the language of the provided text using CLD.",
         "!type": "fn(text: string, callback: fn(result: object))",
         "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/i18n/detectLanguage"
+      }
+    },
+    "identity": {
+      "!doc": "Use the chrome.identity API to get OAuth2 access tokens. ",
+      "getAccounts": {
+        "!doc": "Retrieves a list of AccountInfo objects describing the accounts present on the profile.",
+        "!type": "fn(callback: fn(results: [+identity.AccountInfo]))"
+      },
+      "getAuthToken": {
+        "!doc": "Gets an OAuth2 access token using the client ID and scopes specified in the oauth2 section of manifest.json.",
+        "!type": "fn(details: object, callback: fn(results: [+identity.AccountInfo]))"
+      },
+      "getProfileUserInfo": {
+        "!doc": "Retrieves email address and obfuscated gaia id of the user signed into a profile.",
+        "!type": "fn(callback: fn(userinfo: object))"
+      },
+      "removeCachedAuthToken": {
+        "!doc": "Removes an OAuth2 access token from the Identity API's token cache.",
+        "!type": "fn(details: object, callback: fn(userinfo: object))"
+      },
+      "launchWebAuthFlow": {
+        "!doc": "Starts an auth flow at the specified URL.",
+        "!type": "fn(details: object, callback: fn(responseUrl: string))",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/identity/launchWebAuthFlow"
+      },
+      "getRedirectURL": {
+        "!doc": "Generates a redirect URL to be used in |launchWebAuthFlow|.",
+        "!type": "fn(path: string)",
+        "!url": "https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/API/identity/getRedirectURL"
+      },
+      "onSignInChanged": {
+        "!doc": "Fired when signin state changes for an account on the user's profile.",
+        "!type": "fn(account: +identity.AccountInfo, signedIn: bool)"
       }
     },
     "management": {

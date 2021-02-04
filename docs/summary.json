@@ -467,6 +467,25 @@
         "license": "BSD"
       },
       {
+        "file": "toolkit/components/extensions/schemas/identity.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "identity",
+            "permissions": [
+              "identity"
+            ],
+            "types": 1,
+            "functions": 6,
+            "events": 1
+          }
+        ],
+        "license": "None"
+      },
+      {
         "file": "toolkit/components/extensions/schemas/management.json",
         "namespaceList": [
           {
