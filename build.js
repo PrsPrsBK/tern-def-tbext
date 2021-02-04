@@ -223,7 +223,7 @@ const makeSchemaList = (rootDir, apiGroup) => {
           apiGroup.schemaList.push(apiItem);
         }
         else {
-          console.log(`skiped: irregular path for ${apiName}. ${apiItemList[apiName].schema}`);
+          console.log(`skipped: irregular path for ${apiName}. ${apiItemList[apiName].schema}`);
         }
       }
     }
