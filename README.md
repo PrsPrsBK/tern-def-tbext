@@ -190,5 +190,7 @@ Both are in `License` directory.
   * New schema file: `toolkit/components/extensions/schemas/browsing_data.json`
 
 * 2021-02-04 1.27.1 fix: some APIs are not included
+* 2021-02-23 1.28.0 New: `type` property of `ComposeDetails` of `compose` API
+  [1677062](https://bugzilla.mozilla.org/show_bug.cgi?id=1677062)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
