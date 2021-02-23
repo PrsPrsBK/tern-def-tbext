@@ -202,6 +202,10 @@
       "subject": {
         "!type": "string"
       },
+      "type": {
+        "!doc": "Read-only. The type of the message being composed, depending on how the compose window was opened by the user.",
+        "!type": "string"
+      },
       "body": {
         "!type": "string"
       },
@@ -345,7 +349,7 @@
       }
     },
     "menus.ContextType": {
-      "!doc": "The different contexts a menu can appear in. Specifying <code>all</code> is equivalent to the combination of all other contexts except for <code>tab</code>.",
+      "!doc": "The different contexts a menu can appear in. Specifying <code>all</code> is equivalent to the combination of all other contexts excluding <code>tab</code> and <code>tools_menu</code>.",
       "!type": "string"
     },
     "menus.ItemType": {
