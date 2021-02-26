@@ -1625,7 +1625,7 @@
         "!type": "fn()"
       },
       "onClicked": {
-        "!doc": "Fired when a context menu item is clicked.",
+        "!doc": "Fired when a context menu item is clicked. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(info: +menus.OnClickData, tab: +tabs.Tab)"
       },
       "onShown": {
