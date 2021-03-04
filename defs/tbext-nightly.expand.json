@@ -1,6 +1,62 @@
 {
   "!name": "tbext",
   "!define": {
+    "accounts.MailAccount": {
+      "id": {
+        "!doc": "A unique identifier for this account.",
+        "!type": "string"
+      },
+      "name": {
+        "!doc": "The human-friendly name of this account.",
+        "!type": "string"
+      },
+      "type": {
+        "!doc": "What sort of account this is, e.g. ``imap``, ``nntp``, or ``pop3``.",
+        "!type": "string"
+      },
+      "folders": {
+        "!doc": "The folders for this account.",
+        "!type": "[+folders.MailFolder]"
+      },
+      "identities": {
+        "!doc": "The identities associated with this account. The default identity is listed first, others in no particular order.",
+        "!type": "[+accounts.MailIdentity]"
+      }
+    },
+    "accounts.MailIdentity": {
+      "accountId": {
+        "!doc": "The id of the :ref:`accounts.MailAccount` this identity belongs to.",
+        "!type": "string"
+      },
+      "id": {
+        "!doc": "A unique identifier for this identity.",
+        "!type": "string"
+      },
+      "label": {
+        "!doc": "A user-defined label for this identity.",
+        "!type": "string"
+      },
+      "name": {
+        "!doc": "The user's name as used when messages are sent from this identity.",
+        "!type": "string"
+      },
+      "email": {
+        "!doc": "The user's email address as used when messages are sent from this identity.",
+        "!type": "string"
+      },
+      "replyTo": {
+        "!doc": "The reply-to email address associated with this identity.",
+        "!type": "string"
+      },
+      "organization": {
+        "!doc": "The organization associated with this identity.",
+        "!type": "string"
+      },
+      "composeHtml": {
+        "!doc": "Wether the identity uses HTML as the default compose format.",
+        "!type": "bool"
+      }
+    },
     "addressBooks.NodeType": {
       "!doc": "Indicates the type of a Node, which can be one of <code>addressBook</code>, <code>contact</code>, or <code>mailingList</code>.",
       "!type": "string"
@@ -356,6 +412,68 @@
       "!doc": "The type of menu item.",
       "!type": "string"
     },
+    "menus.OnShowData": {
+      "!doc": "Information sent when a context menu is being shown. For more information about each property, see :ref:`menus.OnClickData`. \nSome properties are only included if the extension has host permission for the given context, for example :permission:`activeTab` for content tabs, :permission:`compose` for compose tabs and :permission:`messagesRead` for message display tabs.",
+      "menuIds": {
+        "!doc": "A list of IDs of the menu items that were shown.",
+        "!type": "[number]?, [string]?"
+      },
+      "contexts": {
+        "!doc": "A list of all contexts that apply to the menu.",
+        "!type": "[+menus.ContextType]"
+      },
+      "viewType": {
+        "!type": "+extension.ViewType"
+      },
+      "editable": {
+        "!type": "bool"
+      },
+      "mediaType": {
+        "!type": "string"
+      },
+      "linkUrl": {
+        "!doc": "Host permission is required.",
+        "!type": "string"
+      },
+      "linkText": {
+        "!doc": "Host permission is required.",
+        "!type": "string"
+      },
+      "srcUrl": {
+        "!doc": "Host permission is required.",
+        "!type": "string"
+      },
+      "pageUrl": {
+        "!doc": "Host permission is required.",
+        "!type": "string"
+      },
+      "frameUrl": {
+        "!doc": "Host permission is required.",
+        "!type": "string"
+      },
+      "selectionText": {
+        "!doc": "Host permission is required.",
+        "!type": "string"
+      },
+      "targetElementId": {
+        "!type": "number"
+      },
+      "selectedMessages": {
+        "!type": "+messages.MessageList"
+      },
+      "displayedFolder": {
+        "!type": "+folders.MailFolder"
+      },
+      "selectedFolder": {
+        "!type": "+folders.MailFolder"
+      },
+      "selectedAccount": {
+        "!type": "+accounts.MailAccount"
+      },
+      "attachments": {
+        "!type": "[+compose.ComposeAttachment]"
+      }
+    },
     "menus.OnClickData": {
       "!doc": "Information sent when a context menu item is clicked.",
       "menuItemId": {
@@ -437,6 +555,10 @@
       "selectedFolder": {
         "!doc": "The selected folder, if the context menu was opened in the folder pane. The <permission>accountsRead</permission> permission is required.",
         "!type": "+folders.MailFolder"
+      },
+      "selectedAccount": {
+        "!doc": "The selected account, if the context menu was opened on an account entry in the folder pane. The <permission>accountsRead</permission> permission is required.",
+        "!type": "+accounts.MailAccount"
       },
       "attachments": {
         "!doc": "The selected attachments of a message being composed.",
@@ -1629,8 +1751,8 @@
         "!type": "fn(info: +menus.OnClickData, tab: +tabs.Tab)"
       },
       "onShown": {
-        "!doc": "Fired when a menu is shown. The extension can add, modify or remove menu items and call menus.refresh() to update the menu.",
-        "!type": "fn(info: object, tab: +tabs.Tab)"
+        "!doc": "Fired when a menu is shown. The extension can add, modify or remove menu items and call ``menus.refresh()`` to update the menu.",
+        "!type": "fn(info: +menus.OnShowData, tab: +tabs.Tab)"
       },
       "onHidden": {
         "!doc": "Fired when a menu is hidden. This event is only fired if onShown has fired before.",
