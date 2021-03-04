@@ -194,5 +194,7 @@ Both are in `License` directory.
   [1677062](https://bugzilla.mozilla.org/show_bug.cgi?id=1677062)
 * 2021-02-26 No Update: only docstring
   [1681131](https://bugzilla.mozilla.org/show_bug.cgi?id=1681131)
+* 2021-03-05 1.29.0 Modified: arguments of`onShown()` and `onClicked()` of `menus` API
+  [1625746](https://bugzilla.mozilla.org/show_bug.cgi?id=1625746)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
