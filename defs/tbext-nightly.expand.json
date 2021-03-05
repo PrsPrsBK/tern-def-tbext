@@ -229,13 +229,17 @@
       "!type": "[string]?, [object]?"
     },
     "compose.ComposeRecipientList": {
-      "!type": "[string]?, [[+compose.ComposeRecipient]]?"
+      "!type": "[+compose.ComposeRecipient]?, [[+compose.ComposeRecipient]]?"
     },
     "compose.ComposeDetails": {
       "!doc": "Used by various functions to represent the state of a message being composed. Note that functions using this type may have a partial implementation.",
       "identityId": {
         "!doc": "The ID of an identity from the :doc:`accounts` API. The settings from the identity will be used in the composed message. If ``replyTo`` is also specified, the ``replyTo`` property of the identity is overridden. The permission <permission>accountsRead</permission> is required to include the ``identityId``.",
         "!type": "string"
+      },
+      "from": {
+        "!doc": "*Caution*: Setting a value for `from` does not change the used identity, it overrides the FROM header. Many e-mail servers do not accept emails where the FROM header does not match the sender identity. Must be set to exactly one valid e-mail address.",
+        "!type": "+compose.ComposeRecipient"
       },
       "to": {
         "!type": "+compose.ComposeRecipientList"
