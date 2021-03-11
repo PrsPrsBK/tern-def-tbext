@@ -198,5 +198,7 @@ Both are in `License` directory.
   [1625746](https://bugzilla.mozilla.org/show_bug.cgi?id=1625746)
 * 2021-03-05 1.30.0 New: `from` property of argument of functions of `compose` API; `beginNew()`, `beginReply()`, `beginForward()`, `setComposeDetails()`, `onBeforeSend()`.
   [1691253](https://bugzilla.mozilla.org/show_bug.cgi?id=1691253)
+* 2021-03-11 1.31.0 New: `listAttachments()` and `getAttachmentFile()` of `messages` API
+  [1550960](https://bugzilla.mozilla.org/show_bug.cgi?id=1550960)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
