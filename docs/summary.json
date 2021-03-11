@@ -293,8 +293,8 @@
             "permissions": [
               "messagesRead"
             ],
-            "types": 1,
-            "functions": 12,
+            "types": 2,
+            "functions": 14,
             "events": 1
           }
         ],

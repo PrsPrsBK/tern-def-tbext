@@ -608,6 +608,25 @@
         "!type": "string"
       }
     },
+    "messages.Attachment": {
+      "!doc": "Represents an attachment in a message.",
+      "contentType": {
+        "!doc": "The content type of the attachment.",
+        "!type": "string"
+      },
+      "name": {
+        "!doc": "The name, as displayed to the user, of this attachment. This is usually but not always the filename of the attached file.",
+        "!type": "string"
+      },
+      "partName": {
+        "!doc": "Identifies the MIME part of the message associated with this attachment.",
+        "!type": "string"
+      },
+      "size": {
+        "!doc": "The size in bytes of this attachment.",
+        "!type": "number"
+      }
+    },
     "tabs.Tab": {
       "id": {
         "!doc": "The ID of the tab. Tab IDs are unique within a browser session. Under some circumstances a Tab may not be assigned an ID. Tab ID can also be set to :ref:`tabs.TAB_ID_NONE` for apps and devtools windows.",
@@ -1872,6 +1891,14 @@
       "getRaw": {
         "!doc": "Returns the unmodified source of a message.",
         "!type": "fn(messageId: number)"
+      },
+      "listAttachments": {
+        "!doc": "Lists all of the attachments of a message.",
+        "!type": "fn(messageId: number)"
+      },
+      "getAttachmentFile": {
+        "!doc": "Gets the content of an attachment as a DOM <code>File</code> object.",
+        "!type": "fn(messageId: number, partName: string)"
       },
       "query": {
         "!doc": "Gets all messages that have the specified properties, or all messages if no properties are specified.",
