@@ -1,8 +1,7 @@
-$script_path =  (Split-Path -Parent $MyInvocation.MyCommand.Path)
-$cset_pubed = (Join-Path -Path $script_path -ChildPath "cset_pubed.log")
-$cset_today = (Join-Path -Path $script_path -ChildPath "cset.log")
+Push-Location $PSScriptRoot
 
-cd $script_path
+$cset_pubed = (Join-Path -Path $PSScriptRoot -ChildPath "cset_pubed.log")
+$cset_today = (Join-Path -Path $PSScriptRoot -ChildPath "cset.log")
 
 Start-Job -ArgumentList $cset_pubed -ScriptBlock {
   Param($old)
@@ -10,3 +9,6 @@ Start-Job -ArgumentList $cset_pubed -ScriptBlock {
 } | Wait-Job | Receive-Job | Remove-Job
 
 Copy-Item $cset_today $cset_pubed
+
+Pop-Location
+
