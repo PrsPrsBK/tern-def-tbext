@@ -192,7 +192,7 @@ Both are in `License` directory.
 * 2021-02-04 1.27.1 fix: some APIs are not included
 * 2021-02-23 1.28.0 New: `type` property of `ComposeDetails` of `compose` API
   [1677062](https://bugzilla.mozilla.org/show_bug.cgi?id=1677062)
-* 2021-02-26 No Update: only docstring
+* 2021-02-26 No Release: only docstring
   [1681131](https://bugzilla.mozilla.org/show_bug.cgi?id=1681131)
 * 2021-03-05 1.29.0 Modified: arguments of `onShown()` and `onClicked()` of `menus` API
   [1625746](https://bugzilla.mozilla.org/show_bug.cgi?id=1625746)
@@ -200,5 +200,7 @@ Both are in `License` directory.
   [1691253](https://bugzilla.mozilla.org/show_bug.cgi?id=1691253)
 * 2021-03-11 1.31.0 New: `listAttachments()` and `getAttachmentFile()` of `messages` API
   [1550960](https://bugzilla.mozilla.org/show_bug.cgi?id=1550960)
+* 2021-03-13 No Release: only docstring
+  [1697743](https://bugzilla.mozilla.org/show_bug.cgi?id=1697743)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

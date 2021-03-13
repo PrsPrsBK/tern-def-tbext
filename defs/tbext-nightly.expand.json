@@ -409,7 +409,7 @@
       }
     },
     "menus.ContextType": {
-      "!doc": "The different contexts a menu can appear in. Specifying <code>all</code> is equivalent to the combination of all other contexts excluding <code>tab</code> and <code>tools_menu</code>.",
+      "!doc": "The different contexts a menu can appear in. Specifying <code>all</code> is equivalent to the combination of all other contexts excluding <code>tab</code> and <code>tools_menu</code>. More information about each context can be found in the `Supported UI Elements <https://developer.thunderbird.net/add-ons/mailextensions/supported-ui-elements#menu-items>`__ article on developer.thunderbird.net.",
       "!type": "string"
     },
     "menus.ItemType": {
@@ -565,7 +565,7 @@
         "!type": "+accounts.MailAccount"
       },
       "attachments": {
-        "!doc": "The selected attachments of a message being composed.",
+        "!doc": "The selected attachments of a message being composed. The <permission>compose</permission> permission is required.",
         "!type": "[+compose.ComposeAttachment]"
       }
     },
@@ -686,7 +686,7 @@
       "!type": "string"
     },
     "tabs.WindowType": {
-      "!doc": "The type of window.",
+      "!doc": "The type of a window. Under some circumstances a Window may not be assigned a type property.",
       "!type": "string"
     },
     "tabs.UpdatePropertyName": {
@@ -711,7 +711,7 @@
       }
     },
     "windows.WindowType": {
-      "!doc": "The type of window this is. Under some circumstances a Window may not be assigned a type property.",
+      "!doc": "The type of a window. Under some circumstances a Window may not be assigned a type property.",
       "!type": "string"
     },
     "windows.WindowState": {
@@ -744,7 +744,7 @@
         "!type": "number"
       },
       "tabs": {
-        "!doc": "Array of :ref:`tabs.Tab` objects representing the current tabs in the window.",
+        "!doc": "Array of :ref:`tabs.Tab` objects representing the current tabs in the window. Only included if requested by :ref:`windows.get`, :ref:`windows.getCurrent`, :ref:`windows.getAll` or :ref:`windows.getLastFocused` and the optional :ref:`windows.GetInfo` parameter has ``populate`` set to ``true``.",
         "!type": "[+tabs.Tab]"
       },
       "incognito": {
@@ -773,9 +773,9 @@
       "!type": "string"
     },
     "windows.GetInfo": {
-      "!doc": "Specifies properties used to filter the :ref:`windows.Window` returned and to determine whether they should contain a list of the :ref:`tabs.Tab` objects.",
+      "!doc": "Specifies additional requirements for the returned windows.",
       "populate": {
-        "!doc": "If true, the :ref:`windows.Window` returned will have a <var>tabs</var> property that contains a list of the :ref:`tabs.Tab` objects. The <code>Tab</code> objects only contain the <code>url</code>, <code>title</code> and <code>favIconUrl</code> properties if the extension's manifest file includes the <permission>tabs</permission> permission.",
+        "!doc": "If true, the :ref:`windows.Window` returned will have a <var>tabs</var> property that contains an array of :ref:`tabs.Tab` objects representing the tabs inside the window. The :ref:`tabs.Tab` objects only contain the <code>url</code>, <code>title</code> and <code>favIconUrl</code> properties if the extension's manifest file includes the <permission>tabs</permission> permission.",
         "!type": "bool"
       },
       "windowTypes": {
@@ -1529,7 +1529,7 @@
         "!type": "fn()"
       },
       "onClicked": {
-        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
+        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(tab: +tabs.Tab, info: +browserAction.OnClickData)"
       }
     },
@@ -1604,7 +1604,7 @@
         "!type": "fn(tabId: number, attachmentId: number)"
       },
       "onBeforeSend": {
-        "!doc": "Fired when a message is about to be sent from the compose window.",
+        "!doc": "Fired when a message is about to be sent from the compose window. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(tab: +tabs.Tab, details: +compose.ComposeDetails)"
       },
       "onAttachmentAdded": {
@@ -1683,7 +1683,7 @@
         "!type": "fn()"
       },
       "onClicked": {
-        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
+        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(tab: +tabs.Tab, info: +composeAction.OnClickData)"
       }
     },
@@ -1770,7 +1770,7 @@
         "!type": "fn()"
       },
       "onClicked": {
-        "!doc": "Fired when a context menu item is clicked. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
+        "!doc": "Fired when a context menu item is clicked. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(info: +menus.OnClickData, tab: +tabs.Tab)"
       },
       "onShown": {
@@ -1788,7 +1788,7 @@
     },
     "messageDisplay": {
       "getDisplayedMessage": {
-        "!doc": "Gets the currently displayed message in the specified tab. It returns null if no messages are selected, or if multiple messages are selected.",
+        "!doc": "Gets the currently displayed message in the specified tab. It returns null if no messages are displayed, or if multiple messages are displayed.",
         "!type": "fn(tabId: number)"
       },
       "getDisplayedMessages": {
@@ -1867,7 +1867,7 @@
         "!type": "fn()"
       },
       "onClicked": {
-        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup.",
+        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(tab: +tabs.Tab, info: +messageDisplayAction.OnClickData)"
       }
     },
@@ -1889,7 +1889,7 @@
         "!type": "fn(messageId: number)"
       },
       "getRaw": {
-        "!doc": "Returns the unmodified source of a message.",
+        "!doc": "Returns the unmodified source of a message as a `binary string <https://developer.mozilla.org/en-US/docs/Web/API/DOMString/Binary>`__.",
         "!type": "fn(messageId: number)"
       },
       "listAttachments": {
