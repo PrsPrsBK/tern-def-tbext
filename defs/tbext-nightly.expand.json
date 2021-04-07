@@ -386,6 +386,36 @@
         "!type": "string"
       }
     },
+    "mailTabs.MailTab": {
+      "id": {
+        "!type": "number"
+      },
+      "windowId": {
+        "!type": "number"
+      },
+      "active": {
+        "!type": "bool"
+      },
+      "sortType": {
+        "!type": "string"
+      },
+      "sortOrder": {
+        "!type": "string"
+      },
+      "layout": {
+        "!type": "string"
+      },
+      "folderPaneVisible": {
+        "!type": "bool"
+      },
+      "messagePaneVisible": {
+        "!type": "bool"
+      },
+      "displayedFolder": {
+        "!doc": "The <permission>accountsRead</permission> permission is required for this property to be included.",
+        "!type": "+folders.MailFolder"
+      }
+    },
     "mailTabs.QuickFilterTextDetail": {
       "text": {
         "!doc": "String to match against the <var>recipients</var>, <var>author</var>, <var>subject</var>, or <var>body</var>.",
@@ -1716,7 +1746,15 @@
     "mailTabs": {
       "query": {
         "!doc": "Gets all mail tabs that have the specified properties, or all mail tabs if no properties are specified.",
-        "!type": "fn(queryInfo: object)"
+        "!type": "fn(queryInfo: object, callback: fn(nameless: [+mailTabs.MailTab]))"
+      },
+      "get": {
+        "!doc": "Get the properties of a mail tab.",
+        "!type": "fn(tabId: number, callback: fn(nameless: +mailTabs.MailTab))"
+      },
+      "getCurrent": {
+        "!doc": "Get the properties of the active mail tab, if the active tab is a mail tab. Returns undefined otherwise",
+        "!type": "fn(callback: fn(nameless: +mailTabs.MailTab))"
       },
       "update": {
         "!doc": "Modifies the properties of a mail tab. Properties that are not specified in <var>updateProperties</var> are not modified.",
@@ -1724,7 +1762,7 @@
       },
       "getSelectedMessages": {
         "!doc": "Lists the selected messages in the current folder.",
-        "!type": "fn(tabId: number)"
+        "!type": "fn(tabId: number, callback: fn(nameless: +messages.MessageList))"
       },
       "setQuickFilter": {
         "!doc": "Sets the Quick Filter user interface based on the options specified.",
