@@ -202,5 +202,8 @@ Both are in `License` directory.
   [1550960](https://bugzilla.mozilla.org/show_bug.cgi?id=1550960)
 * 2021-03-13 No Release: only docstring
   [1697743](https://bugzilla.mozilla.org/show_bug.cgi?id=1697743)
+* 2021-04-06 1.32.0 New: `get()` and `getCurrent()` of `mailTabs` API
+  [1698306](https://bugzilla.mozilla.org/show_bug.cgi?id=1698306)
+  and fix for `query()` and `getSelectedMessages()`
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
