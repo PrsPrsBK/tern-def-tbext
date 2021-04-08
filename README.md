@@ -204,6 +204,18 @@ Both are in `License` directory.
   [1697743](https://bugzilla.mozilla.org/show_bug.cgi?id=1697743)
 * 2021-04-06 1.32.0 New: `get()` and `getCurrent()` of `mailTabs` API
   [1698306](https://bugzilla.mozilla.org/show_bug.cgi?id=1698306)
-  and fix for `query()` and `getSelectedMessages()`
+
+  Modified: new argument `callback` for `query()` and `getSelectedMessages()`
+
+* 2021-04-08 1.33.0
+  [1703276](https://bugzilla.mozilla.org/show_bug.cgi?id=1703276)
+
+  * Modified: new argument `callback` for `list()`, `get()`, `getDefault()` and `getDefaultIdentity()` of `accounts` API
+  * Modified: new argument `callback` for `list()`, `get()`, `create()` of `addressBooks` API
+  * Modified: new argument `callback` for `isEnabled()` of `browserAction` API
+  * Modified: new argument `callback` for `getAccount()`, `getAllAccounts()`, `updateAccount()` of `cloudFile` API
+  * Modified: new argument `callback` for `beginNew()`, `beginReply()`, `beginForward()` and `getComposeDetails()` of `compose` API
+  
+  Removed: `get()` and `getCurrent()` of `mailTabs` API in 1.32.0
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
