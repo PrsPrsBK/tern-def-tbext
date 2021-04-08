@@ -210,7 +210,7 @@
           {
             "name": "mailTabs",
             "types": 2,
-            "functions": 6,
+            "functions": 4,
             "events": 2
           }
         ],
@@ -293,7 +293,7 @@
             "permissions": [
               "messagesRead"
             ],
-            "types": 2,
+            "types": 6,
             "functions": 14,
             "events": 1
           }

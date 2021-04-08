@@ -628,6 +628,111 @@
         "!type": "number"
       }
     },
+    "messages.MessageHeader": {
+      "!doc": "Basic information about a message.",
+      "id": {
+        "!type": "number"
+      },
+      "date": {
+        "!type": "+extensionTypes.Date"
+      },
+      "read": {
+        "!type": "bool"
+      },
+      "flagged": {
+        "!type": "bool"
+      },
+      "ccList": {
+        "!doc": "The Cc recipients. Not populated for news/nntp messages.",
+        "!type": "[string]"
+      },
+      "bccList": {
+        "!doc": "The Bcc recipients. Not populated for news/nntp messages.",
+        "!type": "[string]"
+      },
+      "author": {
+        "!type": "string"
+      },
+      "subject": {
+        "!type": "string"
+      },
+      "recipients": {
+        "!doc": "The To recipients. Not populated for news/nntp messages.",
+        "!type": "[string]"
+      },
+      "folder": {
+        "!doc": "The <permission>accountsRead</permission> permission is required for this property to be included.",
+        "!type": "+folders.MailFolder"
+      },
+      "tags": {
+        "!type": "[string]"
+      },
+      "junk": {
+        "!doc": "Not populated for news/nntp messages.",
+        "!type": "bool"
+      },
+      "junkScore": {
+        "!type": "number"
+      },
+      "headerMessageId": {
+        "!doc": "The message-id header of the message.",
+        "!type": "string"
+      }
+    },
+    "messages.MessageList": {
+      "!doc": "See :doc:`how-to/messageLists` for more information.",
+      "id": {
+        "!type": "string"
+      },
+      "messages": {
+        "!type": "[+messages.MessageHeader]"
+      }
+    },
+    "messages.MessagePart": {
+      "!doc": "Represents an email message \"part\", which could be the whole message",
+      "body": {
+        "!doc": "The content of the part",
+        "!type": "string"
+      },
+      "contentType": {
+        "!type": "string"
+      },
+      "headers": {
+        "!doc": "An object of part headers, with the header name as key, and an array of header values as value"
+      },
+      "name": {
+        "!doc": "Name of the part, if it is a file",
+        "!type": "string"
+      },
+      "partName": {
+        "!type": "string"
+      },
+      "parts": {
+        "!doc": "Any sub-parts of this part",
+        "!type": "[+messages.MessagePart]"
+      },
+      "size": {
+        "!type": "number"
+      }
+    },
+    "messages.MessageTag": {
+      "key": {
+        "!doc": "Distinct tag identifier – use this string when referring to a tag",
+        "!type": "string"
+      },
+      "tag": {
+        "!doc": "Human-readable tag name",
+        "!type": "string"
+      },
+      "color": {
+        "!doc": "Tag color",
+        "!type": "string"
+      },
+      "ordinal": {
+        "!doc": "Custom sort string (usually empty)",
+        "!type": "string"
+      }
+    },
     "messages.TagsDetail": {
       "!doc": "Used for filtering messages by tag in various methods. Note that functions using this type may have a partial implementation.",
       "tags": {
@@ -1343,15 +1448,15 @@
     "accounts": {
       "list": {
         "!doc": "Returns all mail accounts.",
-        "!type": "fn()"
+        "!type": "fn(callback: fn(nameless: [+accounts.MailAccount]))"
       },
       "get": {
         "!doc": "Returns details of the requested account, or null if it doesn't exist.",
-        "!type": "fn(accountId: string)"
+        "!type": "fn(accountId: string, callback: fn(nameless: +accounts.MailAccount))"
       },
       "getDefault": {
         "!doc": "Returns the default account, or null if it is not defined.",
-        "!type": "fn()"
+        "!type": "fn(callback: fn(nameless: +accounts.MailAccount))"
       },
       "setDefaultIdentity": {
         "!doc": "Sets the default identity for an account.",
@@ -1359,7 +1464,7 @@
       },
       "getDefaultIdentity": {
         "!doc": "Returns the default identity for an account, or null if it is not defined.",
-        "!type": "fn(accountId: string)"
+        "!type": "fn(accountId: string, callback: fn(nameless: +accounts.MailIdentity))"
       }
     },
     "addressBooks": {
@@ -1373,15 +1478,15 @@
       },
       "list": {
         "!doc": "Gets a list of the user's address books, optionally including all contacts and mailing lists.",
-        "!type": "fn(complete: bool)"
+        "!type": "fn(complete: bool, callback: fn(nameless: [+addressBooks.AddressBookNode]))"
       },
       "get": {
         "!doc": "Gets a single address book, optionally including all contacts and mailing lists.",
-        "!type": "fn(id: string, complete: bool)"
+        "!type": "fn(id: string, complete: bool, callback: fn(nameless: +addressBooks.AddressBookNode))"
       },
       "create": {
         "!doc": "Creates a new, empty address book.",
-        "!type": "fn(properties: object)"
+        "!type": "fn(properties: object, callback: fn(nameless: string))"
       },
       "update": {
         "!doc": "Renames an address book.",
@@ -1497,41 +1602,41 @@
       }
     },
     "browserAction": {
-      "!doc": "Use toolbar actions to put icons in the mail window toolbar. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup. This namespace is called browserAction for compatibility with browser WebExtensions.",
+      "!doc": "Use a browserAction to put an icon in the mail window toolbar. In addition to its icon, a browserAction can also have a tooltip, a badge, and a popup. This namespace is called browserAction for compatibility with browser WebExtensions.",
       "setTitle": {
-        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip and the label. Defaults to the add-on name.",
+        "!doc": "Sets the title of the browserAction. This shows up in the tooltip and the label. Defaults to the add-on name.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getTitle": {
-        "!doc": "Gets the title of the toolbar action.",
+        "!doc": "Gets the title of the browserAction.",
         "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
       },
       "setLabel": {
-        "!doc": "Sets the label of the toolbar action, defaults to its title. Can be set to an empty string to not display any label. If the containing toolbar is configured to display text only, the title will be used as fallback.",
+        "!doc": "Sets the label of the browserAction, defaults to its title. Can be set to an empty string to not display any label. If the containing toolbar is configured to display text only, the title will be used as fallback.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getLabel": {
-        "!doc": "Gets the label of the toolbar action.",
+        "!doc": "Gets the label of the browserAction.",
         "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
       },
       "setIcon": {
-        "!doc": "Sets the icon for the toolbar action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
+        "!doc": "Sets the icon for the browserAction. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
         "!type": "fn(details: object, callback: fn())"
       },
       "setPopup": {
-        "!doc": "Sets the html document to be opened as a popup when the user clicks on the toolbar action's icon.",
+        "!doc": "Sets the html document to be opened as a popup when the user clicks on the browserAction's icon.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getPopup": {
-        "!doc": "Gets the html document set as the popup for this toolbar action.",
+        "!doc": "Gets the html document set as the popup for this browserAction.",
         "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
       },
       "setBadgeText": {
-        "!doc": "Sets the badge text for the toolbar action. The badge is displayed on top of the icon.",
+        "!doc": "Sets the badge text for the browserAction. The badge is displayed on top of the icon.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getBadgeText": {
-        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified, the global badge text is returned.",
+        "!doc": "Gets the badge text of the browserAction. If no tab nor window is specified, the global badge text is returned.",
         "!type": "fn(details: +browserAction.Details, callback: fn(result: string))"
       },
       "setBadgeBackgroundColor": {
@@ -1539,42 +1644,42 @@
         "!type": "fn(details: object, callback: fn())"
       },
       "getBadgeBackgroundColor": {
-        "!doc": "Gets the background color of the toolbar action.",
+        "!doc": "Gets the background color of the browserAction.",
         "!type": "fn(details: +browserAction.Details, callback: fn(result: +browserAction.ColorArray))"
       },
       "enable": {
-        "!doc": "Enables the toolbar action for a tab. By default, toolbar actions are enabled.",
+        "!doc": "Enables the browserAction for a tab. By default, a browserAction is enabled.",
         "!type": "fn(tabId: number, callback: fn())"
       },
       "disable": {
-        "!doc": "Disables the toolbar action for a tab.",
+        "!doc": "Disables the browserAction for a tab.",
         "!type": "fn(tabId: number, callback: fn())"
       },
       "isEnabled": {
-        "!doc": "Checks whether the toolbar action is enabled.",
-        "!type": "fn(details: +browserAction.Details)"
+        "!doc": "Checks whether the browserAction is enabled.",
+        "!type": "fn(details: +browserAction.Details, callback: fn(nameless: bool))"
       },
       "openPopup": {
         "!doc": "Opens the extension popup window in the active window.",
         "!type": "fn()"
       },
       "onClicked": {
-        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
+        "!doc": "Fired when a browserAction icon is clicked.  This event will not fire if the browserAction has a popup. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(tab: +tabs.Tab, info: +browserAction.OnClickData)"
       }
     },
     "cloudFile": {
       "getAccount": {
         "!doc": "Retrieve information about a single cloud file account",
-        "!type": "fn(accountId: string)"
+        "!type": "fn(accountId: string, callback: fn(nameless: +cloudFile.CloudFileAccount))"
       },
       "getAllAccounts": {
         "!doc": "Retrieve all cloud file accounts for the current add-on",
-        "!type": "fn()"
+        "!type": "fn(callback: fn(nameless: [+cloudFile.CloudFileAccount]))"
       },
       "updateAccount": {
         "!doc": "Update a cloud file account",
-        "!type": "fn(accountId: string, updateProperties: object)"
+        "!type": "fn(accountId: string, updateProperties: object, callback: fn(nameless: +cloudFile.CloudFileAccount))"
       },
       "onFileUpload": {
         "!doc": "Fired when a file should be uploaded to the cloud file provider",
@@ -1599,19 +1704,19 @@
     "compose": {
       "beginNew": {
         "!doc": "Open a new message compose window. If the provided ComposeDetails object does not provide ``body``, ``plainTextBody`` or ``isPlainText``, the default compose format of the used/default identity is used. The :ref:`accounts_api` API can be used to get the used/default identity and its default compose format.",
-        "!type": "fn(messageId: number, details: +compose.ComposeDetails)"
+        "!type": "fn(messageId: number, details: +compose.ComposeDetails, callback: fn(return: +tabs.Tab))"
       },
       "beginReply": {
         "!doc": "Open a new message compose window replying to a given message. If the provided ComposeDetails object does not provide ``body``, ``plainTextBody`` or ``isPlainText``, the default compose format of the used/default identity is used. The :ref:`accounts_api` API can be used to get the used/default identity and its default compose format.",
-        "!type": "fn(messageId: number, replyType: string, details: +compose.ComposeDetails)"
+        "!type": "fn(messageId: number, replyType: string, details: +compose.ComposeDetails, callback: fn(return: +tabs.Tab))"
       },
       "beginForward": {
         "!doc": "Open a new message compose window forwarding a given message. If the provided ComposeDetails object does not provide ``body``, ``plainTextBody`` or ``isPlainText``, the default compose format of the used/default identity is used. The :ref:`accounts_api` API can be used to get the used/default identity and its default compose format.",
-        "!type": "fn(messageId: number, forwardType: string, details: +compose.ComposeDetails)"
+        "!type": "fn(messageId: number, forwardType: string, details: +compose.ComposeDetails, callback: fn(return: +tabs.Tab))"
       },
       "getComposeDetails": {
         "!doc": "Fetches the current state of a compose window. Currently only a limited amount of information is available, more will be added in later versions.",
-        "!type": "fn(tabId: number)"
+        "!type": "fn(tabId: number, callback: fn(nameless: +compose.ComposeDetails))"
       },
       "setComposeDetails": {
         "!doc": "Updates the compose window. Specify only fields that you want to change. Currently only the to/cc/bcc/replyTo/followupTo/newsgroups fields and the subject are implemented. It is not possible to change the compose format.",
@@ -1651,41 +1756,41 @@
       }
     },
     "composeAction": {
-      "!doc": "Use toolbar actions to put icons in the message composition toolbars. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup.",
+      "!doc": "Use a composeAction to put an icon in the message composition toolbars. In addition to its icon, a composeAction can also have a tooltip, a badge, and a popup.",
       "setTitle": {
-        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip and the label. Defaults to the add-on name.",
+        "!doc": "Sets the title of the composeAction. This shows up in the tooltip and the label. Defaults to the add-on name.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getTitle": {
-        "!doc": "Gets the title of the toolbar action.",
+        "!doc": "Gets the title of the composeAction.",
         "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
       },
       "setLabel": {
-        "!doc": "Sets the label of the toolbar action, defaults to its title. Can be set to an empty string to not display any label. If the containing toolbar is configured to display text only, the title will be used as fallback.",
+        "!doc": "Sets the label of the composeAction, defaults to its title. Can be set to an empty string to not display any label. If the containing toolbar is configured to display text only, the title will be used as fallback.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getLabel": {
-        "!doc": "Gets the label of the toolbar action.",
+        "!doc": "Gets the label of the composeAction.",
         "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
       },
       "setIcon": {
-        "!doc": "Sets the icon for the toolbar action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
+        "!doc": "Sets the icon for the composeAction. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
         "!type": "fn(details: object, callback: fn())"
       },
       "setPopup": {
-        "!doc": "Sets the html document to be opened as a popup when the user clicks on the toolbar action's icon.",
+        "!doc": "Sets the html document to be opened as a popup when the user clicks on the composeAction's icon.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getPopup": {
-        "!doc": "Gets the html document set as the popup for this toolbar action.",
+        "!doc": "Gets the html document set as the popup for this composeAction.",
         "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
       },
       "setBadgeText": {
-        "!doc": "Sets the badge text for the toolbar action. The badge is displayed on top of the icon.",
+        "!doc": "Sets the badge text for the composeAction. The badge is displayed on top of the icon.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getBadgeText": {
-        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified, the global badge text is returned.",
+        "!doc": "Gets the badge text of the composeAction. If no tab nor window is specified, the global badge text is returned.",
         "!type": "fn(details: +composeAction.Details, callback: fn(result: string))"
       },
       "setBadgeBackgroundColor": {
@@ -1693,19 +1798,19 @@
         "!type": "fn(details: object, callback: fn())"
       },
       "getBadgeBackgroundColor": {
-        "!doc": "Gets the background color of the toolbar action.",
+        "!doc": "Gets the background color of the composeAction.",
         "!type": "fn(details: +composeAction.Details, callback: fn(result: +composeAction.ColorArray))"
       },
       "enable": {
-        "!doc": "Enables the toolbar action for a tab. By default, toolbar actions are enabled.",
+        "!doc": "Enables the composeAction for a tab. By default, a composeAction is enabled.",
         "!type": "fn(tabId: number, callback: fn())"
       },
       "disable": {
-        "!doc": "Disables the toolbar action for a tab.",
+        "!doc": "Disables the composeAction for a tab.",
         "!type": "fn(tabId: number, callback: fn())"
       },
       "isEnabled": {
-        "!doc": "Checks whether the toolbar action is enabled.",
+        "!doc": "Checks whether the composeAction is enabled.",
         "!type": "fn(details: +composeAction.Details)"
       },
       "openPopup": {
@@ -1713,7 +1818,7 @@
         "!type": "fn()"
       },
       "onClicked": {
-        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
+        "!doc": "Fired when a composeAction icon is clicked.  This event will not fire if the composeAction has a popup. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(tab: +tabs.Tab, info: +composeAction.OnClickData)"
       }
     },
@@ -1747,14 +1852,6 @@
       "query": {
         "!doc": "Gets all mail tabs that have the specified properties, or all mail tabs if no properties are specified.",
         "!type": "fn(queryInfo: object, callback: fn(nameless: [+mailTabs.MailTab]))"
-      },
-      "get": {
-        "!doc": "Get the properties of a mail tab.",
-        "!type": "fn(tabId: number, callback: fn(nameless: +mailTabs.MailTab))"
-      },
-      "getCurrent": {
-        "!doc": "Get the properties of the active mail tab, if the active tab is a mail tab. Returns undefined otherwise",
-        "!type": "fn(callback: fn(nameless: +mailTabs.MailTab))"
       },
       "update": {
         "!doc": "Modifies the properties of a mail tab. Properties that are not specified in <var>updateProperties</var> are not modified.",
@@ -1843,41 +1940,41 @@
       }
     },
     "messageDisplayAction": {
-      "!doc": "Use toolbar actions to put icons in the message display toolbar. In addition to its icon, a toolbar action can also have a tooltip, a badge, and a popup.",
+      "!doc": "Use a messageDisplayAction to put an icon in the message display toolbar. In addition to its icon, a messageDisplayAction can also have a tooltip, a badge, and a popup.",
       "setTitle": {
-        "!doc": "Sets the title of the toolbar action. This shows up in the tooltip and the label. Defaults to the add-on name.",
+        "!doc": "Sets the title of the messageDisplayAction. This shows up in the tooltip and the label. Defaults to the add-on name.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getTitle": {
-        "!doc": "Gets the title of the toolbar action.",
+        "!doc": "Gets the title of the messageDisplayAction.",
         "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
       },
       "setLabel": {
-        "!doc": "Sets the label of the toolbar action, defaults to its title. Can be set to an empty string to not display any label. If the containing toolbar is configured to display text only, the title will be used as fallback.",
+        "!doc": "Sets the label of the messageDisplayAction, defaults to its title. Can be set to an empty string to not display any label. If the containing toolbar is configured to display text only, the title will be used as fallback.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getLabel": {
-        "!doc": "Gets the label of the toolbar action.",
+        "!doc": "Gets the label of the messageDisplayAction.",
         "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
       },
       "setIcon": {
-        "!doc": "Sets the icon for the toolbar action. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
+        "!doc": "Sets the icon for the messageDisplayAction. The icon can be specified either as the path to an image file or as the pixel data from a canvas element, or as dictionary of either one of those. Either the <b>path</b> or the <b>imageData</b> property must be specified.",
         "!type": "fn(details: object, callback: fn())"
       },
       "setPopup": {
-        "!doc": "Sets the html document to be opened as a popup when the user clicks on the toolbar action's icon.",
+        "!doc": "Sets the html document to be opened as a popup when the user clicks on the messageDisplayAction's icon.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getPopup": {
-        "!doc": "Gets the html document set as the popup for this toolbar action.",
+        "!doc": "Gets the html document set as the popup for this messageDisplayAction.",
         "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
       },
       "setBadgeText": {
-        "!doc": "Sets the badge text for the toolbar action. The badge is displayed on top of the icon.",
+        "!doc": "Sets the badge text for the messageDisplayAction. The badge is displayed on top of the icon.",
         "!type": "fn(details: object, callback: fn())"
       },
       "getBadgeText": {
-        "!doc": "Gets the badge text of the toolbar action. If no tab nor window is specified, the global badge text is returned.",
+        "!doc": "Gets the badge text of the messageDisplayAction. If no tab nor window is specified, the global badge text is returned.",
         "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: string))"
       },
       "setBadgeBackgroundColor": {
@@ -1885,19 +1982,19 @@
         "!type": "fn(details: object, callback: fn())"
       },
       "getBadgeBackgroundColor": {
-        "!doc": "Gets the background color of the toolbar action.",
+        "!doc": "Gets the background color of the messageDisplayAction.",
         "!type": "fn(details: +messageDisplayAction.Details, callback: fn(result: +messageDisplayAction.ColorArray))"
       },
       "enable": {
-        "!doc": "Enables the toolbar action for a tab. By default, toolbar actions are enabled.",
+        "!doc": "Enables the messageDisplayAction for a tab. By default, a messageDisplayAction is enabled.",
         "!type": "fn(tabId: number, callback: fn())"
       },
       "disable": {
-        "!doc": "Disables the toolbar action for a tab.",
+        "!doc": "Disables the messageDisplayAction for a tab.",
         "!type": "fn(tabId: number, callback: fn())"
       },
       "isEnabled": {
-        "!doc": "Checks whether the toolbar action is enabled.",
+        "!doc": "Checks whether the messageDisplayAction is enabled.",
         "!type": "fn(details: +messageDisplayAction.Details)"
       },
       "openPopup": {
@@ -1905,7 +2002,7 @@
         "!type": "fn()"
       },
       "onClicked": {
-        "!doc": "Fired when a toolbar action icon is clicked.  This event will not fire if the toolbar action has a popup. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
+        "!doc": "Fired when a messageDisplayAction icon is clicked.  This event will not fire if the messageDisplayAction has a popup. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(tab: +tabs.Tab, info: +messageDisplayAction.OnClickData)"
       }
     },
