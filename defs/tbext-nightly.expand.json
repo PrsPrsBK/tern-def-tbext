@@ -1853,6 +1853,14 @@
         "!doc": "Gets all mail tabs that have the specified properties, or all mail tabs if no properties are specified.",
         "!type": "fn(queryInfo: object, callback: fn(nameless: [+mailTabs.MailTab]))"
       },
+      "get": {
+        "!doc": "Get the properties of a mail tab.",
+        "!type": "fn(tabId: number, callback: fn(nameless: +mailTabs.MailTab))"
+      },
+      "getCurrent": {
+        "!doc": "Get the properties of the active mail tab, if the active tab is a mail tab. Returns undefined otherwise.",
+        "!type": "fn(callback: fn(nameless: +mailTabs.MailTab))"
+      },
       "update": {
         "!doc": "Modifies the properties of a mail tab. Properties that are not specified in <var>updateProperties</var> are not modified.",
         "!type": "fn(tabId: number, updateProperties: object)"
