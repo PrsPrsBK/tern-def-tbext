@@ -492,6 +492,9 @@
       "targetElementId": {
         "!type": "number"
       },
+      "fieldId": {
+        "!type": "string"
+      },
       "selectedMessages": {
         "!type": "+messages.MessageList"
       },
@@ -575,8 +578,12 @@
         "!type": "number"
       },
       "targetElementId": {
-        "!doc": "An identifier of the clicked element, if any. Use menus.getTargetElement in the page to find the corresponding element.",
+        "!doc": "An identifier of the clicked content element, if any. Use menus.getTargetElement in the page to find the corresponding element.",
         "!type": "number"
+      },
+      "fieldId": {
+        "!doc": "An identifier of the clicked Thunderbird UI element, if any.",
+        "!type": "string"
       },
       "selectedMessages": {
         "!doc": "The selected messages, if the context menu was opened in the message list. The <permission>messagesRead</permission> permission is required.",
