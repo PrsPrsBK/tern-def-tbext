@@ -218,7 +218,10 @@ Both are in `License` directory.
   
   Removed: `get()` and `getCurrent()` of `mailTabs` API in 1.32.0
 
-* 2021-04-09 1.33.0 New(again): `get()` and `getCurrent()` of `mailTabs` API
+* 2021-04-09 1.34.0 New(again): `get()` and `getCurrent()` of `mailTabs` API
   [1698306](https://bugzilla.mozilla.org/show_bug.cgi?id=1698306)
+
+* 2021-04-18 1.35.0 New: `fieldId` for `onShown()` and `onClicked()` of `menus` API
+  [1656506](https://bugzilla.mozilla.org/show_bug.cgi?id=1656506)
 
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
