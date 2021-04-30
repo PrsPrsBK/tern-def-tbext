@@ -224,4 +224,7 @@ Both are in `License` directory.
 * 2021-04-18 1.35.0 New: `fieldId` for `onShown()` and `onClicked()` of `menus` API
   [1656506](https://bugzilla.mozilla.org/show_bug.cgi?id=1656506)
 
+* 2021-04-30 No Update
+  [1708187](https://bugzilla.mozilla.org/show_bug.cgi?id=1708187)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

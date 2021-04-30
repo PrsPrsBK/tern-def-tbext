@@ -637,42 +637,33 @@
     },
     "messages.MessageHeader": {
       "!doc": "Basic information about a message.",
-      "id": {
-        "!type": "number"
-      },
-      "date": {
-        "!type": "+extensionTypes.Date"
-      },
-      "read": {
-        "!type": "bool"
-      },
-      "flagged": {
-        "!type": "bool"
-      },
-      "ccList": {
-        "!doc": "The Cc recipients. Not populated for news/nntp messages.",
-        "!type": "[string]"
+      "author": {
+        "!type": "string"
       },
       "bccList": {
         "!doc": "The Bcc recipients. Not populated for news/nntp messages.",
         "!type": "[string]"
       },
-      "author": {
-        "!type": "string"
-      },
-      "subject": {
-        "!type": "string"
-      },
-      "recipients": {
-        "!doc": "The To recipients. Not populated for news/nntp messages.",
+      "ccList": {
+        "!doc": "The Cc recipients. Not populated for news/nntp messages.",
         "!type": "[string]"
+      },
+      "date": {
+        "!type": "+extensionTypes.Date"
+      },
+      "flagged": {
+        "!type": "bool"
       },
       "folder": {
         "!doc": "The <permission>accountsRead</permission> permission is required for this property to be included.",
         "!type": "+folders.MailFolder"
       },
-      "tags": {
-        "!type": "[string]"
+      "headerMessageId": {
+        "!doc": "The message-id header of the message.",
+        "!type": "string"
+      },
+      "id": {
+        "!type": "number"
       },
       "junk": {
         "!doc": "Not populated for news/nntp messages.",
@@ -681,9 +672,22 @@
       "junkScore": {
         "!type": "number"
       },
-      "headerMessageId": {
-        "!doc": "The message-id header of the message.",
+      "read": {
+        "!type": "bool"
+      },
+      "recipients": {
+        "!doc": "The To recipients. Not populated for news/nntp messages.",
+        "!type": "[string]"
+      },
+      "size": {
+        "!doc": "The total size of the message in bytes.",
+        "!type": "number"
+      },
+      "subject": {
         "!type": "string"
+      },
+      "tags": {
+        "!type": "[string]"
       }
     },
     "messages.MessageList": {
