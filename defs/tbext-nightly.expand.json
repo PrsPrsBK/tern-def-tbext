@@ -169,6 +169,9 @@
     "browserAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
     },
+    "browserAction.ImageDataDictionary": {
+      "!doc": "A ``{size: ImageDataType}`` dictionary representing the icon to be set. The actual :ref:`browserAction.ImageDataType` to be used is chosen depending on the screen's pixel density. See the `MDN documentation on browser styles <https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/user_interface/Browser_styles>`__ for more information on this. At least one :ref:`browserAction.ImageDataType` must be specified."
+    },
     "browserAction.OnClickData": {
       "!doc": "Information sent when a browser action is clicked.",
       "modifiers": {
@@ -316,6 +319,9 @@
     },
     "composeAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
+    },
+    "composeAction.ImageDataDictionary": {
+      "!doc": "A ``{size: ImageDataType}`` dictionary representing the icon to be set. The actual :ref:`composeAction.ImageDataType` to be used is chosen depending on the screen's pixel density. See the `MDN documentation on browser styles <https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/user_interface/Browser_styles>`__ for more information on this. At least one :ref:`composeAction.ImageDataType` must be specified."
     },
     "composeAction.OnClickData": {
       "!doc": "Information sent when a compose action is clicked.",
@@ -623,6 +629,9 @@
     },
     "messageDisplayAction.ImageDataType": {
       "!doc": "Pixel data for an image. Must be an ImageData object (for example, from a <code>canvas</code> element)."
+    },
+    "messageDisplayAction.ImageDataDictionary": {
+      "!doc": "A ``{size: ImageDataType}`` dictionary representing the icon to be set. The actual :ref:`messageDisplayAction.ImageDataType` to be used is chosen depending on the screen's pixel density. See the `MDN documentation on browser styles <https://developer.mozilla.org/docs/Mozilla/Add-ons/WebExtensions/user_interface/Browser_styles>`__ for more information on this. At least one :ref:`messageDisplayAction.ImageDataType` must be specified."
     },
     "messageDisplayAction.OnClickData": {
       "!doc": "Information sent when a message display action is clicked.",

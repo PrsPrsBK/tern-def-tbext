@@ -227,4 +227,7 @@ Both are in `License` directory.
 * 2021-04-30 No Update
   [1708187](https://bugzilla.mozilla.org/show_bug.cgi?id=1708187)
 
+* 2021-05-22 No Update: property of `details` argument of `browserAction.setIcon()`, or so.
+  [1712058](https://bugzilla.mozilla.org/show_bug.cgi?id=1712058)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)

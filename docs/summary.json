@@ -69,7 +69,7 @@
             "permissions": [
               "manifest:browser_action"
             ],
-            "types": 4,
+            "types": 5,
             "functions": 15,
             "events": 1
           }
@@ -143,7 +143,7 @@
             "permissions": [
               "manifest:compose_action"
             ],
-            "types": 4,
+            "types": 5,
             "functions": 15,
             "events": 1
           }
@@ -274,7 +274,7 @@
             "permissions": [
               "manifest:message_display_action"
             ],
-            "types": 4,
+            "types": 5,
             "functions": 15,
             "events": 1
           }
