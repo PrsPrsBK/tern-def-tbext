@@ -230,4 +230,7 @@ Both are in `License` directory.
 * 2021-05-22 No Update: property of `details` argument of `browserAction.setIcon()`, or so.
   [1712058](https://bugzilla.mozilla.org/show_bug.cgi?id=1712058)
 
+* 2021-05-28 1.36.0 New: `sendMessage()`, `getComposeState()` and `onComposeStateChanged()` of `compose` API
+  [1699672](https://bugzilla.mozilla.org/show_bug.cgi?id=1699672)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
