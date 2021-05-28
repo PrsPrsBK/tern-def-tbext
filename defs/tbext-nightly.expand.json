@@ -234,6 +234,17 @@
     "compose.ComposeRecipientList": {
       "!type": "[+compose.ComposeRecipient]?, [[+compose.ComposeRecipient]]?"
     },
+    "compose.ComposeState": {
+      "!doc": "Represent the state of the message composer.",
+      "canSendNow": {
+        "!doc": "The message can be send now.",
+        "!type": "bool"
+      },
+      "canSendLater": {
+        "!doc": "The message can be send later.",
+        "!type": "bool"
+      }
+    },
     "compose.ComposeDetails": {
       "!doc": "Used by various functions to represent the state of a message being composed. Note that functions using this type may have a partial implementation.",
       "identityId": {
@@ -1758,6 +1769,14 @@
         "!doc": "Removes an attachment from the message being composed in the specified tab.",
         "!type": "fn(tabId: number, attachmentId: number)"
       },
+      "sendMessage": {
+        "!doc": "Sends the message currently being composed.",
+        "!type": "fn(tabId: number, options: object, callback: fn(return: bool))"
+      },
+      "getComposeState": {
+        "!doc": "Returns information about the current state of the message composer.",
+        "!type": "fn(tabId: number, callback: fn(return: +compose.ComposeState))"
+      },
       "onBeforeSend": {
         "!doc": "Fired when a message is about to be sent from the compose window. This is a user input event handler. For asynchronous listeners some `restrictions <https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/User_actions>`__ apply.",
         "!type": "fn(tab: +tabs.Tab, details: +compose.ComposeDetails)"
@@ -1773,6 +1792,10 @@
       "onIdentityChanged": {
         "!doc": "Fired when the user changes the identity that will be used to send a message being composed.",
         "!type": "fn(tab: +tabs.Tab, identityId: string)"
+      },
+      "onComposeStateChanged": {
+        "!doc": "Fired when the state of the message composer changed.",
+        "!type": "fn(tab: +tabs.Tab, state: +compose.ComposeState)"
       }
     },
     "composeAction": {

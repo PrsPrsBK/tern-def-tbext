@@ -124,9 +124,9 @@
           },
           {
             "name": "compose",
-            "types": 4,
-            "functions": 9,
-            "events": 4
+            "types": 5,
+            "functions": 11,
+            "events": 5
           }
         ],
         "license": "None"
