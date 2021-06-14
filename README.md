@@ -233,4 +233,7 @@ Both are in `License` directory.
 * 2021-05-28 1.36.0 New: `sendMessage()`, `getComposeState()` and `onComposeStateChanged()` of `compose` API
   [1699672](https://bugzilla.mozilla.org/show_bug.cgi?id=1699672)
 
+* 2021-06-14 No Update
+  [1605937](https://bugzilla.mozilla.org/show_bug.cgi?id=1605937)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
