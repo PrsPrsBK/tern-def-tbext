@@ -236,4 +236,7 @@ Both are in `License` directory.
 * 2021-06-14 No Update
   [1605937](https://bugzilla.mozilla.org/show_bug.cgi?id=1605937)
 
+* 2021-06-18 1.37.0 New: `identity` API. 10 functions.
+  [1642690](https://bugzilla.mozilla.org/show_bug.cgi?id=1642690)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
