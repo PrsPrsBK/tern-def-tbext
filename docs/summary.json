@@ -14,7 +14,7 @@
             "permissions": [
               "accountsRead"
             ],
-            "types": 2,
+            "types": 1,
             "functions": 5
           }
         ],
@@ -198,6 +198,25 @@
         "file": "toolkit/components/extensions/schemas/geckoProfiler.json",
         "namespaceList": [],
         "error": "ENOENT: open"
+      },
+      {
+        "file": "mail/components/extensions/schemas/identities.json",
+        "namespaceList": [
+          {
+            "name": "manifest",
+            "types": 1
+          },
+          {
+            "name": "identities",
+            "permissions": [
+              "accountsRead"
+            ],
+            "types": 1,
+            "functions": 7,
+            "events": 3
+          }
+        ],
+        "license": "None"
       },
       {
         "file": "toolkit/components/extensions/schemas/identity.json",

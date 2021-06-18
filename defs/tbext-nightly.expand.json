@@ -20,41 +20,7 @@
       },
       "identities": {
         "!doc": "The identities associated with this account. The default identity is listed first, others in no particular order.",
-        "!type": "[+accounts.MailIdentity]"
-      }
-    },
-    "accounts.MailIdentity": {
-      "accountId": {
-        "!doc": "The id of the :ref:`accounts.MailAccount` this identity belongs to.",
-        "!type": "string"
-      },
-      "id": {
-        "!doc": "A unique identifier for this identity.",
-        "!type": "string"
-      },
-      "label": {
-        "!doc": "A user-defined label for this identity.",
-        "!type": "string"
-      },
-      "name": {
-        "!doc": "The user's name as used when messages are sent from this identity.",
-        "!type": "string"
-      },
-      "email": {
-        "!doc": "The user's email address as used when messages are sent from this identity.",
-        "!type": "string"
-      },
-      "replyTo": {
-        "!doc": "The reply-to email address associated with this identity.",
-        "!type": "string"
-      },
-      "organization": {
-        "!doc": "The organization associated with this identity.",
-        "!type": "string"
-      },
-      "composeHtml": {
-        "!doc": "Wether the identity uses HTML as the default compose format.",
-        "!type": "bool"
+        "!type": "[+identities.MailIdentity]"
       }
     },
     "addressBooks.NodeType": {
@@ -401,6 +367,48 @@
       "type": {
         "!doc": "The type of folder, for several common types.",
         "!type": "string"
+      }
+    },
+    "identities.MailIdentity": {
+      "accountId": {
+        "!doc": "The id of the :ref:`accounts.MailAccount` this identity belongs to. The ``accountId`` property is read-only.",
+        "!type": "string"
+      },
+      "composeHtml": {
+        "!doc": "If the identity uses HTML as the default compose format.",
+        "!type": "bool"
+      },
+      "email": {
+        "!doc": "The user's email address as used when messages are sent from this identity.",
+        "!type": "string"
+      },
+      "id": {
+        "!doc": "A unique identifier for this identity. The ``id`` property is read-only.",
+        "!type": "string"
+      },
+      "label": {
+        "!doc": "A user-defined label for this identity.",
+        "!type": "string"
+      },
+      "name": {
+        "!doc": "The user's name as used when messages are sent from this identity.",
+        "!type": "string"
+      },
+      "replyTo": {
+        "!doc": "The reply-to email address associated with this identity.",
+        "!type": "string"
+      },
+      "organization": {
+        "!doc": "The organization associated with this identity.",
+        "!type": "string"
+      },
+      "signature": {
+        "!doc": "The signature of the identity.",
+        "!type": "string"
+      },
+      "signatureIsPlainText": {
+        "!doc": "If the signature should be interpreted as plain text or as HTML.",
+        "!type": "bool"
       }
     },
     "mailTabs.MailTab": {
@@ -1495,7 +1503,7 @@
       },
       "getDefaultIdentity": {
         "!doc": "Returns the default identity for an account, or null if it is not defined.",
-        "!type": "fn(accountId: string, callback: fn(nameless: +accounts.MailIdentity))"
+        "!type": "fn(accountId: string, callback: fn(nameless: +identities.MailIdentity))"
       }
     },
     "addressBooks": {
@@ -1889,6 +1897,48 @@
       "delete": {
         "!doc": "Deletes a folder.",
         "!type": "fn(folder: +folders.MailFolder)"
+      }
+    },
+    "identities": {
+      "list": {
+        "!doc": "Returns the identities of the specified account, or all identities if no account is specified. Do not expect the returned identities to be in any specific order. Use :ref:`identities.getDefault` to get the default identity of an account.",
+        "!type": "fn(accountId: string, callback: fn(nameless: [+identities.MailIdentity]))"
+      },
+      "get": {
+        "!doc": "Returns details of the requested identity, or null if it doesn't exist.",
+        "!type": "fn(identityId: string, callback: fn(nameless: +identities.MailIdentity))"
+      },
+      "create": {
+        "!doc": "Create a new identity in the specified account.",
+        "!type": "fn(accountId: string, details: +identities.MailIdentity, callback: fn(nameless: +identities.MailIdentity))"
+      },
+      "delete": {
+        "!doc": "Attempts to delete the requested identity. Default identities cannot be deleted.",
+        "!type": "fn(identityId: string)"
+      },
+      "update": {
+        "!doc": "Updates the details of an identity.",
+        "!type": "fn(identityId: string, details: +identities.MailIdentity, callback: fn(nameless: +identities.MailIdentity))"
+      },
+      "getDefault": {
+        "!doc": "Returns the default identity for the requested account, or null if it is not defined.",
+        "!type": "fn(accountId: string, callback: fn(nameless: +identities.MailIdentity))"
+      },
+      "setDefault": {
+        "!doc": "Sets the default identity for the requested account.",
+        "!type": "fn(accountId: string, identityId: string)"
+      },
+      "onCreated": {
+        "!doc": "Fired when a new identity has been created and added to an account. The event also fires for default identities that are created when a new account is added.",
+        "!type": "fn(identityId: string, identity: +identities.MailIdentity)"
+      },
+      "onDeleted": {
+        "!doc": "Fired when an identity has been removed from an account.",
+        "!type": "fn(identityId: string)"
+      },
+      "onUpdated": {
+        "!doc": "Fired when one or more properties of an identity have been modified. The returned :ref:`identities.MailIdentity` includes only the changed values.",
+        "!type": "fn(identityId: string, changedValues: +identities.MailIdentity)"
       }
     },
     "mailTabs": {
