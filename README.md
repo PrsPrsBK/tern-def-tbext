@@ -239,4 +239,7 @@ Both are in `License` directory.
 * 2021-06-18 1.37.0 New: `identity` API. 10 functions.
   [1642690](https://bugzilla.mozilla.org/show_bug.cgi?id=1642690)
 
+* 2021-06-25 1.38.0 New: `provider.onSearchRequest()` of `addressBooks` API
+  [1670752](https://bugzilla.mozilla.org/show_bug.cgi?id=1670752)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
