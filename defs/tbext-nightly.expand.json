@@ -1546,6 +1546,12 @@
       "onDeleted": {
         "!doc": "Fired when an addressBook is deleted.",
         "!type": "fn(id: string)"
+      },
+      "provider": {
+        "onSearchRequest": {
+          "!doc": "Creates a read-only addressbook that fires this event when searching for a contact. Note: This event may change in future releases of Thunderbird.",
+          "!type": "fn(node: +addressBooks.provider.AddressBookNode, searchString: string, query: string)"
+        }
       }
     },
     "contacts": {

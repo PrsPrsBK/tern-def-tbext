@@ -37,6 +37,13 @@
             "events": 3
           },
           {
+            "name": "addressBooks.provider",
+            "permissions": [
+              "addressBooks"
+            ],
+            "events": 1
+          },
+          {
             "name": "contacts",
             "permissions": [
               "addressBooks"
