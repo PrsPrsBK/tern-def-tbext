@@ -242,4 +242,7 @@ Both are in `License` directory.
 * 2021-06-25 1.38.0 New: `provider.onSearchRequest()` of `addressBooks` API
   [1670752](https://bugzilla.mozilla.org/show_bug.cgi?id=1670752)
 
+* 2021-07-02 1.39.0 New: `onUpdated()`, `onMoved()`, `onCopied()`, `onDeleted()` of `messages` API
+  [1627604](https://bugzilla.mozilla.org/show_bug.cgi?id=1627604)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
