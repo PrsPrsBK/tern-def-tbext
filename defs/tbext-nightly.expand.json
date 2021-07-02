@@ -754,6 +754,25 @@
         "!type": "number"
       }
     },
+    "messages.MessageChangeProperties": {
+      "!doc": "Message properties that can be updated by the :ref:`messages.update` and that are monitored by :ref:`messages.onUpdated`.",
+      "read": {
+        "!doc": "Message is read.",
+        "!type": "bool"
+      },
+      "junk": {
+        "!doc": "Message is junk.",
+        "!type": "bool"
+      },
+      "flagged": {
+        "!doc": "Message is flagged.",
+        "!type": "bool"
+      },
+      "tags": {
+        "!doc": "Tags associated with this message. For a list of available tags, call the listTags method.",
+        "!type": "[string]"
+      }
+    },
     "messages.MessageTag": {
       "key": {
         "!doc": "Distinct tag identifier – use this string when referring to a tag",
@@ -2147,8 +2166,8 @@
         "!type": "fn(queryInfo: object)"
       },
       "update": {
-        "!doc": "Marks or unmarks a message as read, flagged, or tagged.",
-        "!type": "fn(messageId: number, newProperties: object)"
+        "!doc": "Marks or unmarks a message as junk, read, flagged, or tagged.",
+        "!type": "fn(messageId: number, newProperties: +messages.MessageChangeProperties)"
       },
       "move": {
         "!doc": "Moves messages to a specified folder.",
@@ -2169,6 +2188,22 @@
       "listTags": {
         "!doc": "Returns a list of tags that can be set on messages, and their human-friendly name, colour, and sort order.",
         "!type": "fn()"
+      },
+      "onUpdated": {
+        "!doc": "Fired when one or more properties of a message have been updated.",
+        "!type": "fn(message: +messages.MessageHeader, changedProperties: +messages.MessageChangeProperties)"
+      },
+      "onMoved": {
+        "!doc": "Fired when messages have been moved.",
+        "!type": "fn(srcMessages: +messages.MessageList, destMessages: +messages.MessageList)"
+      },
+      "onCopied": {
+        "!doc": "Fired when messages have been copied.",
+        "!type": "fn(srcMessages: +messages.MessageList, destMessages: +messages.MessageList)"
+      },
+      "onDeleted": {
+        "!doc": "Fired when messages have been permanently deleted.",
+        "!type": "fn(messages: +messages.MessageList)"
       },
       "onNewMailReceived": {
         "!doc": "Fired when a new message is received, and has been through junk classification and message filters.",

@@ -319,9 +319,9 @@
             "permissions": [
               "messagesRead"
             ],
-            "types": 6,
+            "types": 7,
             "functions": 14,
-            "events": 1
+            "events": 5
           }
         ],
         "license": "None"
