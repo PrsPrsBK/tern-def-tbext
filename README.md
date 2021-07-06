@@ -245,4 +245,7 @@ Both are in `License` directory.
 * 2021-07-02 1.39.0 New: `onUpdated()`, `onMoved()`, `onCopied()`, `onDeleted()` of `messages` API
   [1627604](https://bugzilla.mozilla.org/show_bug.cgi?id=1627604)
 
+* 2021-07-06 No Update
+  [1719091](https://bugzilla.mozilla.org/show_bug.cgi?id=1719091)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
