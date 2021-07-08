@@ -248,4 +248,7 @@ Both are in `License` directory.
 * 2021-07-06 No Update
   [1719091](https://bugzilla.mozilla.org/show_bug.cgi?id=1719091)
 
+* 2021-07-08 No Update
+  [1616114](https://bugzilla.mozilla.org/show_bug.cgi?id=1616114)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
