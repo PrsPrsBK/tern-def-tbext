@@ -251,4 +251,7 @@ Both are in `License` directory.
 * 2021-07-08 No Update
   [1616114](https://bugzilla.mozilla.org/show_bug.cgi?id=1616114)
 
+* 2021-07-08 1.40.0 Modified: new `tab` argument for `onFileUpload()`, `onFileUploadAbort()`, `onFileDeleted()` of `cloudFile` API
+  [1674374](https://bugzilla.mozilla.org/show_bug.cgi?id=1674374)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
