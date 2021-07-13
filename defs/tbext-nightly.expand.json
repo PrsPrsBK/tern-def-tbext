@@ -2,6 +2,7 @@
   "!name": "tbext",
   "!define": {
     "accounts.MailAccount": {
+      "!doc": "An object describing a mail account, as returned for example by the :ref:`accounts.list` and :ref:`accounts.get` methods. The ``folders`` property is only included if requested.",
       "id": {
         "!doc": "A unique identifier for this account.",
         "!type": "string"
@@ -15,7 +16,7 @@
         "!type": "string"
       },
       "folders": {
-        "!doc": "The folders for this account.",
+        "!doc": "The folders for this account are only included if requested.",
         "!type": "[+folders.MailFolder]"
       },
       "identities": {
@@ -348,7 +349,7 @@
       }
     },
     "folders.MailFolder": {
-      "!doc": "A folder object, as returned by the <var>list</var> and <var>get</var> methods. Use the accountId and path properties to refer to a folder.",
+      "!doc": "An object describing a mail folder, as returned for example by the :ref:`folders.getParentFolders` or :ref:`folders.getSubFolders` methods, or part of a :ref:`accounts.MailAccount` object, which is returned for example by the :ref:`accounts.list` and :ref:`accounts.get` methods. The ``subFolders`` property is only included if requested.",
       "accountId": {
         "!doc": "The account this folder belongs to.",
         "!type": "string"
@@ -358,10 +359,11 @@
         "!type": "string"
       },
       "path": {
-        "!doc": "Path to this folder in the account. Although paths look predictable, never guess a folder's path, as there are a number of reasons why it may not be what you think it is.",
+        "!doc": "Path to this folder in the account. Although paths look predictable, never guess a folder's path, as there are a number of reasons why it may not be what you think it is. Use :ref:`folders.getParentFolders` or :ref:`folders.getSubFolders` to obtain hierarchy information.",
         "!type": "string"
       },
       "subFolders": {
+        "!doc": "Subfolders are only included if requested.",
         "!type": "[+folders.MailFolder]"
       },
       "type": {
@@ -427,6 +429,9 @@
       },
       "sortOrder": {
         "!doc": "Note: ``sortType`` and ``sortOrder`` depend on each other, so both should be present, or neither.",
+        "!type": "string"
+      },
+      "viewType": {
         "!type": "string"
       },
       "layout": {
@@ -1508,15 +1513,15 @@
     "accounts": {
       "list": {
         "!doc": "Returns all mail accounts.",
-        "!type": "fn(callback: fn(nameless: [+accounts.MailAccount]))"
+        "!type": "fn(includeFolders: bool, callback: fn(nameless: [+accounts.MailAccount]))"
       },
       "get": {
         "!doc": "Returns details of the requested account, or null if it doesn't exist.",
-        "!type": "fn(accountId: string, callback: fn(nameless: +accounts.MailAccount))"
+        "!type": "fn(accountId: string, includeFolders: bool, callback: fn(nameless: +accounts.MailAccount))"
       },
       "getDefault": {
         "!doc": "Returns the default account, or null if it is not defined.",
-        "!type": "fn(callback: fn(nameless: +accounts.MailAccount))"
+        "!type": "fn(includeFolders: bool, callback: fn(nameless: +accounts.MailAccount))"
       },
       "setDefaultIdentity": {
         "!doc": "Sets the default identity for an account.",
@@ -1914,8 +1919,8 @@
     },
     "folders": {
       "create": {
-        "!doc": "Creates a new subfolder of <code>parentFolder</code>.",
-        "!type": "fn(parentFolder: +folders.MailFolder, childName: string)"
+        "!doc": "Creates a new subfolder in the specified folder or at the root of the specified account.",
+        "!type": "fn(parentFolderOrAccount?: +folders.MailFolder, parentFolderOrAccount?: +accounts.MailAccount, childName: string)"
       },
       "rename": {
         "!doc": "Renames a folder.",
@@ -1924,6 +1929,14 @@
       "delete": {
         "!doc": "Deletes a folder.",
         "!type": "fn(folder: +folders.MailFolder)"
+      },
+      "getParentFolders": {
+        "!doc": "Get all parent folders as a flat ordered array. The first array entry is the direct parent.",
+        "!type": "fn(folder: +folders.MailFolder, includeSubFolders: bool, callback: fn(nameless: [+folders.MailFolder]))"
+      },
+      "getSubFolders": {
+        "!doc": "Get the subfolders of the specified folder or account.",
+        "!type": "fn(folderOrAccount?: +folders.MailFolder, folderOrAccount?: +accounts.MailAccount, includeSubFolders: bool, callback: fn(nameless: [+folders.MailFolder]))"
       }
     },
     "identities": {
