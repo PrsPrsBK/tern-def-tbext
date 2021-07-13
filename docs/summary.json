@@ -192,11 +192,8 @@
           },
           {
             "name": "folders",
-            "permissions": [
-              "accountsFolders"
-            ],
             "types": 1,
-            "functions": 3
+            "functions": 5
           }
         ],
         "license": "None"
