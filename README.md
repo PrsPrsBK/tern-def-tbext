@@ -254,4 +254,18 @@ Both are in `License` directory.
 * 2021-07-08 1.40.0 Modified: new `tab` argument for `onFileUpload()`, `onFileUploadAbort()`, `onFileDeleted()` of `cloudFile` API
   [1674374](https://bugzilla.mozilla.org/show_bug.cgi?id=1674374)
 
+* 2021-07-13 1.41.0 Removed: `accountsFolders` permission
+
+  * `viewType` property for callback function of `query()`, `get()`, `getCurrent()` of `mailTab` API.
+    [1719093](https://bugzilla.mozilla.org/show_bug.cgi?id=1719093)
+
+  * `includeFolders` argument of `list()`, `get()`, `getDefault()` of `accounts` API.
+  * And change in arguments of `create()` of `folders` API.
+  * And New: `getParentFolders()`, `getSubFolders()` of `folders` API.
+  * And `accountsFolders` permission was removed from manifest-wide `permissions` array.
+    [1520427](https://bugzilla.mozilla.org/show_bug.cgi?id=1520427)
+
+  * maybe nothing.
+    [1719908](https://bugzilla.mozilla.org/show_bug.cgi?id=1719908)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
