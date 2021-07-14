@@ -46,6 +46,10 @@
         "!doc": "Indicates if the object is read-only.",
         "!type": "bool"
       },
+      "remote": {
+        "!doc": "Indicates if the address book is accessed via remote look-up.",
+        "!type": "bool"
+      },
       "name": {
         "!type": "string"
       },
@@ -76,6 +80,10 @@
         "!doc": "Indicates if the object is read-only.",
         "!type": "bool"
       },
+      "remote": {
+        "!doc": "Indicates if the object came from a remote address book.",
+        "!type": "bool"
+      },
       "properties": {
         "!type": "+contacts.ContactProperties"
       }
@@ -102,6 +110,10 @@
       },
       "readOnly": {
         "!doc": "Indicates if the object is read-only.",
+        "!type": "bool"
+      },
+      "remote": {
+        "!doc": "Indicates if the object came from a remote address book.",
         "!type": "bool"
       },
       "name": {
@@ -1587,7 +1599,7 @@
       },
       "quickSearch": {
         "!doc": "Gets all contacts matching <code>searchString</code> in the address book with the id <code>parentId</code>.",
-        "!type": "fn(parentId: string, searchString: string)"
+        "!type": "fn(parentId: string, queryInfo?: string, queryInfo?: object)"
       },
       "get": {
         "!doc": "Gets a single contact.",
