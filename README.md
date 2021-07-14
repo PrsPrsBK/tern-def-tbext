@@ -268,4 +268,16 @@ Both are in `License` directory.
   * maybe nothing.
     [1719908](https://bugzilla.mozilla.org/show_bug.cgi?id=1719908)
 
+* 2021-07-14 1.42.0
+  [1719813](https://bugzilla.mozilla.org/show_bug.cgi?id=1719813)
+
+  * Modified: argument of `quickSearch()` of `contacts` API.
+  * `remote` property for many functions.
+
+    * `list()`, `get()`, `onCreated()`, `onUpdated()` of `addressBooks` API.
+    * Contact information of `contacts` API and others.
+    * MailingLists information of `mailingLists` API and others.
+
+* maybe completion fails for `addressBooks.provider.onSearchRequest()`.
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
