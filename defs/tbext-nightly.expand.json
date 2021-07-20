@@ -888,6 +888,9 @@
         "!doc": "The height of the tab in pixels.",
         "!type": "number"
       },
+      "type": {
+        "!type": "string"
+      },
       "mailTab": {
         "!doc": "Whether the tab is a 3-pane tab.",
         "!type": "bool"
