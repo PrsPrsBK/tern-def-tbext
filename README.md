@@ -280,4 +280,7 @@ Both are in `License` directory.
 
 * maybe completion fails for `addressBooks.provider.onSearchRequest()`.
 
+* 2021-07-20 1.43.0 New: `type` property of `tab` object, for many place.
+  [1720662](https://bugzilla.mozilla.org/show_bug.cgi?id=1720662)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
