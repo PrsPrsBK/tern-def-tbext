@@ -283,4 +283,12 @@ Both are in `License` directory.
 * 2021-07-20 1.43.0 New: `type` property of `tab` object, for many place.
   [1720662](https://bugzilla.mozilla.org/show_bug.cgi?id=1720662)
 
+* 2021-07-21 1.44.0 New: many for `folders` API.
+  [1708644](https://bugzilla.mozilla.org/show_bug.cgi?id=1708644)
+
+  * New callback argument for `create()`, `rename()`
+  * New functions. `move()`, `copy()`, `getFolderInfo()`
+      "onFolderInfoChanged": {
+  * `onCreated()`, `onRenamed()`, `onMoved()`, `onCopied()`, `onDeleted()`, `()`
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
