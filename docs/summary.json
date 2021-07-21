@@ -192,8 +192,12 @@
           },
           {
             "name": "folders",
-            "types": 1,
-            "functions": 5
+            "permissions": [
+              "accountsRead"
+            ],
+            "types": 2,
+            "functions": 8,
+            "events": 6
           }
         ],
         "license": "None"

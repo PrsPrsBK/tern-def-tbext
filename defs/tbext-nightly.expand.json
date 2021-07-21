@@ -383,6 +383,21 @@
         "!type": "string"
       }
     },
+    "folders.MailFolderInfo": {
+      "!doc": "An object containing additional information about a mail folder.",
+      "favorite": {
+        "!doc": "Whether this folder is a favorite folder.",
+        "!type": "bool"
+      },
+      "totalMessageCount": {
+        "!doc": "Number of messages in this folder.",
+        "!type": "number"
+      },
+      "unreadMessageCount": {
+        "!doc": "Number of unread messages in this folder.",
+        "!type": "number"
+      }
+    },
     "identities.MailIdentity": {
       "accountId": {
         "!doc": "The id of the :ref:`accounts.MailAccount` this identity belongs to. The ``accountId`` property is read-only.",
@@ -1935,15 +1950,27 @@
     "folders": {
       "create": {
         "!doc": "Creates a new subfolder in the specified folder or at the root of the specified account.",
-        "!type": "fn(parentFolderOrAccount?: +folders.MailFolder, parentFolderOrAccount?: +accounts.MailAccount, childName: string)"
+        "!type": "fn(parent?: +folders.MailFolder, parent?: +accounts.MailAccount, childName: string, callback: fn(nameless: +folders.MailFolder))"
       },
       "rename": {
         "!doc": "Renames a folder.",
-        "!type": "fn(folder: +folders.MailFolder, newName: string)"
+        "!type": "fn(folder: +folders.MailFolder, newName: string, callback: fn(nameless: +folders.MailFolder))"
+      },
+      "move": {
+        "!doc": "Moves the given ``sourceFolder`` into the given ``destination``. Throws if the destination already contains a folder with the name of the source folder.",
+        "!type": "fn(sourceFolder: +folders.MailFolder, destination?: +folders.MailFolder, destination?: +accounts.MailAccount, callback: fn(nameless: +folders.MailFolder))"
+      },
+      "copy": {
+        "!doc": "Copies the given ``sourceFolder`` into the given ``destination``.  Throws if the destination already contains a folder with the name of the source folder.",
+        "!type": "fn(sourceFolder: +folders.MailFolder, destination?: +folders.MailFolder, destination?: +accounts.MailAccount, callback: fn(nameless: +folders.MailFolder))"
       },
       "delete": {
         "!doc": "Deletes a folder.",
         "!type": "fn(folder: +folders.MailFolder)"
+      },
+      "getFolderInfo": {
+        "!doc": "Get additional information about a mail folder.",
+        "!type": "fn(folder: +folders.MailFolder, callback: fn(nameless: +folders.MailFolderInfo))"
       },
       "getParentFolders": {
         "!doc": "Get all parent folders as a flat ordered array. The first array entry is the direct parent.",
@@ -1952,6 +1979,30 @@
       "getSubFolders": {
         "!doc": "Get the subfolders of the specified folder or account.",
         "!type": "fn(folderOrAccount?: +folders.MailFolder, folderOrAccount?: +accounts.MailAccount, includeSubFolders: bool, callback: fn(nameless: [+folders.MailFolder]))"
+      },
+      "onCreated": {
+        "!doc": "Fired when a folder has been created.",
+        "!type": "fn(createdFolder: +folders.MailFolder)"
+      },
+      "onRenamed": {
+        "!doc": "Fired when a folder has been renamed.",
+        "!type": "fn(originalFolder: +folders.MailFolder, renamedFolder: +folders.MailFolder)"
+      },
+      "onMoved": {
+        "!doc": "Fired when a folder has been moved.",
+        "!type": "fn(originalFolder: +folders.MailFolder, movedFolder: +folders.MailFolder)"
+      },
+      "onCopied": {
+        "!doc": "Fired when a folder has been copied.",
+        "!type": "fn(originalFolder: +folders.MailFolder, copiedFolder: +folders.MailFolder)"
+      },
+      "onDeleted": {
+        "!doc": "Fired when a folder has been deleted.",
+        "!type": "fn(deletedFolder: +folders.MailFolder)"
+      },
+      "onFolderInfoChanged": {
+        "!doc": "Fired when certain information of a folder have changed. Bursts of message count changes are collapsed to a single event.",
+        "!type": "fn(folder: +folders.MailFolder, folderInfo: +folders.MailFolderInfo)"
       }
     },
     "identities": {
@@ -2225,11 +2276,11 @@
       },
       "onMoved": {
         "!doc": "Fired when messages have been moved.",
-        "!type": "fn(srcMessages: +messages.MessageList, destMessages: +messages.MessageList)"
+        "!type": "fn(originalMessages: +messages.MessageList, movedMessages: +messages.MessageList)"
       },
       "onCopied": {
         "!doc": "Fired when messages have been copied.",
-        "!type": "fn(srcMessages: +messages.MessageList, destMessages: +messages.MessageList)"
+        "!type": "fn(originalMessages: +messages.MessageList, copiedMessages: +messages.MessageList)"
       },
       "onDeleted": {
         "!doc": "Fired when messages have been permanently deleted.",
