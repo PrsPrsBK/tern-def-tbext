@@ -291,4 +291,7 @@ Both are in `License` directory.
       "onFolderInfoChanged": {
   * `onCreated()`, `onRenamed()`, `onMoved()`, `onCopied()`, `onDeleted()`, `()`
 
+* 2021-08-27 1.45.0 New: `resetScrollPosition` property of argument of `captureTab()` and `captureVisibleTab()` of `tabs` API.
+  [1708403](https://bugzilla.mozilla.org/show_bug.cgi?id=1708403)
+
 [//]: # (vim:expandtab ff=unix fenc=utf-8 sw=2)
