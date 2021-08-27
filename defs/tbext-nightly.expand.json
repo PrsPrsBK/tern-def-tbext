@@ -1239,6 +1239,10 @@
       "scale": {
         "!doc": "The scale of the resulting image.  Defaults to <code>devicePixelRatio</code>.",
         "!type": "number"
+      },
+      "resetScrollPosition": {
+        "!doc": "If true, temporarily resets the scroll position of the document to 0. Only takes effect if rect is also specified.",
+        "!type": "bool"
       }
     },
     "extensionTypes.RunAt": {
